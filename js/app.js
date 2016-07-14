@@ -1,6 +1,11 @@
 var APP = {};
 
-APP.player =    new AudioPlayer(music);
-APP.view = new Viewz();
-console.log(APP.view.container)
-APP.view.display('HOME');
+APP.store = Object.create(Store);
+APP.store.music = music;
+
+APP.view = Object.create(Viewz);
+
+APP.player = Object.create(AudioPlayer);
+
+
+console.log(APP.view.container);

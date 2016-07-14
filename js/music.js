@@ -1,4 +1,4 @@
-var music = [
+const music = [
   {
     'name': '6 Inch',
     'source': '/static/audio/6-Inch.mp3',

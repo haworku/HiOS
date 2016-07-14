@@ -1,3 +1,10 @@
+var AudioPlayer = function (musicArray, albumsArray) {
+  this.allMusic = musicArray;
+  this.allAlbums = albumsArray; 
+  this.currentAlbum = {}; // Album object
+  this.currentTrack = {}; // Track object
+};
+
 AudioPlayer.prototype.navigate = function(direction) {
   var currentTrackIndex;
   switch (direction) {
@@ -34,7 +41,4 @@ AudioPlayer.prototype.play = function() {
 AudioPlayer.prototype.pause = function() {
 
 };
-
-
-
-  
+ 
