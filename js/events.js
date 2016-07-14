@@ -7,5 +7,15 @@ APP.attachListeners = function(){
     APP.state.playing = !APP.state.playing;
   });
 
+  APP.view.controls.shuffle.addEventListener('click', function(e){
+    APP.view.shuffle(!APP.state.shuffle);
+    APP.state.shuffle = !APP.state.playing;
+    // renderTrackList based on shuffle status
+  });
+
+  APP.view.controls.loop.addEventListener('click', function(e){
+    APP.view.loop(!APP.state.loop);
+    APP.state.loop = !APP.state.loop;
+  });
 // APP.attachListeners(); 
 // 
