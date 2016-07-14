@@ -4,6 +4,14 @@ var Viewz = function () {
     this.home = '<h1> Home Is Where The Heart Is </h1>';
     this.mini = '<p> Minizzz </p>';
     this.full = '<p> FULL </p>';
+var View = function () {
+  this.HTML = '<p> The HTML Skeleton</p';
+};
+
+View.prototype.buildHTML = function () {
+  document.querySelector('body').appendChild('<div id="hios-main-container"></div>');
+  document.querySelector('hios-app-container').innerHTML = this.HTML;
+};
 };
 
 Viewz.prototype.display = function(state) {
