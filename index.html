@@ -19,18 +19,44 @@
   </head>
 
   <body>
-  <button id="minify">Mini</button>
-  <button id="fullify">Full</button>
+  <button id="hios-minify">Mini</button>
+  <button id="hios-fullify">Full</button>
     
     <div class="container-fluid" id="hios-main-container">
-      </div>
 
-      <div class="row full">
-        <img class="thumbnail" src="/static/images/lemonade.jpg">
-        <div class="song-info"> hello </div>
+      <div id="hios-mini" class="hios-player">
+        <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
+
+        <div class="hios-wrap">
+          <div class="hios-song-title"> Lemonade </div>
+          <div class="hios-song-artist"> Beyonce </div>
+
+          <div class="hios-controls">
+            <img class="hios-controls hios-previous" src="static/images/controls/ios7-rewind.png" />
+            <img class= "hios-controls hios-play-pause" src="static/images/controls/ios7-play.png"></i>
+            <img class="hios-controls hios-next" src="static/images/controls/ios7-fastforward.png" />
+          </div>
+         </div>
+      </div>
+    
+
+      <div id="hios-full" class="hios-player">
+        <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
+
+        <div class ="hios-wrap">
+          <div class="hios-song-title"> Lemonade </div>
+          <div class="hios-song-artist"> Beyonce </div>
+       
+          <div class="hios-controls-container">
+            <img class="hios-controls hios-previous" src="static/images/controls/ios7-rewind.png" />
+            <img class= "hios-controls hios-play-pause" src="static/images/controls/ios7-play.png"></i>
+            <img class="hios-controls hios-next" src="static/images/controls/ios7-fastforward.png" />
+          </div>
+        </div>
       </div>
 
     </div>
+
     
     <script src="/dist/script.js"></script>
 
