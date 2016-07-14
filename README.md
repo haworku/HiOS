@@ -1,5 +1,13 @@
 ## HiOS Music Player
-**HANA's music player, styled off iOs**
+*HANA's music player, styled off iOs*
+
+
+**Scripts**
+- `$ gulp js` build js files 
+- `$ gulp less` run less compiler on all less files
+- `$ gulp dev' start development server at 127.0.0.1:8000 (also complies js and less files)
+
+
 
 **Directory** 
 
@@ -35,9 +43,4 @@ HiOs
   │
   └── events.js contains event listening and updates 'APP.state'   
 ```
-
-**Scripts**
-- `$ gulp js` build js files 
-- `$ gulp less` run less compiler on all less files
-- `$ gulp dev' start development server at 127.0.0.1:8000 (also complies js and less files)
 
