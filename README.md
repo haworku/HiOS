@@ -1,4 +1,5 @@
-## iOS Music Player
+## HiOS Music Player
+** HANA's music player, styled off iOs **
 
 icons used are from IonIcons
 
