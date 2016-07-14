@@ -3,29 +3,32 @@ body {
   padding-top: 70px;
 }
 
-.mini-player {
-    background-color: #bfbfbf;
-    border-radius: 10px;
-    padding: 10px;
-    height: 300px;
-    width: 300px;
-    right: 0;
-    bottom: 0;
+.hios-wrap {
+  display: inline-block;
+  position: relative;
+  margin: 5px 10px;
 }
 
-img.thumbnail {
-    display: inline-block;
-    border-radius: 5px;
-    -webkit-box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
-    -moz-box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
-    box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
-    max-height: 100px;
-    padding: 0;
-    margin: 0;
-  }
+.hios-controls-container {
+  display: block;
+}
+.hios-song-title {
+  display: inline-block;
+  text-align: center
+}
 
-.audio-player{
-  height: 50px
+#hios-mini {
+  display: block;
+  position: fixed;
+  background-color: #bfbfbf;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 5px 5px;
+  height: 100px;
+  width: 300px;
+  bottom: 0;
+}
+  
 #hios-mini > img.hios-thumbnail {
   display: inline-block;
   border-radius: 5px;
@@ -36,4 +39,35 @@ img.thumbnail {
   padding: 0;
   margin: 5px;
 }
+
+#hios-full {
+  position: fixed;
+  background-color: #bfbfbf;
+  border-radius: 10px;
+  right: 0;
+  top: 0;
+  bottom:0;
+  padding: 10px;
+  margin: 5px 5px;
+  width: 300px;
+}
+
+#hios-full > img.hios-thumbnail {
+  display: block;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
+  -moz-box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
+  max-height: 200px;
+  max-width: 200px;
+  margin: 0 auto; 
+  padding: 10px;
+}
+
+img.hios-controls{
+  display: inline-block;
+  height: 30px;
+  width: 30px;
+}
+
 
