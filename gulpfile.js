@@ -11,6 +11,7 @@ const watch = {
         'js/player.js',
         'js/view.js',
         'js/app.js',
+        'js/events.js'
         ],
 };
 

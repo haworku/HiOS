@@ -12,5 +12,6 @@ APP.state = {
   loop: false 
 };
 
+// APP.attachListeners();
 APP.player = Object.create(AudioPlayer);
 // APP.player.play(true, {fromBeginning: true});
