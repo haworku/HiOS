@@ -1,9 +1,15 @@
 var APP = {};
 
-APP.store = Object.create(Store);
-APP.store.music = music;
 APP.view = Object.create(View);
 // APP.view.buildHTML();
 
+APP.state = { 
+  completeQue: [], 
+  nextQue: music, 
+  currentTrack: music[0], 
+  playing: true, 
+  shuffle: false, 
+  loop: false 
+};
 
 APP.player = Object.create(AudioPlayer);
