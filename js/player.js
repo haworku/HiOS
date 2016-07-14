@@ -1,8 +1,6 @@
-var AudioPlayer = function (musicArray, albumsArray) {
-  this.allMusic = musicArray;
-  this.allAlbums = albumsArray; 
-  this.currentAlbum = {}; // Album object
-  this.currentTrack = {}; // Track object
+var AudioPlayer = function(currentTrack) {
+  this.volume = 1; // gets volume from web audio API
+  this.track = currentTrack;
 };
 
 AudioPlayer.prototype.navigate = function(direction) {

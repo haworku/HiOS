@@ -13,3 +13,4 @@ APP.state = {
 };
 
 APP.player = Object.create(AudioPlayer);
+// APP.player.play(true, {fromBeginning: true});
