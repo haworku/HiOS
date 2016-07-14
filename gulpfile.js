@@ -10,8 +10,6 @@ const watch = {
   js: ['js/music.js',
         'js/player.js',
         'js/view.js',
-        'js/store.js',
-        'js/app.js'
         ],
 };
 
