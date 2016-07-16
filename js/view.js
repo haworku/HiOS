@@ -9,6 +9,7 @@ View.prototype.buildHTML = function () {
 
 View.prototype.defineSelectors = function(){
   this.selectors = {
+    playerContainers: document.querySelectorAll('.hios-player'),
     miniContainer: document.querySelector('#hios-mini'),
     fullContainer: document.querySelector('#hios-full'),
     playPause:  document.querySelector('.hios-play-pause'),
@@ -41,8 +42,10 @@ View.prototype.loop = function (bool){
 };
 
 
-View.prototype.swapSkin = function(cssSelector) {
-  // fade out .active skin, add .active class to document.querySelector(cssSelector)
+View.prototype.swapSkin = function(skin) {
+  var containerName = skin + 'Container';
+  this.selectors[containerName].className = 'hios-active';
+  // fade out .active skin fade in newly active skin
 };
 
 View.prototype.adjustVolumeSlider = function(number) {

@@ -1,5 +1,5 @@
 APP.attachListeners = function(){
-  console.log(APP.view.selectors)
+
   // CONTROLS BASED ON USER MANIPULATION
   APP.view.selectors.playPause.addEventListener('click', function(e){
     APP.view.play(!APP.state.playing);
@@ -20,12 +20,11 @@ APP.attachListeners = function(){
   });
   */
 
-  APP.view.selectors.addEventListener('click', function(e){
-    console.log('swap')
+  APP.view.selectors.minify.addEventListener('click', function(e){
     APP.view.swapSkin('mini');
   });
 
-  APP.view.selectors.addEventListener('click', function(e){
+  APP.view.selectors.fullify.addEventListener('click', function(e){
    APP.view.swapSkin('full');
   });
 
