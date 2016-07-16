@@ -3,15 +3,14 @@ var View = function () {
 };
 
 View.prototype.buildHTML = function () {
-  document.querySelector('body').appendChild = '<div id="hios-main-container"></div>';
-  document.querySelector('#hios-main-container').innerHTML = this.HTML;
+  // document.querySelector('body').appendChild = '<div id="hios-main-container"></div>';
+  // document.querySelector('#hios-main-container').innerHTML = this.HTML;
 };
 
-View.prototype.addSelectors = function(){
-  this.mini = document.querySelector('#hios-mini');
-  this.full = document.querySelector('#hios-full');
-
-  this. controls = {
+View.prototype.defineSelectors = function(){
+  this.selectors = {
+    miniContainer: document.querySelector('#hios-mini'),
+    fullContainer: document.querySelector('#hios-full'),
     playPause:  document.querySelector('.hios-play-pause'),
     next: document.querySelector('.hios-next'),
     previous: document.querySelector('.hios-previous'),
@@ -19,12 +18,9 @@ View.prototype.addSelectors = function(){
     loop: document.querySelector('.hios-loop'),
     volumeSlider: document.querySelector('.hios-volume'),
     trackingSlider: document.querySelector('.hios-tracking'),
-    mini: document.querySelector('#hios-minify'),
-    full: document.querySelector('#hios-fullify'),
-    trackList: document.querySelectorAll('.track')
-  };
-
-  this.trackInfo = {
+    minify: document.querySelector('#hios-minify'),
+    fullify: document.querySelector('#hios-fullify'),
+    trackList: document.querySelectorAll('.track'),
     title: document.querySelector('.hios-song-title'),
     artist: document.querySelector('.hios-song-artist'),
     image: document.querySelector('.hios-thumbnail')

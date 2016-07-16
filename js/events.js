@@ -1,28 +1,29 @@
 APP.attachListeners = function(){
-
+  console.log(APP.view.selectors)
   // CONTROLS BASED ON USER MANIPULATION
-  APP.view.controls.playPause.addEventListener('click', function(e){
+  APP.view.selectors.playPause.addEventListener('click', function(e){
     APP.view.play(!APP.state.playing);
     APP.player.play(!APP.state.playing);
     APP.state.playing = !APP.state.playing;
   });
 
-  APP.view.controls.shuffle.addEventListener('click', function(e){
+  APP.view.selectors.shuffle.addEventListener('click', function(e){
     APP.view.shuffle(!APP.state.shuffle);
     APP.state.shuffle = !APP.state.playing;
     // renderTrackList based on shuffle status
   });
 
-  APP.view.controls.loop.addEventListener('click', function(e){
+  APP.view.selectors.loop.addEventListener('click', function(e){
     APP.view.loop(!APP.state.loop);
     APP.state.loop = !APP.state.loop;
   });
 
-  APP.view.mini.addEventListener('click', function(e){
+  APP.view.selectors.addEventListener('click', function(e){
+    console.log('swap')
     APP.view.swapSkin('mini');
   });
 
-  APP.view.full.addEventListener('click', function(e){
+  APP.view.selectors.addEventListener('click', function(e){
    APP.view.swapSkin('full');
   });
 
@@ -38,5 +39,5 @@ APP.attachListeners = function(){
 // state listener for any change on state.currentTrack - adjust player.track, then player.play(state.playing) and view.renderTrack()
 };
 
-// APP.attachListeners(); 
+APP.attachListeners(); 
 // 
