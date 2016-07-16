@@ -3,11 +3,11 @@ var View = function () {
 };
 
 View.prototype.buildHTML = function () {
-  document.querySelector('body').appendChild('<div id="hios-main-container"></div>');
-  document.querySelector('hios-app-container').innerHTML = this.HTML;
+  document.querySelector('body').appendChild = '<div id="hios-main-container"></div>';
+  document.querySelector('#hios-main-container').innerHTML = this.HTML;
 };
 
-View.protoype.addSelectors = function(){
+View.prototype.addSelectors = function(){
   this.mini = document.querySelector('#hios-mini');
   this.full = document.querySelector('#hios-full');
 
