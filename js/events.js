@@ -7,16 +7,18 @@ APP.attachListeners = function(){
     APP.state.playing = !APP.state.playing;
   });
 
+/*
   APP.view.selectors.shuffle.addEventListener('click', function(e){
     APP.view.shuffle(!APP.state.shuffle);
     APP.state.shuffle = !APP.state.playing;
-    // renderTrackList based on shuffle status
+    renderTrackList based on shuffle status
   });
 
   APP.view.selectors.loop.addEventListener('click', function(e){
     APP.view.loop(!APP.state.loop);
     APP.state.loop = !APP.state.loop;
   });
+  */
 
   APP.view.selectors.addEventListener('click', function(e){
     console.log('swap')
