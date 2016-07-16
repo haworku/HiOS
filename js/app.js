@@ -1,7 +1,6 @@
 var APP = {};
 
-APP.view = Object.create(View);
-// APP.view.buildHTML();
+APP.view = new View;
 
 APP.state = { 
   completeQue: [], 
@@ -13,5 +12,4 @@ APP.state = {
 };
 
 // APP.attachListeners();
-APP.player = Object.create(AudioPlayer);
-// APP.player.play(true, {fromBeginning: true});
+APP.player = new AudioPlayer;
