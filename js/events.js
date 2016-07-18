@@ -1,7 +1,10 @@
 APP.attachListeners = function(){
 
-  // CONTROLS BASED ON USER MANIPULATION
+  //LISTENING FOR: USER MANIPULATION
+  
+    // Play/Pause: Toggle button icon and wether or not currentTrack is playing
   APP.view.selectors.playPause.addEventListener('click', function(e){
+    e.preventDefault();
     APP.view.play(!APP.state.playing);
     APP.player.play(!APP.state.playing);
     APP.state.playing = !APP.state.playing;

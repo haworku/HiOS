@@ -1,47 +1,56 @@
 const music = [
   {
-    'name': '6 Inch',
+    'title': '6 Inch',
+    'artist': 'Beyonce',
     'source': '/static/audio/6-Inch.mp3',
-    'icon': '/static/images/lemonade.jpg'
+    'image': '/static/images/lemonade.jpg'
   },
   {
-    'name': 'All Night',
+    'title': 'All Night',
+    'artist': 'Beyonce',
     'source': '/static/audio/All-Night.mp3',
-    'icon': '/static/images/lemonade.jpg'
+    'image': '/static/images/lemonade.jpg'
   },
   {
-    'name': 'Hold Up',
+    'title': 'Hold Up',
+    'artist': 'Beyonce',
     'source': '/static/audio/Hold-Up.mp3',
-    'icon': '/static/images/lemonade.jpg'
+    'image': '/static/images/lemonade.jpg'
   },
   {
-    'name': 'Blow',
+    'title': 'Blow',
+    'artist': 'Beyonce',
     'source': '/static/audio/Blow.mp3',
-    'icon': '/static/images/beyonce.jpg'
+    'image': '/static/images/beyonce.jpg'
   },
   {
-    'name': 'Drunk In Love',
+    'title': 'Drunk In Love',
+    'artist': 'Beyonce',
     'source': '/static/audio/Drunk-In-Love.mp3',
-    'icon': '/static/images/beyonce.jpg'
+    'image': '/static/images/beyonce.jpg'
   },
   {
-    'name': 'Flawless',
+    'title': 'Flawless',
+    'artist': 'Beyonce',
     'source': '/static/audio/Flawless.mp3',
-    'icon': '/static/images/beyonce.jpg'
+    'image': '/static/images/beyonce.jpg'
   },
   {
-    'name': 'Formation',
+    'title': 'Formation',
+    'artist': 'Beyonce',
     'source': '/static/audio/Formation.mp3',
-    'icon': '/static/images/lemonade.jpg'
+    'image': '/static/images/lemonade.jpg'
   },
   {
-    'name': 'Freedom',
+    'title': 'Freedom',
+    'artist': 'Beyonce',
     'source': '/static/audio/Freedom.mp3',
-    'icon': '/static/images/lemonade.jpg'
+    'image': '/static/images/lemonade.jpg'
   },
   {
-    'name': 'Parition',
+    'title': 'Parition',
+    'artist': 'Beyonce',
     'source': '/static/audio/Partition.mp3',
-    'icon': '/static/images/beyonce.jpg'
+    'image': '/static/images/beyonce.jpg'
   },
 ]

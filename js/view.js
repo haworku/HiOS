@@ -27,9 +27,16 @@ View.prototype.defineSelectors = function(){
   };
 };
 
-View.prototype.play = function (bool, options){
-  // document.querySelector('.play-pause') swap between play and pause based on bool
-  // if options {repeat: true} restart currentTrack
+View.prototype.populateCurrentTrack = function (currentTrack) {
+  this.selectors.title.innerHTML = currentTrack.title;
+  this.selectors.artist.innerHTML = currentTrack.artist;
+  // set image source
+};
+
+View.prototype.play = function (bool){
+  bool ? this.selectors.playPause.setAttribute('src','static/images/controls/ios7-play.png') :
+         this.selectors.playPause.setAttribute('src' ,'static/images/controls/ios7-pause.png');
+ 
 };
 
 View.prototype.shuffle = function (bool){

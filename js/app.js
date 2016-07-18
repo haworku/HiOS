@@ -1,9 +1,5 @@
 var APP = {};
 
-APP.view = new View;
-APP.view.buildHTML();
-APP.view.defineSelectors();
-
 APP.state = { 
   completeQue: [], 
   nextQue: music, 
@@ -13,5 +9,10 @@ APP.state = {
   loop: false 
 };
 
-APP.player = new AudioPlayer;
+APP.view = new View;
+APP.view.buildHTML();
+APP.view.defineSelectors();
+APP.view.populateCurrentTrack(APP.state.currentTrack);
+
+APP.player = new AudioPlayer(APP.state.currentTrack);
 APP.player.play(true);
