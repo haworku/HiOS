@@ -9,6 +9,28 @@ APP.attachListeners = function(){
     APP.player.play(!APP.state.playing);
     APP.state.playing = !APP.state.playing;
   });
+  
+    // Next: single click plays nextQue[0]
+  APP.view.selectors.next.addEventListener('click', function(e){
+    e.preventDefault();
+    APP.state.completedQue.shift(APP.state.currentTrack);
+    APP.state.currentTrack =  APP.state.nextQue.unshift(0);
+    APP.player.play(APP.state.playing, {from: 0});
+  });
+
+    // Previous: single click replays current song
+  APP.view.selectors.previous.addEventListener('click', function(e){
+    e.preventDefault();
+    APP.player.play(APP.state.playing, {from: 0});
+  });
+
+    // Previous: double click plays completedQue[0]
+  APP.view.selectors.previous.addEventListener('doubleclick', function(e){
+    e.preventDefault();
+    APP.nextQue.shift(APP.state.currentTrack);
+    APP.state.currentTrack =  APP.state.completedQue.unshift();
+    APP.player.play(APP.state.playing, {from: 0});
+  });
 
 /*
   APP.view.selectors.shuffle.addEventListener('click', function(e){
@@ -33,7 +55,6 @@ APP.attachListeners = function(){
 
 // TO DO 
 // volume drag and tracking drag- player.volume or player.currentTime should update
-// next and previous - state.currentTrack, state.completeQue, and state.nextQue should update
 // any click on trackList-  state.currentTrack, state.completedQue, state.nextQue should update
 
 
