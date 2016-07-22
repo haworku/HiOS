@@ -32,18 +32,15 @@ APP.attachListeners = function(){
     APP.player.play(APP.state.playing, {from: 0});
   });
 
-/*
   APP.view.selectors.shuffle.addEventListener('click', function(e){
-    APP.view.shuffle(!APP.state.shuffle);
-    APP.state.shuffle = !APP.state.playing;
-    renderTrackList based on shuffle status
+    e.preventDefault();
+    APP.handleEvent('shuffle');
   });
 
   APP.view.selectors.loop.addEventListener('click', function(e){
-    APP.view.loop(!APP.state.loop);
-    APP.state.loop = !APP.state.loop;
+    e.preventDefault();
+    APP.handleEvent('loop');
   });
-  */
 
   APP.view.selectors.minify.addEventListener('click', function(e){
     APP.view.swapSkin('mini');
