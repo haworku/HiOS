@@ -1,36 +1,28 @@
 APP.attachListeners = function(){
 
   //LISTENING FOR: USER MANIPULATION
-  
-    // Play/Pause: Toggle button icon and wether or not currentTrack is playing
-  APP.view.selectors.playPause.addEventListener('click', function(e){
-    e.preventDefault();
-    APP.view.play(!APP.state.playing);
-    APP.player.play(!APP.state.playing);
-    APP.state.playing = !APP.state.playing;
+  APP.view.selectors.playPause.forEach(function (selector){
+    selector.addEventListener('click', function (e){
+      e.preventDefault();
+      APP.state.playing ? APP.handleEvent('pause') : APP.handleEvent('play');
+    });
   });
   
-    // Next: single click plays nextQue[0]
-  APP.view.selectors.next.addEventListener('click', function(e){
+  APP.view.selectors.next.forEach(function (selector){
+    selector.addEventListener('click', function (e){
     e.preventDefault();
-    APP.state.completedQue.shift(APP.state.currentTrack);
-    APP.state.currentTrack =  APP.state.nextQue.unshift(0);
-    APP.player.play(APP.state.playing, {from: 0});
+    APP.handleEvent('next');
+    });
   });
 
-    // Previous: single click replays current song
-  APP.view.selectors.previous.addEventListener('click', function(e){
-    e.preventDefault();
-    APP.player.play(APP.state.playing, {from: 0});
+  APP.view.selectors.previous.forEach(function (selector){
+    selector.addEventListener('click', 'doubleclick', function(e){
+      e.preventDefault();
+      APP.handleEvent('replay');
+      // if double click handleEvent('previous')
+    });
   });
 
-    // Previous: double click plays completedQue[0]
-  APP.view.selectors.previous.addEventListener('doubleclick', function(e){
-    e.preventDefault();
-    APP.nextQue.shift(APP.state.currentTrack);
-    APP.state.currentTrack =  APP.state.completedQue.unshift();
-    APP.player.play(APP.state.playing, {from: 0});
-  });
 
   APP.view.selectors.shuffle.addEventListener('click', function(e){
     e.preventDefault();

@@ -11,9 +11,9 @@ View.prototype.defineSelectors = function(){
   this.selectors = {
     miniContainer: document.querySelector('#hios-mini'),
     fullContainer: document.querySelector('#hios-full'),
-    playPause:  document.querySelector('.hios-play-pause'),
-    next: document.querySelector('.hios-next'),
-    previous: document.querySelector('.hios-previous'),
+    playPause: [document.querySelector('.mini > .hios-play-pause'), document.querySelector('.full > .hios-play-pause')],
+    next: [document.querySelector('.mini > .hios-next'), document.querySelector('.full > .hios-next')],
+    previous: [document.querySelector('.mini > .hios-previous'), document.querySelector('.full > .hios-previous')],
     shuffle: document.querySelector('.hios-shuffle'),
     loop: document.querySelector('.hios-loop'),
     volumeSlider: document.querySelector('.hios-volume'),
@@ -34,9 +34,13 @@ View.prototype.populateCurrentTrack = function (currentTrack) {
 };
 
 View.prototype.play = function (bool){
-  bool ? this.selectors.playPause.setAttribute('src','static/images/controls/ios7-play.png') :
-         this.selectors.playPause.setAttribute('src' ,'static/images/controls/ios7-pause.png');
- 
+  if (bool) {
+    this.selectors.playPause[0].setAttribute('src','static/images/controls/ios7-play.png');
+    this.selectors.playPause[1].setAttribute('src','static/images/controls/ios7-play.png');
+  } else {
+    this.selectors.playPause[0].setAttribute('src' ,'static/images/controls/ios7-pause.png');
+    this.selectors.playPause[1].setAttribute('src' ,'static/images/controls/ios7-pause.png');
+  }
 };
 
 View.prototype.shuffle = function (bool){
@@ -49,8 +53,8 @@ View.prototype.loop = function (bool){
 
 
 View.prototype.swapSkin = function(skin) {
+  console.log('swap')
   document.querySelector('.hios-active').className = 'hios-inactive';
-
   var containerName = skin + 'Container';
   this.selectors[containerName].className = 'hios-active';
   // fade out active skin fade in newly active skin.a
