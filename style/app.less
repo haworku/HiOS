@@ -8,11 +8,6 @@ body {
 .hios-inactive {
   display: none !important;
 }
-.hios-wrap {
-  display: inline-block;
-  position: relative;
-  margin: 5px 10px;
-}
 #hios-mini, #hios-full {
   display: none;
   position: fixed;
@@ -40,7 +35,6 @@ body {
   box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
   max-height: 100px;
   padding: 0;
-  margin: 5px;
 }
 #hios-full > img.hios-thumbnail {
   display: block;
@@ -53,27 +47,74 @@ body {
   margin: 0 auto;
   padding: 10px;
 }
-.hios-list-controls {
+.hios-wrap{
+  float: right;
+  margin: 15px 0px;
+  width: 190px;
+}
+.hios-wrap > .hios-info, .hios-wrap > .hios-track-controls{
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+#hios-full > .hios-info {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  margin: 10px;
+}
+.hios-track-controls > img{
+  display: inline-block;
+  height: 30px;
+  width: 30px;
+}
+#hios-full > .hios-track-controls{
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  margin-bottom: 10px;
+}
+#hios-full > .hios-list-controls {
   display: block;
   border-top: 1px solid black;
   padding: 3px;
   width: 280px;
   text-align: right;
 }
-.hios-list-controls > img {
+#hios-full > .hios-list-controls > img {
   display: inline-block;
   height: 20px;
   width: 30px;
   border-radius: 3px;
   background-color: red;
 }
-.hios-song-title {
-  display: inline-block;
-  text-align: center;
+#hios-full > .hios-track-list {
+  display: block;
+  position: relative;
+  max-height: 400px;
+  overflow: scroll;
+}
+#hios-full > .hios-track-list > .track{
+  height: 100
+}
+.track > img.hios-thumbnail {
+  display: inline block;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
+  -moz-box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
+  max-height: 75px;
+  max-width: 75px;
+  margin: 0 auto;
+  padding: 3px;
+}
+.track {
+display: block;
+margin: 0 auto;
+padding: 5px;
+} 
+.track > .hios-wrap > .hios-song-title, .track > .hios-wrap > .hios-song-artist{
+    display: block;
 }
 
-.hios-track-controls > img{
-  display: inline-block;
-  height: 30px;
-  width: 30px;
-}
+
