@@ -41,7 +41,6 @@ APP.attachListeners = function(){
 
   APP.view.selectors.loop.addEventListener('click', function(e){
     e.preventDefault();
-    console.log('what')
     APP.handleEvent('loop');
   });
   
@@ -53,6 +52,13 @@ APP.attachListeners = function(){
    APP.view.swapSkin('full');
   });
 
+  // APP.view.selectors.volumeSlider.addEventListener('change', function(e){
+  //   APP.handleEvent('volumechange');
+  // })
+
+  APP.view.selectors.trackingSlider.addEventListener('change', function(e){
+    APP.player.audio.currentTime = APP.view.selectors.trackingSlider.value
+  });
 // TO DO 
 // volume drag and tracking drag- player.volume or player.currentTime should update
 // any click on trackList-  state.currentTrack, state.completedQue, state.nextQue should update
@@ -61,6 +67,10 @@ APP.attachListeners = function(){
  APP.player.audio.addEventListener('play', function(e){
     // console.log(e);
     APP.handleEvent('play'); 
+  });
+
+  APP.player.audio.addEventListener('loadedmetadata', function(e){
+    APP.view.resetSliders(parseInt(APP.player.audio.duration,10));
   });
 
   APP.player.audio.addEventListener('pause', function(e) {
@@ -75,8 +85,7 @@ APP.attachListeners = function(){
 
   APP.player.audio.addEventListener('timeupdate', function(e){
     // console.log(e);
-    // updates slider
-     
+    APP.handleEvent('trackingchange');  
   });
 
   APP.player.audio.addEventListener('volumechange', function(e){
@@ -93,7 +102,6 @@ APP.handleEvent = function (event) {
     case 'play':
       APP.state.playing = true;
       APP.view.play(true);
-      APP.view.populateSliders(parseInt(APP.player.audio.duration,10));
       break;
 
     case 'pause':
@@ -106,7 +114,8 @@ APP.handleEvent = function (event) {
       APP.state.currentTrack =  APP.state.nextQue.shift();
       APP.player.update({time: 0, source: APP.state.currentTrack.source});
       APP.view.populateCurrentTrack(APP.state.currentTrack);
-      APP.state.playing ? APP.player.audio.play() : APP.player.audio.pause()
+      APP.view.adjustTrackingSlider(0);
+      APP.state.playing ? APP.player.audio.play() : APP.player.audio.pause();
       break;
 
     case 'previous':
@@ -115,14 +124,18 @@ APP.handleEvent = function (event) {
         APP.state.currentTrack =  APP.state.completeQue.shift();
         APP.player.update({time: 0, source: APP.state.currentTrack.source});
         APP.view.populateCurrentTrack(APP.state.currentTrack);
+        APP.view.adjustTrackingSlider(0);
+        APP.state.playing ? APP.player.audio.play() : APP.player.audio.pause();
+       
       } else {
         APP.handleEvent('replay');
       }
-      APP.state.playing ? APP.player.audio.play() : APP.player.audio.pause()
+     
       break;
 
     case 'replay':
-      APP.player.play(APP.state.playing, {time: 0});
+      APP.player.update(APP.state.playing, {time: 0});
+      APP.state.playing ? APP.player.audio.play() : APP.player.audio.pause()
       break;
 
     case 'shuffle':
@@ -138,7 +151,8 @@ APP.handleEvent = function (event) {
       APP.view.loop(APP.state.loop);
       break;
 
-    case 'timeupdate':
+    case 'trackingchange':
+       APP.view.adjustTrackingSlider(parseInt(APP.player.audio.currentTime, 10));
       break;
 
     case 'volumechange':

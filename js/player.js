@@ -7,13 +7,5 @@ AudioPlayer.prototype.update = function(options) {
   this.audio.src= (options.source || this.audio.src);
 };
 
-AudioPlayer.prototype.adjustVolume = function(newVolume){
-
-};
-
-AudioPlayer.prototype.scrubTo = function(newTime) {
-
-};
-
 
 

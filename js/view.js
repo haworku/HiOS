@@ -27,15 +27,20 @@ View.prototype.defineSelectors = function(){
   };
 };
 
-View.prototype.populateCurrentTrack = function (currentTrack) {
+View.prototype.populateCurrentTrack = function (currentTrack, duration) {
   this.selectors.title[0].innerHTML = currentTrack.title;
   this.selectors.title[1].innerHTML = currentTrack.title;
   this.selectors.artist[0].innerHTML = currentTrack.artist;
   this.selectors.artist[1].innerHTML = currentTrack.artist;
+  
   this.selectors.thumbnail.forEach (function (img){
-    console.log(img)
     img.setAttribute('src', currentTrack.image);
   });
+};
+
+View.prototype.resetSliders = function (duration) {
+  this.selectors.trackingSlider.setAttribute('max', duration);
+  this.selectors.trackingSlider.setAttribute('value', 0);
 };
 
 View.prototype.play = function (bool){
@@ -56,27 +61,21 @@ View.prototype.loop = function (bool){
   bool ? this.selectors.loop.className = 'hios-loop hios-activated' : this.selectors.loop.className = 'hios-loop';
 };
 
-
 View.prototype.swapSkin = function(skin) {
-  console.log('swap')
   document.querySelector('.hios-active').className = 'hios-inactive';
   var containerName = skin + 'Container';
   this.selectors[containerName].className = 'hios-active';
-  // fade out active skin fade in newly active skin.a
 };
 
 View.prototype.adjustVolumeSlider = function(number) {
-  // move volume to number location
+  // adjusts volume display based on user manipulation
 };
 
 View.prototype.adjustTrackingSlider = function(number) {
-  // move tracking to number location
+  // adjusts tracking based on user manipulation OR timechange
+  this.selectors.trackingSlider.setAttribute('value', number);
 };
 
 View.prototype.renderTrackList= function(currentTrack) {
-  // rerender currentTrack title, image, artice
-};
-
-View.prototype.renderCurrentTrack = function(trackList) {
-  // rerender tracks in trackList order
+  // rerender track list array
 };
