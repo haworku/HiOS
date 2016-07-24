@@ -23,7 +23,7 @@ View.prototype.defineSelectors = function(){
     trackList: document.querySelectorAll('.track'),
     title: [document.querySelector('.mini > .hios-song-title'), document.querySelector('.full > .hios-song-title')],
     artist: [document.querySelector('.mini > .hios-song-artist'), document.querySelector('.full > .hios-song-artist')],
-    image: document.querySelector('.hios-thumbnail')
+    thumbnail: [document.querySelector('#hios-mini > .hios-thumbnail'), document.querySelector('#hios-full >.hios-thumbnail'), document.querySelector('.track >.hios-thumbnail')]
   };
 };
 
@@ -32,7 +32,10 @@ View.prototype.populateCurrentTrack = function (currentTrack) {
   this.selectors.title[1].innerHTML = currentTrack.title;
   this.selectors.artist[0].innerHTML = currentTrack.artist;
   this.selectors.artist[1].innerHTML = currentTrack.artist;
-  // set image source
+  this.selectors.thumbnail.forEach (function (img){
+    console.log(img)
+    img.setAttribute('src', currentTrack.image);
+  });
 };
 
 View.prototype.play = function (bool){
