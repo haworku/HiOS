@@ -1,3 +1,8 @@
+  // REFACTORING
+  // state listener for any change on APP.state (adjusts player and the view immediately)
+  //    - this would simplify APP.handleEvent() greatly, removing all references to player and view
+
+
 APP.attachListeners = function(){
 
   //LISTENING FOR: USER MANIPULATION
@@ -39,7 +44,6 @@ APP.attachListeners = function(){
     APP.handleEvent('loop');
   });
   
-
   APP.view.selectors.minify.addEventListener('click', function(e){
     APP.view.swapSkin('mini');
   });
@@ -68,16 +72,15 @@ APP.attachListeners = function(){
 
   APP.player.audio.addEventListener('timeupdate', function(e){
     // console.log(e);
-    // console.log(APP.player.audio.currentTime);
+    // updates slider
+     
   });
 
   APP.player.audio.addEventListener('volumechange', function(e){
     // console.log(e);
+    // updates slider
   });
 
- // BACKGROUND LISTENERS
-// state listener for any changes on state.completedQue - renderTrackList() based on changes, IF length == 0 and state.loop == true, move completeQue to nextQue and render trackList
-// state listener for any change on state.currentTrack - adjust player.track, then player.play(state.playing) and view.renderTrack()
 };
 
 APP.attachListeners(); 
@@ -131,7 +134,7 @@ APP.handleEvent = function (event) {
 
     case 'timeupdate':
       break;
-      
+
     case 'volumechange':
       break;
 
