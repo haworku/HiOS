@@ -89,37 +89,49 @@ APP.handleEvent = function (event) {
       APP.player.play(true);
       APP.state.playing = true;
       break;
+
     case 'pause':
       APP.view.play(false);
       APP.player.play(false);
       APP.state.playing = false;
       break;
+
     case 'next':
       APP.state.completeQue.unshift(APP.state.currentTrack);
       APP.state.currentTrack =  APP.state.nextQue.shift();
       APP.view.populateCurrentTrack(APP.state.currentTrack);
       APP.player.play(APP.state.playing, {time: 0, source: APP.state.currentTrack.source});
       break;
+
     case 'previous':
-      APP.state.nextQue.unshift(APP.state.currentTrack);
-      APP.state.currentTrack =  APP.state.completeQue.shift();
-      APP.view.populateCurrentTrack(APP.state.currentTrack);
-      APP.player.play(APP.state.playing, {time: 0, source: APP.state.currentTrack.source});
+      if (APP.state.completeQue.length > 0) {
+        APP.state.nextQue.unshift(APP.state.currentTrack);
+        APP.state.currentTrack =  APP.state.completeQue.shift();
+        APP.view.populateCurrentTrack(APP.state.currentTrack);
+        APP.player.play(APP.state.playing, {time: 0, source: APP.state.currentTrack.source});
+      } else {
+        APP.handleEvent('reply');
+      }
       break;
+
     case 'replay':
       APP.player.play(APP.state.playing, {time: 0});
       break;
+
     case 'shuffle':
       APP.view.shuffle(!APP.state.shuffle);
       APP.state.shuffle = !APP.state.playing;
       // renderTrackList based on shuffle status
       break;
+
     case 'loop':
       APP.view.loop(!APP.state.loop);
       APP.state.loop = !APP.state.loop;
       break;
+
     case 'timeupdate':
       break;
+      
     case 'volumechange':
       break;
 

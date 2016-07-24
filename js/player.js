@@ -8,7 +8,6 @@ AudioPlayer.prototype.play = function(bool, options) {
     this.audio.currentTime = (options.time || this.audio.currentTime);
     this.audio.src= (options.source || this.audio.src);
   }
-
   bool ? this.audio.play() : this.audio.pause();
 };
 
