@@ -1,11 +1,17 @@
-var AudioPlayer = function(currentTrack) {
+var AudioPlayer = function(currentSource) {
   this.volume = 1; // gets volume from web audio API
-  this.track = currentTrack;
-  this.startTime = 0;
-  this.audio = new Audio(this.track.source);
+  this.currentTime = 0;
+  this.audio = new Audio(currentSource);
 };
 
 AudioPlayer.prototype.play = function(bool, options) {
+  if (options && options.from){
+    this.startTime = options.from;
+  }
+  if (options && options.source){
+    this.audio.src= options.source;
+  }
+
   bool ? this.audio.play() : this.audio.pause();
 };
 

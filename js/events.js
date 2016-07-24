@@ -90,9 +90,12 @@ APP.handleEvent = function (event) {
       APP.state.playing = false;
       break;
     case 'next':
-      APP.state.completedQue.shift(APP.state.currentTrack);
-      APP.state.currentTrack =  APP.state.nextQue.unshift(0);
-      APP.player.play(APP.state.playing, {from: 0});
+    console.log(APP.state)
+      APP.state.completeQue.unshift(APP.state.currentTrack);
+      APP.state.currentTrack =  APP.state.nextQue.shift();
+      APP.view.populateCurrentTrack(APP.state.currentTrack);
+      APP.player.play(APP.state.playing, {from: 0, source: APP.state.currentTrack.source});
+          console.log(APP.state);
       break;
     case 'previous':
       APP.nextQue.shift(APP.state.currentTrack);
