@@ -21,15 +21,17 @@ View.prototype.defineSelectors = function(){
     minify: document.querySelector('#hios-minify'),
     fullify: document.querySelector('#hios-fullify'),
     trackList: document.querySelectorAll('.track'),
-    title: document.querySelector('.hios-song-title'),
-    artist: document.querySelector('.hios-song-artist'),
+    title: [document.querySelector('.mini > .hios-song-title'), document.querySelector('.full > .hios-song-title')],
+    artist: [document.querySelector('.mini > .hios-song-artist'), document.querySelector('.full > .hios-song-artist')],
     image: document.querySelector('.hios-thumbnail')
   };
 };
 
 View.prototype.populateCurrentTrack = function (currentTrack) {
-  this.selectors.title.innerHTML = currentTrack.title;
-  this.selectors.artist.innerHTML = currentTrack.artist;
+  this.selectors.title[0].innerHTML = currentTrack.title;
+  this.selectors.title[1].innerHTML = currentTrack.title;
+  this.selectors.artist[0].innerHTML = currentTrack.artist;
+  this.selectors.artist[1].innerHTML = currentTrack.artist;
   // set image source
 };
 
