@@ -1,7 +1,13 @@
-  // REFACTORING
+// REFACTORING
   // state listener for any change on APP.state (adjusts player and the view immediately)
-  //    - this would simplify APP.handleEvent() greatly, removing all references to player and view
+  //    - this would simplify APP.handleEvent() greatly, removing all overlapping references to player and view
 
+// TO DO 
+  // volume slider
+  // shuffle 
+  // loop track versus loop playlist
+  // renderTrackLxfist
+  // any click on trackList-  state.currentTrack, state.completedQue, state.nextQue should update
 
 APP.attachListeners = function(){
 
@@ -9,7 +15,7 @@ APP.attachListeners = function(){
   APP.view.selectors.playPause.forEach(function (selector){
     selector.addEventListener('click', function (e){
       e.preventDefault();
-      APP.state.playing ? APP.player.audio.pause() :  APP.player.audio.play()
+      APP.state.playing ? APP.player.audio.pause() :  APP.player.audio.play();
     });
   });
   
@@ -59,9 +65,6 @@ APP.attachListeners = function(){
   APP.view.selectors.trackingSlider.addEventListener('change', function(e){
     APP.player.audio.currentTime = APP.view.selectors.trackingSlider.value
   });
-// TO DO 
-// volume drag and tracking drag- player.volume or player.currentTime should update
-// any click on trackList-  state.currentTrack, state.completedQue, state.nextQue should update
 
 // LISTENING FOR: AUDIO PLAYER EVENTS
  APP.player.audio.addEventListener('play', function(e){
@@ -71,6 +74,7 @@ APP.attachListeners = function(){
 
   APP.player.audio.addEventListener('loadedmetadata', function(e){
     APP.view.resetSliders(parseInt(APP.player.audio.duration,10));
+    APP.view.adjustTrackingSlider(0);
   });
 
   APP.player.audio.addEventListener('pause', function(e) {
@@ -80,17 +84,15 @@ APP.attachListeners = function(){
 
   APP.player.audio.addEventListener('ended', function(e) {
     APP.handleEvent('next');
-    // console.log(e);
   });
 
   APP.player.audio.addEventListener('timeupdate', function(e){
-    // console.log(e);
     APP.handleEvent('trackingchange');  
   });
 
   APP.player.audio.addEventListener('volumechange', function(e){
     // console.log(e);
-    // updates slider
+    // APP.handleEvent(volumechange)
   });
 
 };
@@ -114,7 +116,6 @@ APP.handleEvent = function (event) {
       APP.state.currentTrack =  APP.state.nextQue.shift();
       APP.player.update({time: 0, source: APP.state.currentTrack.source});
       APP.view.populateCurrentTrack(APP.state.currentTrack);
-      APP.view.adjustTrackingSlider(0);
       APP.state.playing ? APP.player.audio.play() : APP.player.audio.pause();
       break;
 
@@ -124,7 +125,6 @@ APP.handleEvent = function (event) {
         APP.state.currentTrack =  APP.state.completeQue.shift();
         APP.player.update({time: 0, source: APP.state.currentTrack.source});
         APP.view.populateCurrentTrack(APP.state.currentTrack);
-        APP.view.adjustTrackingSlider(0);
         APP.state.playing ? APP.player.audio.play() : APP.player.audio.pause();
        
       } else {
@@ -159,8 +159,7 @@ APP.handleEvent = function (event) {
       break;
 
     default: 
-      console.log('default')
+      console.log('default');
       break;
   }
-}
-// 
+};
