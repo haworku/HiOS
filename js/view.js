@@ -49,11 +49,11 @@ View.prototype.play = function (bool){
 };
 
 View.prototype.shuffle = function (bool){
-  // toggle higlight class on shuffle button
+  bool ? this.selectors.shuffle.className = 'hios-shuffle hios-activated' : this.selectors.shuffle.className = 'hios-shuffle';
 };
 
 View.prototype.loop = function (bool){
-  // toggle higlight class on loopbutton
+  bool ? this.selectors.loop.className = 'hios-loop hios-activated' : this.selectors.loop.className = 'hios-loop';
 };
 
 

@@ -41,6 +41,7 @@ APP.attachListeners = function(){
 
   APP.view.selectors.loop.addEventListener('click', function(e){
     e.preventDefault();
+    console.log('what')
     APP.handleEvent('loop');
   });
   
@@ -122,14 +123,16 @@ APP.handleEvent = function (event) {
       break;
 
     case 'shuffle':
-      APP.view.shuffle(!APP.state.shuffle);
-      APP.state.shuffle = !APP.state.playing;
+      APP.state.shuffle = !APP.state.shuffle;
+      APP.view.shuffle(APP.state.shuffle);
+      // APP.nextQue.shuffle()
       // renderTrackList based on shuffle status
       break;
 
     case 'loop':
-      APP.view.loop(!APP.state.loop);
       APP.state.loop = !APP.state.loop;
+      APP.view.loop(APP.state.loop);
+      APP.player.audio.loop = APP.state.loop;
       break;
 
     case 'timeupdate':
