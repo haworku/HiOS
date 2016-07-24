@@ -9,7 +9,7 @@ APP.attachListeners = function(){
   APP.view.selectors.playPause.forEach(function (selector){
     selector.addEventListener('click', function (e){
       e.preventDefault();
-      APP.state.playing ? APP.handleEvent('pause') : APP.handleEvent('play');
+      APP.state.playing ? APP.player.audio.pause() :  APP.player.audio.play()
     });
   });
   
@@ -60,10 +60,12 @@ APP.attachListeners = function(){
 // LISTENING FOR: AUDIO PLAYER EVENTS
  APP.player.audio.addEventListener('play', function(e){
     // console.log(e);
+    APP.handleEvent('play'); 
   });
 
   APP.player.audio.addEventListener('pause', function(e) {
     // console.log(e);
+    APP.handleEvent('pause');
   });
 
   APP.player.audio.addEventListener('ended', function(e) {
@@ -89,33 +91,34 @@ APP.attachListeners();
 APP.handleEvent = function (event) {
   switch (event){
     case 'play':
-      APP.view.play(true);
-      APP.player.play(true);
       APP.state.playing = true;
+      APP.view.play(true);
+      APP.view.populateSliders(parseInt(APP.player.audio.duration,10));
       break;
 
     case 'pause':
       APP.view.play(false);
-      APP.player.play(false);
       APP.state.playing = false;
       break;
 
     case 'next':
       APP.state.completeQue.unshift(APP.state.currentTrack);
       APP.state.currentTrack =  APP.state.nextQue.shift();
+      APP.player.update({time: 0, source: APP.state.currentTrack.source});
       APP.view.populateCurrentTrack(APP.state.currentTrack);
-      APP.player.play(APP.state.playing, {time: 0, source: APP.state.currentTrack.source});
+      APP.state.playing ? APP.player.audio.play() : APP.player.audio.pause()
       break;
 
     case 'previous':
       if (APP.state.completeQue.length > 0) {
         APP.state.nextQue.unshift(APP.state.currentTrack);
         APP.state.currentTrack =  APP.state.completeQue.shift();
+        APP.player.update({time: 0, source: APP.state.currentTrack.source});
         APP.view.populateCurrentTrack(APP.state.currentTrack);
-        APP.player.play(APP.state.playing, {time: 0, source: APP.state.currentTrack.source});
       } else {
-        APP.handleEvent('reply');
+        APP.handleEvent('replay');
       }
+      APP.state.playing ? APP.player.audio.play() : APP.player.audio.pause()
       break;
 
     case 'replay':
@@ -131,8 +134,8 @@ APP.handleEvent = function (event) {
 
     case 'loop':
       APP.state.loop = !APP.state.loop;
-      APP.view.loop(APP.state.loop);
       APP.player.audio.loop = APP.state.loop;
+      APP.view.loop(APP.state.loop);
       break;
 
     case 'timeupdate':
