@@ -10,19 +10,24 @@ APP.attachListeners = function(){
   
   APP.view.selectors.next.forEach(function (selector){
     selector.addEventListener('click', function (e){
-    e.preventDefault();
-    APP.handleEvent('next');
+      e.preventDefault();
+      APP.handleEvent('next');
     });
   });
 
   APP.view.selectors.previous.forEach(function (selector){
-    selector.addEventListener('click', 'doubleclick', function(e){
+    selector.addEventListener('click', function(e){
       e.preventDefault();
       APP.handleEvent('replay');
-      // if double click handleEvent('previous')
     });
   });
 
+  APP.view.selectors.previous.forEach(function (selector){
+    selector.addEventListener('dblclick', function(e){
+      e.preventDefault();
+      APP.handleEvent('previous');
+    });
+  });
 
   APP.view.selectors.shuffle.addEventListener('click', function(e){
     e.preventDefault();
@@ -90,20 +95,19 @@ APP.handleEvent = function (event) {
       APP.state.playing = false;
       break;
     case 'next':
-    console.log(APP.state)
       APP.state.completeQue.unshift(APP.state.currentTrack);
       APP.state.currentTrack =  APP.state.nextQue.shift();
       APP.view.populateCurrentTrack(APP.state.currentTrack);
-      APP.player.play(APP.state.playing, {from: 0, source: APP.state.currentTrack.source});
-          console.log(APP.state);
+      APP.player.play(APP.state.playing, {time: 0, source: APP.state.currentTrack.source});
       break;
     case 'previous':
-      APP.nextQue.shift(APP.state.currentTrack);
-      APP.state.currentTrack =  APP.state.completedQue.unshift();
-      APP.player.play(APP.state.playing, {from: 0});
+      APP.state.nextQue.unshift(APP.state.currentTrack);
+      APP.state.currentTrack =  APP.state.completeQue.shift();
+      APP.view.populateCurrentTrack(APP.state.currentTrack);
+      APP.player.play(APP.state.playing, {time: 0, source: APP.state.currentTrack.source});
       break;
     case 'replay':
-      APP.player.play(APP.state.playing, {from: 0})
+      APP.player.play(APP.state.playing, {time: 0});
       break;
     case 'shuffle':
       APP.view.shuffle(!APP.state.shuffle);
