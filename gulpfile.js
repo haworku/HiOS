@@ -1,5 +1,4 @@
 const gulp = require('gulp');
-const run = require('gulp-run');
 const concat = require('gulp-concat');
 const livereload = require('gulp-livereload');
 const less = require('gulp-less');
@@ -39,7 +38,6 @@ gulp.task('less', () =>
 
 gulp.task('dev', () => {
   livereload.listen();
-  run('node app.js').exec();
   gulp.watch(watch.less, ['less']);
   gulp.watch(watch.js, ['js']);
 });
