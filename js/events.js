@@ -8,7 +8,6 @@
   // loop track versus loop playlist
   // renderTrackLxfist
   // any click on trackList-  state.currentTrack, state.completedQue, state.nextQue should update
-
 'use strict';
 APP.attachListeners = function(){
 
@@ -27,18 +26,14 @@ APP.attachListeners = function(){
     });
   });
 
-  APP.view.selectors.previous.forEach(function (selector){
-    selector.addEventListener('click', function(e){
-      e.preventDefault();
-      APP.handleEvent('replay');
-    });
+  APP.view.selectors.previous.addEventListener('click', function(e){
+    e.preventDefault();
+    APP.handleEvent('replay');
   });
 
-  APP.view.selectors.previous.forEach(function (selector){
-    selector.addEventListener('dblclick', function(e){
-      e.preventDefault();
-      APP.handleEvent('previous');
-    });
+  APP.view.selectors.previous.addEventListener('dblclick', function(e){
+    e.preventDefault();
+    APP.handleEvent('previous');
   });
 
   APP.view.selectors.shuffle.addEventListener('click', function(e){
@@ -136,7 +131,7 @@ APP.handleEvent = function (event) {
 
     case 'replay':
       APP.player.update(APP.state.playing, {time: 0});
-      APP.state.playing ? APP.player.audio.play() : APP.player.audio.pause()
+      APP.state.playing ? APP.player.audio.play() : APP.player.audio.pause();
       break;
 
     case 'shuffle':
