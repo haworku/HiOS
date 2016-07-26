@@ -24,7 +24,7 @@ View.prototype.defineSelectors = function(){
     trackList: document.querySelectorAll('.track'),
     title: [document.querySelector('.mini > .hios-song-title'), document.querySelector('.full > .hios-song-title')],
     artist: document.querySelector('.full > .hios-song-artist'),
-    thumbnail: [document.querySelector('#hios-mini > .hios-thumbnail'), document.querySelector('#hios-full >.hios-thumbnail'), document.querySelector('.track >.hios-thumbnail')]
+    thumbnail: [document.querySelector('.mini > .hios-thumbnail'), document.querySelector('#hios-full >.hios-thumbnail'), document.querySelector('.track >.hios-thumbnail')]
   };
 };
 

@@ -11,51 +11,50 @@ body {
 .hios-activated{
   background-color: red;
 }
+.hios-wrap {
+  display: inline-flex;
+  flex-flow: row;
+  justify-content: space-between;
+  align-items: center;
+}
 #hios-mini, #hios-full {
   display: none;
   position: fixed;
-  background-color: #bfbfbf;
+  background-color: whitesmoke;
   border-radius: 10px;
   padding: 10px;
   margin: 5px 5px;
   bottom: 0;
+  z-index: 90
 }
 #hios-mini {
-  height: 100px;
+  height: 60px;
   width: 300px;
+  &> .hios-wrap {
+    &> img.hios-thumbnail {
+      display: inline-block;
+      border-radius: 5px;
+      box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
+      max-width: 20%;
+      flex: 1 auto;
+      padding: 0;
+    }
+    &> .hios-song-title {
+      flex:  1 auto;
+      padding: 15px;
+    }
+    &> .hios-track-controls {
+      align-self: center;
+      flex: 1 auto;
+      max-width: 25%
+    }
+  }
 }
 #hios-full {
   border-radius: 10px;
   right: 0;
   top: 0;
   width: 300px;
-}
-#hios-mini > img.hios-thumbnail {
-  display: inline-block;
-  border-radius: 5px;
-  box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
-  max-height: 100px;
-  padding: 0;
-}
-#hios-full > img.hios-thumbnail {
-  display: block;
-  border-radius: 5px;
-  box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
-  max-height: 200px;
-  max-width: 200px;
-  margin: 0 auto;
-  padding: 10px;
-}
-.hios-wrap{
-  float: right;
-  margin: 15px 0px;
-  width: 190px;
-}
-.hios-wrap > .hios-info, .hios-wrap > .hios-track-controls{
-  display: block;
-  margin: 0 auto;
-  text-align: center;
-}
 #hios-full > .hios-info {
   display: block;
   margin: 0 auto;
