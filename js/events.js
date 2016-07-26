@@ -9,6 +9,7 @@
   // renderTrackLxfist
   // any click on trackList-  state.currentTrack, state.completedQue, state.nextQue should update
 
+'use strict';
 APP.attachListeners = function(){
 
   //LISTENING FOR: USER MANIPULATION

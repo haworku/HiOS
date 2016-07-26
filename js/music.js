@@ -1,4 +1,5 @@
-const music = [
+'use strict';
+var music = [
   {
     'title': '6 Inch',
     'artist': 'Beyonce',

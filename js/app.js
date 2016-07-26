@@ -1,3 +1,4 @@
+'use strict';
 var APP = {};
 
 APP.state = { 

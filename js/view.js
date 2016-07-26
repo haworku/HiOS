@@ -1,3 +1,4 @@
+'use strict';
 var View = function () {
   this.HTML = '<p> The HTML Skeleton</p';
 };
