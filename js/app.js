@@ -16,6 +16,7 @@ APP.view.buildHTML();
 APP.view.defineSelectors();
 APP.view.populateCurrentTrack(APP.state.currentTrack);
 
-APP.player = new AudioPlayer(APP.state.currentTrack.source);
+APP.player = Object.create(audioPlayer);
+APP.player.audio = new Audio(APP.state.currentTrack.source);
 APP.player.audio.play();
 
