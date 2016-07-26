@@ -11,6 +11,13 @@ body {
 .hios-activated{
   background-color: red;
 }
+.hios-track-controls > img{
+  display: inline-block;
+  text-align: center;
+  padding: 1px;
+  height: 30px;
+  width: 30px;
+}
 .hios-wrap {
   display: inline-flex;
   flex-flow: row;
@@ -55,22 +62,26 @@ body {
   right: 0;
   top: 0;
   width: 300px;
-#hios-full > .hios-info {
+  padding-top: 25px;
+  &> img.hios-thumbnail {
+    display: block;
+    border-radius: 5px;
+    box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
+    margin: 0 auto;
+    width: 85%;
+  }
+  &> .hios-info, .hios-track-controls {
   display: block;
   margin: 0 auto;
   text-align: center;
   margin: 10px;
-}
-.hios-track-controls > img{
-  display: inline-block;
-  height: 30px;
-  width: 30px;
-}
-#hios-full > .hios-track-controls{
-  display: block;
-  margin: 0 auto;
-  text-align: center;
-  margin-bottom: 10px;
+    &> .hios-song-title{
+      font-weight: bold;
+    }
+    &> .hios-song-artist{
+      color: firebrick;
+    }
+  }
 }
 #hios-full > .hios-list-controls {
   display: block;
@@ -78,58 +89,38 @@ body {
   padding: 3px;
   width: 280px;
   text-align: right;
-}
-#hios-full > .hios-list-controls > img {
-  display: inline-block;
-  height: 20px;
-  width: 30px;
-  border-radius: 3px;
+  &> img {
+    display: inline-block;
+    height: 20px;
+    width: 30px;
+    border-radius: 3px;
+  }
 }
 #hios-full > .hios-track-list {
   display: block;
   position: relative;
   max-height: 400px;
+  min-height: 100px;
   overflow: scroll;
-}
-#hios-full > .hios-track-list > .track{
-  height: 100
-}
-.track > img.hios-thumbnail {
-  display: inline block;
-  border-radius: 5px;
-  box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
-  max-height: 75px;
-  max-width: 75px;
-  margin: 0 auto;
-  padding: 3px;
-}
-.track {
-display: block;
-margin: 0 auto;
-padding: 5px;
-} 
-.track > .hios-wrap > .hios-song-title, .track > .hios-wrap > .hios-song-artist{
-    display: block;
-}
-
-input[type=range]{
-    -webkit-appearance: none;
-    width: 275px;
-}
-
-input[type=range]::-webkit-slider-runnable-track {
-    width: 275px;
-    height: 5px;
-    background: #ddd;
-    border-radius: 3px;
-}
-
-input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    border: none;
-    height: 16px;
-    width: 5px;
-    background: goldenrod;
-    margin-top: -4px;
+  z-index: 85;
+  &> .track {
+  height: 100px;
+  z-index: 99;
+    &>img.hios-thumbnail {
+      display: inline block;
+      border-radius: 5px;
+      box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
+      max-width: 20%;
+      flex: 1 auto;
+      margin: 0 auto;
+    }
+    &> .hios-info{
+      flex:  1 auto;
+      padding: 15px;
+      &> .hios-song-title{
+        font-weight: bold;
+      }
+    }
+  }
 }
 
