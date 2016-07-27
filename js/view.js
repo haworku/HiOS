@@ -19,6 +19,8 @@ View.prototype.defineSelectors = function(){
     loop: document.querySelector('.hios-loop'),
     volumeSlider: document.querySelector('.hios-volume'),
     trackingSlider: document.querySelector('.hios-tracking'),
+    trackingTimeProgress: document.querySelector('#hios-tracking-progress'),
+    trackingTimeDuration: document.querySelector('#hios-tracking-duration'),
     minify: document.querySelector('#hios-minify'),
     fullify: document.querySelector('#hios-fullify'),
     trackList: document.querySelectorAll('.track'),
@@ -38,9 +40,15 @@ View.prototype.populateCurrentTrack = function (currentTrack, duration) {
   });
 };
 
+View.prototype.getTime = function (t) {
+  var m=~~(t/60), s=~~(t % 60);
+  return (m<10?"0"+m:m)+':'+(s<10?"0"+s:s);
+};
+
 View.prototype.resetSliders = function (duration) {
   this.selectors.trackingSlider.setAttribute('max', duration);
-  this.selectors.trackingSlider.setAttribute('value', 0);
+  this.selectors.trackingTimeDuration.innerHTML = this.getTime(duration);
+  this.selectors.trackingSlider.setAttribute.value = 0;
 };
 
 View.prototype.play = function (bool){
@@ -61,6 +69,7 @@ View.prototype.loop = function (bool){
   bool ? this.selectors.loop.className = 'hios-loop hios-activated' : this.selectors.loop.className = 'hios-loop';
 };
 
+
 View.prototype.swapSkin = function(skin) {
   document.querySelector('.hios-active').className = 'hios-inactive';
   var containerName = skin + 'Container';
@@ -71,9 +80,13 @@ View.prototype.adjustVolumeSlider = function(number) {
   // adjusts volume display based on user manipulation
 };
 
-View.prototype.adjustTrackingSlider = function(number) {
+View.prototype.tracking = function(currentTime, duration) {
   // adjusts tracking based on user manipulation OR timechange
-  this.selectors.trackingSlider.setAttribute('value', number);
+  this.selectors.trackingSlider.value = currentTime;
+  this.selectors.trackingSlider.setAttribute('value', currentTime);
+  this.selectors.trackingTimeProgress.innerHTML = APP.view.getTime(currentTime);
+  this.selectors.trackingTimeDuration.innerHTML= "-" + APP.view.getTime(duration-currentTime);
+
 };
 
 View.prototype.renderTrackList= function(currentTrack) {

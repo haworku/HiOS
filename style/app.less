@@ -24,10 +24,41 @@ body {
   justify-content: space-between;
   align-items: center;
 }
+input[type=range]{
+    -webkit-appearance: none;
+    width: 275px;
+  &::-webkit-slider-runnable-track {
+    width: 275px;
+    height: 5px;
+    background: #484848;
+    border-radius: 3px;
+  }
+  // &::-webkit-slider-thumb:before {
+  //   position: absolute;
+  //   width:100%
+  //   top: 0;
+  //   right: 50%;
+  //   left: -200px;
+  //   background: white;
+  //   content: '';
+  //   height: 5px;
+  //   border-radius: 3px;
+  // }
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 11px;
+    width: 4px;
+    position: relative;
+    background: white;
+    margin-top: -3px
+  }
+}
+
 #hios-mini, #hios-full {
   display: none;
   position: fixed;
-  background-color: whitesmoke;
+  background-color: gainsboro;
   border-radius: 10px;
   padding: 10px;
   margin: 5px 5px;

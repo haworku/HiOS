@@ -8,7 +8,8 @@
   // loop track versus loop playlist
   // renderTrackLxfist
   // any click on trackList-  state.currentTrack, state.completedQue, state.nextQue should update
-'use strict';
+'use strict'
+
 APP.attachListeners = function(){
 
   //LISTENING FOR: USER MANIPULATION
@@ -59,7 +60,7 @@ APP.attachListeners = function(){
   // })
 
   APP.view.selectors.trackingSlider.addEventListener('change', function(e){
-    APP.player.audio.currentTime = APP.view.selectors.trackingSlider.value
+    APP.player.audio.currentTime = APP.view.selectors.trackingSlider.value;
   });
 
 // LISTENING FOR: AUDIO PLAYER EVENTS
@@ -70,7 +71,6 @@ APP.attachListeners = function(){
 
   APP.player.audio.addEventListener('loadedmetadata', function(e){
     APP.view.resetSliders(parseInt(APP.player.audio.duration,10));
-    APP.view.adjustTrackingSlider(0);
   });
 
   APP.player.audio.addEventListener('pause', function(e) {
@@ -83,7 +83,9 @@ APP.attachListeners = function(){
   });
 
   APP.player.audio.addEventListener('timeupdate', function(e){
-    APP.handleEvent('trackingchange');  
+    e.preventDefault();
+    APP.handleEvent('trackingchange');
+
   });
 
   APP.player.audio.addEventListener('volumechange', function(e){
@@ -148,7 +150,7 @@ APP.handleEvent = function (event) {
       break;
 
     case 'trackingchange':
-       APP.view.adjustTrackingSlider(parseInt(APP.player.audio.currentTime, 10));
+      APP.view.tracking(parseInt(APP.player.audio.currentTime, 10), parseInt(APP.player.audio.duration, 10));
       break;
 
     case 'volumechange':

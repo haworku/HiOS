@@ -39,7 +39,15 @@
       <div id="hios-full" class="">
         <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
 
-         <input class="hios-tracking hios-track-controls" type="range" value="0" min="0" max="100" name="tracking" autocomplete="off">
+        <output for="tracking" id="hios-tracking-progress">1.00</output>
+        <input 
+          id= "tracking" 
+          class="hios-tracking hios-track-controls" 
+          type="range" 
+          value= "0" min="0" max="100" 
+          >
+        <output for="tracking" id="hios-tracking-duration">10.00</output>
+        
 
         <div class ="hios-info full">
           <div class="hios-song-title"></div>
