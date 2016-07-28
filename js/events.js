@@ -8,7 +8,7 @@
   // loop track versus loop playlist
   // renderTrackLxfist
   // any click on trackList-  state.currentTrack, state.completedQue, state.nextQue should update
-'use strict'
+'use strict';
 
 APP.attachListeners = function(){
 
@@ -16,7 +16,7 @@ APP.attachListeners = function(){
   APP.view.selectors.playPause.forEach(function (selector){
     selector.addEventListener('click', function (e){
       e.preventDefault();
-      APP.state.playing ? APP.player.audio.pause() :  APP.player.audio.play();
+      APP.handleEvent('playpause')
     });
   });
   
@@ -65,18 +65,8 @@ APP.attachListeners = function(){
   });
 
 // LISTENING FOR: AUDIO PLAYER EVENTS
- APP.player.audio.addEventListener('play', function(e){
-    // console.log(e);
-    APP.handleEvent('play'); 
-  });
-
   APP.player.audio.addEventListener('loadedmetadata', function(e){
     APP.view.resetSliders(parseInt(APP.player.audio.duration,10));
-  });
-
-  APP.player.audio.addEventListener('pause', function(e) {
-    // console.log(e);
-    APP.handleEvent('pause');
   });
 
   APP.player.audio.addEventListener('ended', function(e) {
@@ -95,14 +85,16 @@ APP.attachListeners();
 
 APP.handleEvent = function (event) {
   switch (event){
-    case 'play':
-      APP.state.playing = true;
-      APP.view.play(true);
-      break;
+    case 'playpause':
+      if (APP.state.playing) {
+        APP.player.audio.pause(); 
+        APP.view.play(false);
+      } else {
+        APP.player.audio.play();
+        APP.view.play(true);
+      }
+      APP.state.playing = !APP.state.playing;
 
-    case 'pause':
-      APP.view.play(false);
-      APP.state.playing = false;
       break;
 
     case 'next':
@@ -112,6 +104,7 @@ APP.handleEvent = function (event) {
       APP.view.populateCurrentTrack(APP.state.currentTrack);
       console.log(APP.state.playing);
       APP.state.playing ? APP.player.audio.play() : APP.player.audio.pause();
+
       break;
 
     case 'previous':
@@ -120,8 +113,7 @@ APP.handleEvent = function (event) {
         APP.state.currentTrack =  APP.state.completeQue.shift();
         APP.player.update({time: 0, source: APP.state.currentTrack.source});
         APP.view.populateCurrentTrack(APP.state.currentTrack);
-        APP.state.playing ? APP.player.audio.play() : APP.player.audio.pause();
-       
+        APP.state.playing ? APP.player.audio.play() : APP.player.audio.pause();  
       } else {
         APP.handleEvent('replay');
       }
@@ -131,6 +123,7 @@ APP.handleEvent = function (event) {
     case 'replay':
       APP.player.update(APP.state.playing, {time: 0});
       APP.state.playing ? APP.player.audio.play() : APP.player.audio.pause();
+
       break;
 
     case 'shuffle':
@@ -144,10 +137,12 @@ APP.handleEvent = function (event) {
       APP.state.loop = !APP.state.loop;
       APP.player.audio.loop = APP.state.loop;
       APP.view.loop(APP.state.loop);
+
       break;
 
     case 'trackingchange':
       APP.view.tracking(parseInt(APP.player.audio.currentTime, 10), parseInt(APP.player.audio.duration, 10));
+
       break;
 
     default: 
