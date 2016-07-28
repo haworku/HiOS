@@ -11,12 +11,12 @@ APP.state = {
 };
 APP.state.currentTrack =  APP.state.nextQue.shift();
 
-APP.view = new View;
+APP.view = Object.create(hiosView);
 APP.view.buildHTML();
 APP.view.defineSelectors();
 APP.view.populateCurrentTrack(APP.state.currentTrack);
 
-APP.player = Object.create(audioPlayer);
+APP.player = Object.create(hiosPlayer);
 APP.player.audio = new Audio(APP.state.currentTrack.source);
 APP.player.audio.play();
 

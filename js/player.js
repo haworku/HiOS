@@ -1,6 +1,6 @@
 'use strict';
 
-var audioPlayer = {
+var hiosPlayer = {
   audio: {}, // this is the HTML5 audio object
   update: function(options) {
     this.audio.currentTime = (options.time || this.audio.currentTime);
