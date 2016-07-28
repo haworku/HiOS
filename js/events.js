@@ -66,8 +66,8 @@ APP.attachListeners = function(){
 
 // LISTENING FOR: AUDIO PLAYER EVENTS
   APP.player.audio.addEventListener('loadedmetadata', function(e){
-    APP.view.resetSliders(parseInt(APP.player.audio.duration,10));
-  });
+    APP.view.resetTrackingSlider(parseInt(APP.player.audio.duration,10));
+  }); 
 
   APP.player.audio.addEventListener('ended', function(e) {
     APP.handleEvent('next');

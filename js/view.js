@@ -38,10 +38,10 @@ var hiosView = {
     var m=~~(t/60), s=~~(t % 60);
     return (m<10?"0"+m:m)+':'+(s<10?"0"+s:s);
   },
-  resetSliders: function (duration) {
+  resetTrackingSlider: function (duration) {
     this.selectors.trackingSlider.setAttribute('max', duration);
     this.selectors.trackingTimeDuration.innerHTML = this.getTime(duration);
-    this.selectors.trackingSlider.setAttribute.value = 0;
+    this.selectors.trackingSlider.setAttribute('value', 0);
   },
   play: function (bool){
     if (bool) {
