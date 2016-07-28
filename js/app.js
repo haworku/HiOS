@@ -5,6 +5,7 @@ APP.state = {
   completeQue: [], 
   nextQue: music, 
   currentTrack: {}, 
+  volume: .5,
   playing: true, 
   shuffle: false, 
   loop: false 
@@ -18,5 +19,5 @@ APP.view.populateCurrentTrack(APP.state.currentTrack);
 
 APP.player = Object.create(hiosPlayer);
 APP.player.audio = new Audio(APP.state.currentTrack.source);
-APP.player.audio.play();
+APP.player.audio.play({volume: .5});
 

@@ -65,9 +65,6 @@ var hiosView = {
     this.selectors.trackingTimeProgress.innerHTML = APP.view.getTime(currentTime);
     this.selectors.trackingTimeDuration.innerHTML= "-" + APP.view.getTime(duration-currentTime);
   },
-  volume: function () {
-
-  },
   swapSkin: function(skin) {
     document.querySelector('.hios-active').className = 'hios-inactive';
     var containerName = skin + 'Container';
@@ -77,12 +74,3 @@ var hiosView = {
   // rerender track list array
   },
 };
-
-
-
-// View.prototype.adjustVolumeSlider = function(number) {
-//   // adjusts volume display based on user manipulation
-// };
-
-
-View.prototype.

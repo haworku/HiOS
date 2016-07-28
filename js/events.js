@@ -55,9 +55,10 @@ APP.attachListeners = function(){
    APP.view.swapSkin('full');
   });
 
-  // APP.view.selectors.volumeSlider.addEventListener('change', function(e){
-  //   APP.handleEvent('volumechange');
-  // })
+  APP.view.selectors.volumeSlider.addEventListener('change', function(e){
+    APP.player.audio.volume= APP.view.selectors.volumeSlider.value;
+    APP.state.volume = APP.player.audio.volume
+  })
 
   APP.view.selectors.trackingSlider.addEventListener('change', function(e){
     APP.player.audio.currentTime = APP.view.selectors.trackingSlider.value;
@@ -88,11 +89,6 @@ APP.attachListeners = function(){
 
   });
 
-  APP.player.audio.addEventListener('volumechange', function(e){
-    // console.log(e);
-    // APP.handleEvent(volumechange)
-  });
-
 };
 
 APP.attachListeners(); 
@@ -114,6 +110,7 @@ APP.handleEvent = function (event) {
       APP.state.currentTrack =  APP.state.nextQue.shift();
       APP.player.update({time: 0, source: APP.state.currentTrack.source});
       APP.view.populateCurrentTrack(APP.state.currentTrack);
+      console.log(APP.state.playing);
       APP.state.playing ? APP.player.audio.play() : APP.player.audio.pause();
       break;
 
@@ -151,9 +148,6 @@ APP.handleEvent = function (event) {
 
     case 'trackingchange':
       APP.view.tracking(parseInt(APP.player.audio.currentTime, 10), parseInt(APP.player.audio.duration, 10));
-      break;
-
-    case 'volumechange':
       break;
 
     default: 
