@@ -3,7 +3,6 @@
   //    - this would simplify APP.handleEvent() greatly, removing all overlapping references to player and view
 
 // TO DO 
-  // volume slider
   // shuffle 
   // loop track versus loop playlist
   // renderTrackLxfist
@@ -12,11 +11,11 @@
 
 APP.attachListeners = function(){
 
-  //LISTENING FOR: USER MANIPULATION
+  // USER MANIPULATION
   APP.view.selectors.playPause.forEach(function (selector){
     selector.addEventListener('click', function (e){
       e.preventDefault();
-      APP.handleEvent('playpause')
+      APP.handleEvent('playpause');
     });
   });
   
@@ -56,15 +55,17 @@ APP.attachListeners = function(){
   });
 
   APP.view.selectors.volumeSlider.addEventListener('change', function(e){
-    APP.player.audio.volume= APP.view.selectors.volumeSlider.value;
-    APP.state.volume = APP.player.audio.volume
+    APP.handleEvent('volume');
   })
 
   APP.view.selectors.trackingSlider.addEventListener('change', function(e){
-    APP.player.audio.currentTime = APP.view.selectors.trackingSlider.value;
+    APP.handleEvent('tracking');
   });
 
-// LISTENING FOR: AUDIO PLAYER EVENTS
+// AUDIO PLAYER EVENTS
+// -wait to set tracking sliders until duration data has loaded
+// -play next song when song ends
+// -dynamically update tracking slider, progress, and duration display as song plays
   APP.player.audio.addEventListener('loadedmetadata', function(e){
     APP.view.resetTrackingSlider(parseInt(APP.player.audio.duration,10));
   }); 
@@ -75,8 +76,7 @@ APP.attachListeners = function(){
 
   APP.player.audio.addEventListener('timeupdate', function(e){
     e.preventDefault();
-    APP.handleEvent('trackingchange');
-
+    APP.view.tracking(parseInt(APP.player.audio.currentTime, 10), parseInt(APP.player.audio.duration, 10));
   });
 
 };
@@ -102,8 +102,8 @@ APP.handleEvent = function (event) {
       APP.state.currentTrack =  APP.state.nextQue.shift();
       APP.player.update({time: 0, source: APP.state.currentTrack.source});
       APP.view.populateCurrentTrack(APP.state.currentTrack);
-      console.log(APP.state.playing);
-      APP.state.playing ? APP.player.audio.play() : APP.player.audio.pause();
+      APP.view.renderTrackList(APP.state.nextQue);
+      if (APP.state.playing) APP.player.audio.play();
 
       break;
 
@@ -113,7 +113,8 @@ APP.handleEvent = function (event) {
         APP.state.currentTrack =  APP.state.completeQue.shift();
         APP.player.update({time: 0, source: APP.state.currentTrack.source});
         APP.view.populateCurrentTrack(APP.state.currentTrack);
-        APP.state.playing ? APP.player.audio.play() : APP.player.audio.pause();  
+        APP.view.renderTrackList(APP.state.nextQue);
+        if (APP.state.playing) APP.player.audio.play(); 
       } else {
         APP.handleEvent('replay');
       }
@@ -122,7 +123,7 @@ APP.handleEvent = function (event) {
 
     case 'replay':
       APP.player.update(APP.state.playing, {time: 0});
-      APP.state.playing ? APP.player.audio.play() : APP.player.audio.pause();
+      if (APP.state.playing) APP.player.audio.play();
 
       break;
 
@@ -140,11 +141,16 @@ APP.handleEvent = function (event) {
 
       break;
 
-    case 'trackingchange':
-      APP.view.tracking(parseInt(APP.player.audio.currentTime, 10), parseInt(APP.player.audio.duration, 10));
-
+    case 'tracking':
+      APP.player.audio.currentTime = APP.view.selectors.trackingSlider.value;
+      // the rest is adjusted through audio player listneners
       break;
 
+    case 'volume':
+      APP.player.audio.volume = APP.view.selectors.volumeSlider.value;
+      APP.state.volume = APP.player.audio.volume;
+
+      break;
     default: 
       console.log('default');
       break;
