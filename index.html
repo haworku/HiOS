@@ -19,103 +19,107 @@
   </head>
 
   <body>
-  <button id="hios-minify">Mini</button>
-  <button id="hios-fullify">Full</button>
-    
-    <div class="container-fluid" id="hios-main-container">
+  <div id="hios-app">
+    <button id="hios-minify" data-state="swap">Mini</button>
+    <button id="hios-fullify" data-state="swap">Full</button>
+      
+      <div class="container-fluid" id="hios-main-container">
 
-      <div id="hios-mini" class="hios-active">
-        <div class="hios-wrap mini">
+        <div id="hios-mini" class="hios-active">
+          <div class="hios-wrap mini">
+            <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
+            <div class="hios-song-title"></div>
+            <div class="hios-track-controls mini">
+              <img class= "hios-play-pause" data-state="playpause" src="static/images/controls/ios7-play.png" >
+              <img class="hios-next" data-state="next" src="static/images/controls/ios7-fastforward.png" >
+            </div>
+          </div>
+        </div>
+      
+
+        <div id="hios-full" class="">
           <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
-          <div class="hios-song-title"></div>
-          <div class="hios-track-controls mini">
-            <img class= "hios-play-pause" src="static/images/controls/ios7-play.png" >
-            <img class="hios-next" src="static/images/controls/ios7-fastforward.png" >
-          </div>
-        </div>
-      </div>
-    
 
-      <div id="hios-full" class="">
-        <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
-
-        <output for="tracking" id="hios-tracking-progress">1.00</output>
-        <input 
-          id= "tracking" 
-          class="hios-tracking hios-track-controls" 
-          type="range" 
-          value= "0" min="0" max="100" 
-        >
-        <output for="tracking" id="hios-tracking-duration">10.00</output>
-        
-
-        <div class ="hios-info full">
-          <div class="hios-song-title"></div>
-          <div class="hios-song-artist"></div>
-        </div>
-
-        <div class="hios-track-controls full">
-          <img class="hios-previous" src="static/images/controls/ios7-rewind.png">
-          <img class= "hios-play-pause" src="static/images/controls/ios7-play.png">
-          <img class="hios-next" src="static/images/controls/ios7-fastforward.png">
-        </div>
-
-        <input 
-          class="hios-volume hios-track-controls" 
-          type="range" 
-          value=".5" min="0" max="1" step= ".01"
-        >
-        
-        <div class="hios-list-controls full">
-          <img 
-            class="hios-shuffle" 
-            src="static/images/controls/shuffle.png"
+          <output for="tracking" id="hios-tracking-progress">1.00</output>
+          <input 
+            id= "tracking" 
+            class="hios-tracking hios-track-controls" 
+            type="range" 
+            data-state="tracking"
+            value= "0" min="0" max="100" 
           >
-          <img 
-            class="hios-loop" 
-            src="static/images/controls/ios7-loop.png"
-          >
-        </div>
-     
-        <div class="hios-track-list">
-          <div class= "track hios-wrap">
-            <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
-            <div class="hios-info">
-              <div class="hios-song-title">adfd</div>
-              <div class="hios-song-artist">dasfasdf</div>
-            </div>
-          </div>
-          <div class= "track hios-wrap">
-            <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
-            <div class="hios-info">
-              <div class="hios-song-title">adfd</div>
-              <div class="hios-song-artist">dasfasdf</div>
-            </div>
-          </div>
-          <div class="track hios-wrap">
-            <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
-            <div class="hios-info">
-              <div class="hios-song-title">adfd</div>
-              <div class="hios-song-artist">dasfasdf</div>
-            </div>
-          </div>
-          <div class= "track hios-wrap">
-            <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
-            <div class="hios-info">
-              <div class="hios-song-title">adfd</div>
-              <div class="hios-song-artist">dasfasdf</div>
-            </div>
-          </div>
-          <div class= "track hios-wrap">
-            <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
-            <div class="hios-info">
-              <div class="hios-song-title">adfd</div>
-              <div class="hios-song-artist">dasfasdf</div>
-            </div>
-          </div>
-      </div>
+          <output for="tracking" id="hios-tracking-duration">10.00</output>
+          
 
-    </div>
+          <div class ="hios-info full">
+            <div class="hios-song-title"></div>
+            <div class="hios-song-artist"></div>
+          </div>
+
+          <div class="hios-track-controls full">
+            <img class="hios-previous" data-state="previous" src="static/images/controls/ios7-rewind.png">
+            <img class= "hios-play-pause" data-state="playpause"  src="static/images/controls/ios7-play.png">
+            <img class="hios-next" data-state="next" src="static/images/controls/ios7-fastforward.png">
+          </div>
+
+          <input 
+            class="hios-volume hios-track-controls" 
+            type="range" 
+            data-state="volume"
+            value=".5" min="0" max="1" step= ".01"
+          >
+          
+          <div class="hios-list-controls full">
+            <img 
+              class="hios-shuffle" 
+              src="static/images/controls/shuffle.png"
+            >
+            <img 
+              class="hios-loop" 
+              src="static/images/controls/ios7-loop.png"
+            >
+          </div>
+       
+          <div class="hios-track-list">
+            <div class= "track hios-wrap">
+              <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
+              <div class="hios-info">
+                <div class="hios-song-title">adfd</div>
+                <div class="hios-song-artist">dasfasdf</div>
+              </div>
+            </div>
+            <div class= "track hios-wrap">
+              <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
+              <div class="hios-info">
+                <div class="hios-song-title">adfd</div>
+                <div class="hios-song-artist">dasfasdf</div>
+              </div>
+            </div>
+            <div class="track hios-wrap">
+              <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
+              <div class="hios-info">
+                <div class="hios-song-title">adfd</div>
+                <div class="hios-song-artist">dasfasdf</div>
+              </div>
+            </div>
+            <div class= "track hios-wrap">
+              <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
+              <div class="hios-info">
+                <div class="hios-song-title">adfd</div>
+                <div class="hios-song-artist">dasfasdf</div>
+              </div>
+            </div>
+            <div class= "track hios-wrap">
+              <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
+              <div class="hios-info">
+                <div class="hios-song-title">adfd</div>
+                <div class="hios-song-artist">dasfasdf</div>
+              </div>
+            </div>
+        </div>
+
+      </div>
+  </div>
     
     <script src="/dist/script.js"></script>
 

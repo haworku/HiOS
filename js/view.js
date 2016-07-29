@@ -6,6 +6,7 @@ var hiosView = {
   }, 
   defineSelectors: function(){
     this.selectors = {
+      appContainer: document.querySelector("#hios-app"),
       miniContainer: document.querySelector('#hios-mini'),
       fullContainer: document.querySelector('#hios-full'),
       playPause: [document.querySelector('.mini > .hios-play-pause'), document.querySelector('.full > .hios-play-pause')],
@@ -24,6 +25,9 @@ var hiosView = {
       artist: document.querySelector('.full > .hios-song-artist'),
       thumbnail: [document.querySelector('.mini > .hios-thumbnail'), document.querySelector('#hios-full >.hios-thumbnail'), document.querySelector('.track >.hios-thumbnail')]
     };
+  },
+  getContainer: function (){
+    return this.selectors.appContainer;
   },
   populateCurrentTrack: function (currentTrack, duration) {
     this.selectors.title[0].innerHTML = currentTrack.title;

@@ -1,72 +1,26 @@
-// REFACTORING
-  // state listener for any change on APP.state (adjusts player and the view immediately)
-  //    - this would simplify APP.handleEvent() greatly, removing all overlapping references to player and view
-
 // TO DO 
   // loop track versus loop playlist
   // renderTrackList
   // any click on trackList-  state.currentTrack, state.completedQue, state.nextQue should update
 'use strict';
 
-APP.attachListeners = function(){
-
+APP.attachListeners = function(e){
+ 
   // USER MANIPULATION
-  APP.view.selectors.playPause.forEach(function (selector){
-    selector.addEventListener('click', function (e){
-      e.preventDefault();
-      APP.handleEvent('playpause');
-    });
-  });
-  
-  APP.view.selectors.next.forEach(function (selector){
-    selector.addEventListener('click', function (e){
-      e.preventDefault();
-      APP.handleEvent('next');
-    });
-  });
+  var container = APP.view.getContainer();
 
-  APP.view.selectors.previous.addEventListener('click', function(e){
-    e.preventDefault();
-    APP.handleEvent('replay');
-  });
+  container.addEventListener('click', function (e){
+    APP.handleEvent(e);
+  }, false);
 
-  APP.view.selectors.previous.addEventListener('dblclick', function(e){
-    e.preventDefault();
-    APP.handleEvent('previous');
-  });
+  container.addEventListener('dbclick', function (e){
+    APP.handleEvent(e);
+  }, false);
 
-  APP.view.selectors.shuffle.addEventListener('click', function(e){
-    e.preventDefault();
-    APP.handleEvent('shuffle');
-  });
-
-  APP.view.selectors.loop.addEventListener('click', function(e){
-    e.preventDefault();
-    APP.handleEvent('loop');
-  });
-  
-  APP.view.selectors.minify.addEventListener('click', function(e){
-    APP.view.swapSkin('mini');
-  });
-
-  APP.view.selectors.fullify.addEventListener('click', function(e){
-   APP.view.swapSkin('full');
-  });
-
-  APP.view.selectors.volumeSlider.addEventListener('change', function(e){
-    APP.handleEvent('volume');
-  })
-
-  APP.view.selectors.trackingSlider.addEventListener('change', function(e){
-    APP.handleEvent('tracking');
-  });
-
-// AUDIO PLAYER EVENTS
-// -wait to set tracking sliders until duration data has loaded
-// -play next song when song ends
-// -dynamically update tracking slider, progress, and duration display as song plays
+  // AUDIO PLAYER 
   APP.player.audio.addEventListener('loadedmetadata', function(e){
-    APP.view.resetTrackingSlider(parseInt(APP.player.audio.duration,10));
+    // wait to set tracking sliders until duration data loads
+    APP.view.resetTrackingSlider(parseInt(APP.player.audio.duration,10)); 
   }); 
 
   APP.player.audio.addEventListener('ended', function(e) {
@@ -74,22 +28,27 @@ APP.attachListeners = function(){
   });
 
   APP.player.audio.addEventListener('timeupdate', function(e){
-    e.preventDefault();
-    APP.view.tracking(parseInt(APP.player.audio.currentTime, 10), parseInt(APP.player.audio.duration, 10));
+    // dynamically update tracking slider, progress, and duration display as song plays
+    APP.view.tracking(parseInt(APP.player.audio.currentTime, 10), parseInt(APP.player.audio.duration, 10)); 
   });
 
 };
 
 APP.attachListeners(); 
 
-APP.handleEvent = function (event) {
-  switch (event){
+APP.handleEvent = function (e) {
+  // console.log(e)
+  var target = e.target || e.srcElement;
+
+  if (e.preventDefault) { 
+    e.preventDefault();
+  }
+
+  switch (target.getAttribute('data-state')){
     case 'playpause':
       if (APP.state.playing) {
-        APP.player.audio.pause(); 
         APP.view.play(false);
       } else {
-        APP.player.audio.play();
         APP.view.play(true);
       }
       APP.state.playing = !APP.state.playing;
@@ -102,27 +61,21 @@ APP.handleEvent = function (event) {
       APP.player.update({time: 0, source: APP.state.currentTrack.source});
       APP.view.populateCurrentTrack(APP.state.currentTrack);
       APP.view.renderTrackList(APP.state.nextQue);
-      if (APP.state.playing) APP.player.audio.play();
 
       break;
 
     case 'previous':
-      if (APP.state.completeQue.length > 0) {
+      if (e.type == 'click' && APP.state.completeQue.length > 0){ 
+       // if single click and there are previous tracks, go back one song
         APP.state.nextQue.unshift(APP.state.currentTrack);
         APP.state.currentTrack =  APP.state.completeQue.shift();
         APP.player.update({time: 0, source: APP.state.currentTrack.source});
         APP.view.populateCurrentTrack(APP.state.currentTrack);
         APP.view.renderTrackList(APP.state.nextQue);
-        if (APP.state.playing) APP.player.audio.play(); 
       } else {
-        APP.handleEvent('replay');
+      // otherwise replay current song
+        APP.player.update(APP.state.playing, {time: 0});
       }
-     
-      break;
-
-    case 'replay':
-      APP.player.update(APP.state.playing, {time: 0});
-      if (APP.state.playing) APP.player.audio.play();
 
       break;
 
@@ -152,8 +105,14 @@ APP.handleEvent = function (event) {
       APP.state.volume = APP.player.audio.volume;
 
       break;
+    case 'swap':
+      target.getAttribute('id') == 'hios-minify' ? APP.view.swapSkin('mini') : APP.view.swapSkin('full');
+
+      break;
+ 
     default: 
       console.log('default');
       break;
   }
+  APP.state.playing ? APP.player.audio.play() :  APP.player.audio.pause()
 };
