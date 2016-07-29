@@ -3,9 +3,8 @@
   //    - this would simplify APP.handleEvent() greatly, removing all overlapping references to player and view
 
 // TO DO 
-  // shuffle 
   // loop track versus loop playlist
-  // renderTrackLxfist
+  // renderTrackList
   // any click on trackList-  state.currentTrack, state.completedQue, state.nextQue should update
 'use strict';
 
@@ -130,8 +129,10 @@ APP.handleEvent = function (event) {
     case 'shuffle':
       APP.state.shuffle = !APP.state.shuffle;
       APP.view.shuffle(APP.state.shuffle);
-      // APP.nextQue.shuffle()
-      // renderTrackList based on shuffle status
+      if (APP.state.shuffle) {
+        APP.state.nextQue = APP.state.nextQue.hiosShuffle();
+        APP.view.renderTrackList(APP.state.nextQue);
+      }
       break;
 
     case 'loop':
