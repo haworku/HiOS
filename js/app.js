@@ -17,9 +17,9 @@ APP.view.buildHTML();
 APP.view.defineSelectors();
 APP.view.populateCurrentTrack(APP.state.currentTrack);
 
-APP.player = Object.create(hiosPlayer);
-APP.player.audio = new Audio(APP.state.currentTrack.source);
-APP.player.audio.play({volume: .5});
+APP.player = hiosPlayer();
+APP.player.init(APP.state.currentTrack.source);
+APP.player.play(true);
 
 
 

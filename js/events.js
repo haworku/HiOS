@@ -18,18 +18,18 @@ APP.attachListeners = function(e){
   }, false);
 
   // AUDIO PLAYER 
-  APP.player.audio.addEventListener('loadedmetadata', function(e){
+  APP.player.audio().addEventListener('loadedmetadata', function(e){
     // wait to set tracking sliders until duration data loads
-    APP.view.resetTracking(parseInt(APP.player.audio.duration,10)); 
+    APP.view.resetTracking(parseInt(APP.player.audio().duration,10)); 
   }); 
 
-  APP.player.audio.addEventListener('ended', function(e) {
+  APP.player.audio().addEventListener('ended', function(e) {
     APP.handleEvent('next');
   });
 
-  APP.player.audio.addEventListener('timeupdate', function(e){
+  APP.player.audio().addEventListener('timeupdate', function(e){
     // dynamically update tracking slider, progress, and duration display as song plays
-    APP.view.tracking(parseInt(APP.player.audio.currentTime, 10), parseInt(APP.player.audio.duration, 10)); 
+    APP.view.tracking(parseInt(APP.player.audio().currentTime, 10), parseInt(APP.player.audio().duration, 10)); 
   });
 
 };
@@ -40,10 +40,8 @@ APP.handleEvent = function (e) {
   // console.log(e)
   var target = e.target || e.srcElement;
 
-  if (e.preventDefault) { 
-    e.preventDefault();
-  }
-
+  if (e.preventDefault) e.preventDefault();
+  
   switch (target.getAttribute('data-state')){
     case 'playpause':
       if (APP.state.playing) {
@@ -90,19 +88,19 @@ APP.handleEvent = function (e) {
 
     case 'loop':
       APP.state.loop = !APP.state.loop;
-      APP.player.audio.loop = APP.state.loop;
+      APP.player.audio().loop = APP.state.loop;
       APP.view.loop(APP.state.loop);
 
       break;
 
     case 'tracking':
-      APP.player.audio.currentTime = APP.view.getSelectorProperty('tracking', 'value');
+      APP.player.audio().currentTime = APP.view.getSelectorProperty('tracking', 'value');
       // the rest is adjusted through audio player listneners
       break;
 
     case 'volume':
-      APP.player.audio.volume = APP.view.getSelectorProperty('volume', 'value');
-      APP.state.volume = APP.player.audio.volume;
+      APP.player.audio().volume = APP.view.getSelectorProperty('volume', 'value');
+      APP.state.volume = APP.player.audio().volume;
 
       break;
     case 'swap':
@@ -114,5 +112,5 @@ APP.handleEvent = function (e) {
       console.log('default');
       break;
   }
-  APP.state.playing ? APP.player.audio.play() :  APP.player.audio.pause()
+  APP.player.play(APP.state.playing); //player remains played or paused
 };

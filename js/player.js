@@ -1,12 +1,24 @@
 'use strict';
 
-var hiosPlayer = {
-  audio: {}, // this is the HTML5 audio object
-  update: function(options) {
-    this.audio.currentTime = (options.time || this.audio.currentTime);
-    this.audio.src= (options.source || this.audio.src);
-    this.audio.volume = (options.volume || this.audio.volume);
-  }
+var hiosPlayer = function () {
+  var audio = {}; // this is the HTML5 audio object
+
+  return {
+    init: function (src){
+      audio = new Audio(src);
+    },
+    update: function (options) {
+      audio.currentTime = (options.time || audio.currentTime);
+      audio.src= (options.source || audio.src);
+      audio.volume = (options.volume || audio.volume);
+    },
+    play: function (bool) {
+      bool ? audio.play() : audio.pause();
+    },
+    audio: function () {
+      return audio;
+    }
+  };
 };
 
 
