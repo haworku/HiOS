@@ -12,7 +12,7 @@ APP.state = {
 };
 APP.state.currentTrack =  APP.state.nextQue.shift();
 
-APP.view = Object.create(hiosView);
+APP.view = hiosView();
 APP.view.buildHTML();
 APP.view.defineSelectors();
 APP.view.populateCurrentTrack(APP.state.currentTrack);

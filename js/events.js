@@ -20,7 +20,7 @@ APP.attachListeners = function(e){
   // AUDIO PLAYER 
   APP.player.audio.addEventListener('loadedmetadata', function(e){
     // wait to set tracking sliders until duration data loads
-    APP.view.resetTrackingSlider(parseInt(APP.player.audio.duration,10)); 
+    APP.view.resetTracking(parseInt(APP.player.audio.duration,10)); 
   }); 
 
   APP.player.audio.addEventListener('ended', function(e) {
@@ -96,12 +96,12 @@ APP.handleEvent = function (e) {
       break;
 
     case 'tracking':
-      APP.player.audio.currentTime = APP.view.selectors.trackingSlider.value;
+      APP.player.audio.currentTime = APP.view.getSelectorProperty('tracking', 'value');
       // the rest is adjusted through audio player listneners
       break;
 
     case 'volume':
-      APP.player.audio.volume = APP.view.selectors.volumeSlider.value;
+      APP.player.audio.volume = APP.view.getSelectorProperty('volume', 'value');
       APP.state.volume = APP.player.audio.volume;
 
       break;
