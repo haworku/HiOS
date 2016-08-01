@@ -1,7 +1,7 @@
 // TO DO 
-  // loop track versus loop playlist
   // renderTrackList
-  // any click on trackList-  state.currentTrack, state.completedQue, state.nextQue should update
+  // any click on trackList plays that track
+  
 'use strict';
 
 APP.attachListeners = function(e){
@@ -19,7 +19,7 @@ APP.attachListeners = function(e){
 
   // AUDIO PLAYER 
   APP.player.audio().addEventListener('loadedmetadata', function(e){
-    // wait to set tracking sliders until duration data loads
+    // wait to set tracking until duration data loads
     APP.view.resetTracking(parseInt(APP.player.audio().duration,10)); 
   }); 
 
@@ -28,7 +28,7 @@ APP.attachListeners = function(e){
   });
 
   APP.player.audio().addEventListener('timeupdate', function(e){
-    // dynamically update tracking slider, progress, and duration display as song plays
+    // dynamically update tracking as song plays
     APP.view.tracking(parseInt(APP.player.audio().currentTime, 10), parseInt(APP.player.audio().duration, 10)); 
   });
 
@@ -37,12 +37,16 @@ APP.attachListeners = function(e){
 APP.attachListeners(); 
 
 APP.handleEvent = function (e) {
-  // console.log(e)
+  console.log(e)
+  if (e.preventDefault) e.preventDefault();
+
+  // event element  - will be undefined if parameter is not event object
   var target = e.target || e.srcElement;
 
-  if (e.preventDefault) e.preventDefault();
+  // if event, get data-state, else directly assign parameter to string variable
+  var string = target ? target.getAttribute('data-state') : e;
   
-  switch (target.getAttribute('data-state')){
+  switch (string){
     case 'playpause':
       if (APP.state.playing) {
         APP.view.play(false);
@@ -54,24 +58,32 @@ APP.handleEvent = function (e) {
       break;
 
     case 'next':
-      APP.state.completeQue.unshift(APP.state.currentTrack);
-      APP.state.currentTrack =  APP.state.nextQue.shift();
-      APP.player.update({time: 0, source: APP.state.currentTrack.source});
-      APP.view.populateCurrentTrack(APP.state.currentTrack);
-      APP.view.renderTrackList(APP.state.nextQue);
+      if (APP.state.nextQue.length > 0) { // if more songs left
+        APP.state.completeQue.unshift(APP.state.currentTrack);
+        APP.state.currentTrack =  APP.state.nextQue.shift();
+        APP.player.update({time: 0, source: APP.state.currentTrack.source});
+        APP.view.populateCurrentTrack(APP.state.currentTrack);
+        APP.view.renderTrackList(APP.state.nextQue);
+      } else if (APP.state.loopAll) { //if looping playlist
+        APP.reset();
+        APP.view.populateCurrentTrack(APP.state.currentTrack);
+        APP.player.update({source:APP.state.currentTrack.source, volume: .5, currentTime: 0});
+      } else {
+          console.log('no more songs')
+      }
 
       break;
 
     case 'previous':
       if (e.type == 'click' && APP.state.completeQue.length > 0){ 
-       // if single click and there are previous tracks, go back one song
+       // single click go back one song
         APP.state.nextQue.unshift(APP.state.currentTrack);
         APP.state.currentTrack =  APP.state.completeQue.shift();
         APP.player.update({time: 0, source: APP.state.currentTrack.source});
         APP.view.populateCurrentTrack(APP.state.currentTrack);
         APP.view.renderTrackList(APP.state.nextQue);
       } else {
-      // otherwise replay current song
+      // dblclick or no completed songs replays current song
         APP.player.update(APP.state.playing, {time: 0});
       }
 
@@ -87,15 +99,23 @@ APP.handleEvent = function (e) {
       break;
 
     case 'loop':
-      APP.state.loop = !APP.state.loop;
-      APP.player.audio().loop = APP.state.loop;
-      APP.view.loop(APP.state.loop);
+      if (e.type == 'click'){ 
+      // single click loops current track
+        APP.state.loopCurrent = !APP.state.loopCurrent;
+        APP.player.audio().loop = APP.state.loopCurrent;
+        APP.view.loop(APP.state.loopCurrent);
+      } else {
+      //dblclick loops entire playlist
+        APP.state.loopAll = !APP.state.loopAll;
+        // APP.view.loopAll(APP.state.loopAll);
+        console.log(APP.state.loopAll);
+      }
 
       break;
 
-    case 'tracking':
+    case 'tracking':  // audio player listneners also at work here
       APP.player.audio().currentTime = APP.view.getSelectorProperty('tracking', 'value');
-      // the rest is adjusted through audio player listneners
+   
       break;
 
     case 'volume':
