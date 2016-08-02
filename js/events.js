@@ -1,7 +1,8 @@
 // TO DO 
   // renderTrackList
   // any click on trackList plays that track
-  
+
+/*global APP*/
 'use strict';
 
 APP.attachListeners = function(e){
@@ -13,9 +14,9 @@ APP.attachListeners = function(e){
     APP.handleEvent(e);
   }, false);
 
-  container.addEventListener('dbclick', function (e){
-    APP.handleEvent(e);
-  }, false);
+  // container.addEventListener('dbclick', function (e){
+  //   APP.handleEvent(e);
+  // }, false);
 
   // AUDIO PLAYER 
   APP.player.audio().addEventListener('loadedmetadata', function(e){
@@ -37,7 +38,6 @@ APP.attachListeners = function(e){
 APP.attachListeners(); 
 
 APP.handleEvent = function (e) {
-  console.log(e)
   if (e.preventDefault) e.preventDefault();
 
   // event element  - will be undefined if parameter is not event object
@@ -124,7 +124,9 @@ APP.handleEvent = function (e) {
 
       break;
     case 'swap':
-      target.getAttribute('id') == 'hios-minify' ? APP.view.swapSkin('mini') : APP.view.swapSkin('full');
+      target.getAttribute('id') == 'hios-minify' 
+        ? APP.view.swapSkin('mini') 
+        : APP.view.swapSkin('full');
 
       break;
  

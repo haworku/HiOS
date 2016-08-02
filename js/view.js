@@ -39,7 +39,7 @@ var hiosView = function () {
     getSelectorProperty: function (selector, property){
       return  selectors[selector][property];
     },
-    populateCurrentTrack: function (currentTrack, duration) {
+    populateCurrentTrack: function (currentTrack) {
       selectors.title[0].innerHTML = currentTrack.title;
       selectors.title[1].innerHTML = currentTrack.title;
       selectors.artist.innerHTML = currentTrack.artist;
@@ -62,8 +62,14 @@ var hiosView = function () {
         selectors.playPause[1].setAttribute('src' ,'static/images/controls/ios7-pause.png');
       }
     },
-    shuffle: function (bool){
-      bool ? selectors.shuffle.className = 'hios-shuffle hios-activated' : selectors.shuffle.className = 'hios-shuffle';
+    /**
+     * shuffle
+     * 
+     * @param  {Boolan} shuffle shuffle flag
+     */
+    shuffle: function (shuffle) {
+      // bool ? selectors.shuffle.className = 'hios-shuffle hios-activated' : selectors.shuffle.className = 'hios-shuffle';
+      selectors.shuffle.className = shuffle === true ? 'hios-shuffle hios-activated' : 'hios-shuffle';
     },
     loop: function (bool){
       bool ? selectors.loop.className = 'hios-loop hios-activated' : selectors.loop.className = 'hios-loop';
