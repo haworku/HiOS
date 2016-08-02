@@ -2,6 +2,21 @@
 var APP = {};
 APP.state = {};
 
+APP.reset = function () {
+  APP.state = { 
+    completeQue: [], 
+    nextQue: music, 
+    currentTrack: {}, 
+    volume: .5,
+    playing: true, 
+    shuffle: false, 
+    loopCurrent: false,
+    loopAll: false
+  };
+
+ APP.state.currentTrack =  APP.state.nextQue.shift();
+};
+
 APP.reset();
 
 APP.view = hiosView();
@@ -26,19 +41,3 @@ Array.prototype.hiosShuffle = function () {
   }
   return this;
 };
-
-APP.reset = function () {
-  APP.state = { 
-    completeQue: [], 
-    nextQue: music, 
-    currentTrack: {}, 
-    volume: .5,
-    playing: true, 
-    shuffle: false, 
-    loopCurrent: false,
-    loopAll: false
-  };
-
- APP.state.currentTrack =  APP.state.nextQue.shift();
-}
-}
