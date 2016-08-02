@@ -29,7 +29,7 @@
           <div class="hios-wrap mini">
             <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
             <div class="hios-song-title"></div>
-            <div class="hios-track-controls mini">
+            <div class="hios-audio-controls mini">
               <img class= "hios-play-pause" data-state="playpause" src="static/images/controls/ios7-play.png" >
               <img class="hios-next" data-state="next" src="static/images/controls/ios7-fastforward.png" >
             </div>
@@ -37,37 +37,44 @@
         </div>
       
 
-        <div id="hios-full" class="">
+        <div id="hios-full" class="hios-inactive hios-wrap">
           <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
-
-          <output for="tracking" id="hios-tracking-progress">1.00</output>
-          <input 
-            id= "tracking" 
-            class="hios-tracking hios-track-controls" 
-            type="range" 
-            data-state="tracking"
-            value= "0" min="0" max="100" 
-          >
-          <output for="tracking" id="hios-tracking-duration">10.00</output>
+          <div class ="hios-wrap hios-tracking-container">
+            <input 
+              id= "tracking" 
+              class="hios-tracking hios-track-controls" 
+              type="range" 
+              data-state="tracking"
+              value= "0" min="0" max="100" 
+            >
+            <output 
+              for="tracking" 
+              id="hios-tracking-progress">
+              1.00
+            </output>
+            <output 
+              for="tracking" 
+              id="hios-tracking-duration">
+              10.00
+            </output>
+          </div>
           
-
           <div class ="hios-info full">
             <div class="hios-song-title"></div>
             <div class="hios-song-artist"></div>
           </div>
 
-          <div class="hios-track-controls full">
+          <div class="hios-audio-controls full">
             <img class="hios-previous" data-state="previous" src="static/images/controls/ios7-rewind.png">
             <img class= "hios-play-pause" data-state="playpause"  src="static/images/controls/ios7-play.png">
             <img class="hios-next" data-state="next" src="static/images/controls/ios7-fastforward.png">
+            <input 
+              class="hios-volume hios-track-controls" 
+              type="range" 
+              data-state="volume"
+              value=".5" min="0" max="1" step= ".01"
+            >
           </div>
-
-          <input 
-            class="hios-volume hios-track-controls" 
-            type="range" 
-            data-state="volume"
-            value=".5" min="0" max="1" step= ".01"
-          >
           
           <div class="hios-list-controls full">
             <img 
