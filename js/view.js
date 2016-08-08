@@ -35,10 +35,10 @@ var hiosView = function () {
         trackingTimeDuration: document.querySelector('#hios-tracking-duration'),
         minify: document.querySelector('#hios-minify'),
         fullify: document.querySelector('#hios-fullify'),
-        trackList: document.querySelectorAll('.track'),
+        trackList: document.querySelectorAll('.hios-track'),
         title: [document.querySelector('.mini > .hios-song-title'), document.querySelector('.full > .hios-song-title')],
         artist: document.querySelector('.full > .hios-song-artist'),
-        thumbnail: [document.querySelector('.mini > .hios-thumbnail'), document.querySelector('#hios-full >.hios-thumbnail'), document.querySelector('.track >.hios-thumbnail')],
+        thumbnail: [document.querySelector('.mini > .hios-thumbnail'), document.querySelector('#hios-full > .hios-cover-container > .hios-cover'), document.querySelector('.hios-track >.hios-thumbnail')],
         trackList: document.querySelector('#hios-track-list'),
       };
     },
