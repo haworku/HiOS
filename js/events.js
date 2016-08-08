@@ -17,6 +17,18 @@ APP.attachListeners = function(e){
   // container.addEventListener('dbclick', function (e){
   //   APP.handleEvent(e);
   // }, false);
+  container.addEventListener('mousedown', function (e){
+    console.log('mousedown')
+    APP.mousedown = true;
+    console.log(APP.mousedown)
+  }, false);
+
+  container.addEventListener('mouseup', function (e){
+    APP.mousedown = false;
+  }, false);
+
+
+ 
 
   // AUDIO PLAYER 
   APP.player.audio().addEventListener('loadedmetadata', function(e){
@@ -30,7 +42,10 @@ APP.attachListeners = function(e){
 
   APP.player.audio().addEventListener('timeupdate', function(e){
     // dynamically update tracking as song plays
-    APP.view.tracking(parseInt(APP.player.audio().currentTime, 10), parseInt(APP.player.audio().duration, 10)); 
+    if (APP.mousedown == false) 
+      APP.view.tracking(
+        parseInt(APP.player.audio().currentTime, 10), parseInt(APP.player.audio().duration, 10)
+      ); 
   });
 
 };
@@ -114,7 +129,7 @@ APP.handleEvent = function (e) {
       break;
 
     case 'tracking':  // audio player listneners also at work here
-      APP.player.audio().currentTime = APP.view.getSelectorProperty('tracking', 'value');
+        APP.player.audio().currentTime = APP.view.getSelectorProperty('tracking', 'value');
    
       break;
 
