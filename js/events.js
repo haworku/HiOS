@@ -118,7 +118,7 @@ APP.handleEvent = function (e) {
 
     case 'loop':
       if (!APP.state.loopCurrent && !APP.state.loopAll){ 
-      // first click loops current track
+        // first click loops current track
         APP.state.loopCurrent = true;
         APP.player.audio().loop = APP.state.loopCurrent;
         APP.view.loop('current');

@@ -11,12 +11,17 @@ body {
 .hios-activated{
   background-color: red;
 }
-.hios-audio-controls > img{
-  display: inline-block;
-  text-align: center;
-  padding: 1px;
-  height: 30px;
-  width: 30px;
+.hios-audio-controls, .hios-list-controls {
+  font-size: 2em;
+  &i {
+    padding: .1em;
+    font-size: 2em;
+    transition: font-size .1s ease;
+
+    &:hover {
+      font-size: 1.2em;
+    }
+  }
 }
 .hios-wrap {
   display: inline-flex;
@@ -58,6 +63,7 @@ body {
     }
   }
 }
+
 #hios-full {
   right: 0;
   top: 0;

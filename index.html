@@ -15,7 +15,7 @@
 
     <link rel="shortcut icon" type="image/png" href="/static/images/favicon.png" />
     <link rel="stylesheet" href="dist/style.css" />
-
+    <link rel="stylesheet" href="static/icon/style.css">
   </head>
 
   <body>
@@ -30,8 +30,8 @@
             <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
             <div class="hios-song-title"></div>
             <div class="hios-audio-controls mini">
-              <img class= "hios-play-pause" data-state="playpause" src="static/images/controls/ios7-play.png" >
-              <img class="hios-next" data-state="next" src="static/images/controls/ios7-fastforward.png" >
+                <i class="hios-play-pause icon-play" data-state="playpause" ></i>
+                <i class="hios-next icon-skip-forward" data-state="next"></i>
             </div>
           </div>
         </div>
@@ -68,9 +68,9 @@
           </div>
 
           <div class="hios-audio-controls full">
-            <img class="hios-previous" data-state="previous" src="static/images/controls/ios7-rewind.png">
-            <img class= "hios-play-pause" data-state="playpause"  src="static/images/controls/ios7-play.png">
-            <img class="hios-next" data-state="next" src="static/images/controls/ios7-fastforward.png">
+            <i class="hios-control hios-previous icon-skip-back" data-state="previous" ></i>
+            <i class="hios-control hios-play-pause icon-play" data-state="playpause" ></i>
+            <i class="hios-control hios-next icon-skip-forward" data-state="next"></i>
             <input 
               class="hios-volume hios-track-controls" 
               type="range" 

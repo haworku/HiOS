@@ -62,19 +62,19 @@ var hiosView = function () {
       selectors.trackingTimeDuration.innerHTML = getTime(duration);
       selectors.tracking.setAttribute('value', 0);
     },
-    play: function (bool){
-      if (bool) {
-        selectors.playPause[0].setAttribute('src','static/images/controls/ios7-play.png');
-        selectors.playPause[1].setAttribute('src','static/images/controls/ios7-play.png');
+    play: function (playing){
+      if (playing === true) {
+        selectors.playPause[0].className = 'hios-play-pause icon-play';
+        selectors.playPause[1].className = 'hios-play-pause icon-play';
       } else {
-        selectors.playPause[0].setAttribute('src' ,'static/images/controls/ios7-pause.png');
-        selectors.playPause[1].setAttribute('src' ,'static/images/controls/ios7-pause.png');
+        selectors.playPause[0].className = 'hios-play-pause icon-pause';
+        selectors.playPause[1].className = 'hios-play-pause icon-pause';
       }
     },
     /**
      * shuffle
      * 
-     * @param  {Boolan} shuffle shuffle flag
+     * @param  {Boolean} shuffling 
      */
     shuffle: function (shuffling) {
       selectors.shuffle.className = shuffling === true ? 'hios-shuffle hios-activated' : 'hios-shuffle';
