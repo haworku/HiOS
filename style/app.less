@@ -29,7 +29,7 @@ body {
   position: fixed;
   background-color: gainsboro;
   border-radius: 10px;
-  padding: 10px;
+  padding: .4em;
   margin: .3em .3em;
   bottom: 0;
   z-index: 90
@@ -41,7 +41,7 @@ body {
   &> .hios-wrap {
     &> img.hios-thumbnail {
       display: inline-block;
-      border-radius: 5px;
+      border-radius: .3em;
       box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
       max-width: 20%;
       flex: 1 auto;
@@ -59,10 +59,13 @@ body {
   }
 }
 #hios-full {
-  border-radius: 10px;
+  border-radius: .5em;
   right: 0;
   top: 0;
+  bottom: 0;
   width: 300px;
+  min-height: 450px;
+  padding-bottom:.3em;
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
@@ -72,9 +75,9 @@ body {
     flex: 0 1 auto;
     align-self: center;
     display: block;
-    border-radius: 5px;
+    border-radius: .3em;
     box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
-    width: 85%;
+    width: 90%;
   }
   &> .hios-tracking-container, .hios-info, .hios-audio-controls {
     flex: 0 1 auto;
@@ -131,7 +134,7 @@ body {
     }
   }
   &> .hios-list-controls {
-    display: block;
+    flex: 0 1 auto;
     border-top: 1px solid black;
     padding: 3px;
     width: 280px;
@@ -145,32 +148,28 @@ body {
     }
   }
 }
-
 .hios-track-list {
   flex: 0 1 auto;
-  display: flex;
-  flex-flow: row nowrap;
-  position: relative;
-  max-height: 400px;
-  min-height: 100px;
+  display: block;
+  padding: .4em;
   overflow: scroll;
-  margin-bottom: .3em;
-  z-index: 91;
   &> .track {
-    height: 100px;
-    z-index: 85;
-    flex: 0 1 auto;
+    height: 4em;
+    padding: .3em;
+    display: flex;
+    flex-flow: row nowrap;
+   
     &>img.hios-thumbnail {
       display: inline block;
       border-radius: 5px;
       box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
       max-width: 20%;
-      flex: 1 auto;
+      flex: 0 1 auto;
       margin: 0 auto;
     }
     &> .hios-info{
-      flex:  1 auto;
-      padding: 15px;
+      flex: 0 1 auto;
+      padding: .4em;
       &> .hios-song-title{
         font-weight: bold;
         text-align: left;

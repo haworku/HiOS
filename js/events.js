@@ -4,6 +4,7 @@
 
 /*global APP*/
 'use strict';
+APP.mousedown = false;
 
 APP.attachListeners = function(e){
  
@@ -14,9 +15,10 @@ APP.attachListeners = function(e){
     APP.handleEvent(e);
   }, false);
 
-  // container.addEventListener('dbclick', function (e){
-  //   APP.handleEvent(e);
-  // }, false);
+  container.addEventListener('dblclick', function (e){
+    APP.handleEvent(e);
+  }, false);
+
   container.addEventListener('mousedown', function (e){
     console.log('mousedown')
     APP.mousedown = true;
@@ -84,22 +86,23 @@ APP.handleEvent = function (e) {
         APP.view.populateCurrentTrack(APP.state.currentTrack);
         APP.player.update({source:APP.state.currentTrack.source, volume: .5, currentTime: 0});
       } else {
-          console.log('no more songs')
+          console.log('no more songs');
       }
 
       break;
 
     case 'previous':
-      if (e.type == 'click' && APP.state.completeQue.length > 0){ 
-       // single click go back one song
+      if (e.type == 'click' || APP.state.completeQue.length < 1){ 
+       // single click or no completed songs replays current song  
+        APP.player.update(APP.state.playing, {time: 0});
+      } else {
+      // dblclick go back one song
         APP.state.nextQue.unshift(APP.state.currentTrack);
         APP.state.currentTrack =  APP.state.completeQue.shift();
         APP.player.update({time: 0, source: APP.state.currentTrack.source});
         APP.view.populateCurrentTrack(APP.state.currentTrack);
         APP.view.renderTrackList(APP.state.nextQue);
-      } else {
-      // dblclick or no completed songs replays current song
-        APP.player.update(APP.state.playing, {time: 0});
+        
       }
 
       break;
@@ -114,16 +117,23 @@ APP.handleEvent = function (e) {
       break;
 
     case 'loop':
-      if (e.type == 'click'){ 
-      // single click loops current track
-        APP.state.loopCurrent = !APP.state.loopCurrent;
+      if (!APP.state.loopCurrent && !APP.state.loopAll){ 
+      // first click loops current track
+        APP.state.loopCurrent = true;
         APP.player.audio().loop = APP.state.loopCurrent;
-        APP.view.loop(APP.state.loopCurrent);
-      } else {
-      //dblclick loops entire playlist
-        APP.state.loopAll = !APP.state.loopAll;
+        APP.view.loop('current');
+      } else if (!APP.state.loopAll) {
+      //second click loops entire playlist
+        APP.state.loopCurrent = false;
+        APP.state.loopAll = true;
+        APP.view.loop('all');
         // APP.view.loopAll(APP.state.loopAll);
         console.log(APP.state.loopAll);
+      }else{
+        //third click turns off all looping
+        APP.state.loopCurrent = false;
+        APP.state.loopAll = false;
+        APP.view.loop(null);
       }
 
       break;

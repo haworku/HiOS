@@ -1,6 +1,14 @@
 'use strict';
 var hiosView = function () {
   var selectors = {};
+  var trackHTML = `<div class="track hios-wrap">
+      <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
+      <div class="hios-info">
+        <div class="hios-song-title">adfd</div>
+        <div class="hios-song-artist">dasfasdf</div>
+      </div>
+    </div>`;
+
   var getTime = function (t) {
     var m=~~(t/60), s=~~(t % 60);
     return (m<10?"0"+m:m)+':'+(s<10?"0"+s:s);
@@ -30,7 +38,8 @@ var hiosView = function () {
         trackList: document.querySelectorAll('.track'),
         title: [document.querySelector('.mini > .hios-song-title'), document.querySelector('.full > .hios-song-title')],
         artist: document.querySelector('.full > .hios-song-artist'),
-        thumbnail: [document.querySelector('.mini > .hios-thumbnail'), document.querySelector('#hios-full >.hios-thumbnail'), document.querySelector('.track >.hios-thumbnail')]
+        thumbnail: [document.querySelector('.mini > .hios-thumbnail'), document.querySelector('#hios-full >.hios-thumbnail'), document.querySelector('.track >.hios-thumbnail')],
+        trackList: document.querySelector('#hios-track-list'),
       };
     },
     getContainer: function (){
@@ -67,12 +76,24 @@ var hiosView = function () {
      * 
      * @param  {Boolan} shuffle shuffle flag
      */
-    shuffle: function (shuffle) {
-      // bool ? selectors.shuffle.className = 'hios-shuffle hios-activated' : selectors.shuffle.className = 'hios-shuffle';
-      selectors.shuffle.className = shuffle === true ? 'hios-shuffle hios-activated' : 'hios-shuffle';
+    shuffle: function (shuffling) {
+      selectors.shuffle.className = shuffling === true ? 'hios-shuffle hios-activated' : 'hios-shuffle';
     },
-    loop: function (bool){
-      bool ? selectors.loop.className = 'hios-loop hios-activated' : selectors.loop.className = 'hios-loop';
+    loop: function (loopType){
+      switch (loopType){
+        case 'current':
+          console.log('loop current')
+          selectors.loop.className = 'hios-loop hios-activated'
+          break;
+        case 'all':
+          console.log('loop all')
+          selectors.loop.className = 'hios-loop hios-activated'
+          break;
+        default:
+          console.log('loop nothing')
+          selectors.loop.className = 'hios-loop'
+          break;
+      }
     },
     tracking: function(currentTime, duration) {
     // adjusts tracking based on user manipulation OR timechange
@@ -87,6 +108,11 @@ var hiosView = function () {
       selectors[containerName].className = 'hios-active';
     },
     renderTrackList: function(nextQue) {
+      // nextQue.forEach(function (track){
+      //   var trackNode = trackHTML;
+      //   trackNode..querySelector('.hios-song-title').innerHTML = track.title
+      //   selectors.trackList.appendChild(trackNode)
+      // })
     // rerender track list array
     },
   };
