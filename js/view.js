@@ -38,7 +38,7 @@ var hiosView = function () {
         trackList: document.querySelectorAll('.hios-track'),
         title: [document.querySelector('.mini > .hios-song-title'), document.querySelector('.full > .hios-song-title')],
         artist: document.querySelector('.full > .hios-song-artist'),
-        thumbnail: [document.querySelector('.mini > .hios-thumbnail'), document.querySelector('#hios-full > .hios-cover-container > .hios-cover'), document.querySelector('.hios-track >.hios-thumbnail')],
+        thumbnail: [document.querySelector('.mini > .hios-thumbnail'), document.querySelector('#hios-full > .hios-artwork-container > .hios-artwork'), document.querySelector('.hios-track >.hios-thumbnail')],
         trackList: document.querySelector('#hios-track-list'),
       };
     },

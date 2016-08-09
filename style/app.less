@@ -24,7 +24,7 @@ body {
   }
 }
 .hios-wrap {
-  display: inline-flex;
+  display: flex;
   flex-flow: row;
   justify-content: space-between;
   align-items: center;
@@ -70,23 +70,17 @@ body {
   width: 20em;
   display: flex;
   flex-flow: column nowrap;
-  justify-content: flex-start;
   align-items: center;
-  &> .hios-cover-container{
-    flex: 1 0 auto;
-    width: 100%;
-    display: flex;
+  &> .hios-artwork-container{
+    flex: 1 1 30%;
     align-self: flex-start;
-    flex-flow: row wrap;
-    justify-content: center;
-    align-items: center;
-    &>img.hios-cover{
-    flex: 0 1 auto;
+    min-height: 20em;
+    display: flex;
+    &>img.hios-artwork{
     margin: 1em;
-    align-self: center;
     border-radius: .3em;
     box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
-    width: 90%;
+    width: 100%;
     }
   }
   &> .hios-tracking-container, .hios-info, .hios-audio-controls, .hios-list-controls {
@@ -141,13 +135,6 @@ body {
       color: firebrick;
     }
   }
-    &> img {
-      margin-top: .3em;
-      display: inline-block;
-      height: 20px;
-      width: 30px;
-      border-radius: 3px;
-    }
   
 }
 .hios-track-list {
