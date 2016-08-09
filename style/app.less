@@ -23,6 +23,28 @@ body {
     }
   }
 }
+input[type=range]{
+  -webkit-appearance: none;
+  width: 25em;
+  cursor: pointer;
+  background: none;
+  &::-webkit-slider-runnable-track {
+    height: 5px;
+    background: #484848;
+    border-radius: 3px;
+  }
+  &::-webkit-slider-thumb:before {
+  }
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 11px;
+    width: 4px;
+    position: relative;
+    background: white;
+    margin-top: -3px
+  }
+}
 .hios-wrap {
   display: flex;
   flex-flow: row;
@@ -83,62 +105,61 @@ body {
     width: 100%;
     }
   }
-  &> .hios-tracking-container, .hios-info, .hios-audio-controls, .hios-list-controls {
-    flex: 1 0 auto;
-    // height: 10em;
-    // width: 100%;
-    display: flex-inline;
-    flex-flow: row wrap;
-    align-content: center;
-    text-align: center;
-    &> output {
-      padding-top: .3em;
-      margin: 0;
-      font-size: .7em;
-      color: #484848;
-      &#hios-tracking-progres{
-        align-self: flex-start;
-      }
-      &#hios-tracking-duration{
-        align-self: flex-end;
-      }
-    }
-    &> input[type=range]{
-      flex: 0 1 auto;
-      -webkit-appearance: none;
+  &> .hios-controls {
+    flex: 1 1 20%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    min-height: 4em;
+    width: 100%;
+    &>.hios-progress{
       width: 100%;
-      cursor: pointer;
-      padding: 0;
-      margin: 0;
-      background: none;
-      &::-webkit-slider-runnable-track {
-        height: 5px;
-        background: #484848;
-        border-radius: 3px;
+      flex: 0 1 auto;
+      display: flex;
+      flex-flow: column wrap;
+      justify-content: space-between;
+      &> input {
+        flex: 1 100%;
+        align-self: center;
       }
-      &::-webkit-slider-thumb:before {
+      &> output {
+        flex: 0 1 auto;
+        align-self:auto;
+        padding-top: .3em;
+        margin: 0;
+        font-size: .7em;
+        color: #484848;
       }
-      &::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        border: none;
-        height: 11px;
-        width: 4px;
-        position: relative;
-        background: white;
-        margin-top: -3px
+
+    }
+    &> .hios-audio, .hios-info, .hios-playback{
+        flex: 0 1 auto;
+        width: 100%;
+        text-align: center;
+      &>.hios-song-title{
+        font-weight: bold;
+      }
+      &>.hios-song-artist{
+        color: firebrick;
+      }
+      & .hios-audio{
+        flex: 0 1 auto;
+        display: flex;
+        align-items: center;
+        padding: 2em;
+        &> i {
+          flex: 1 1 33.33%;
+          margin-top: .3em;
+          border-radius: 3px;
+        }
       }
     }
-    &>.hios-song-title{
-      font-weight: bold;
-    }
-    &>.hios-song-artist{
-      color: firebrick;
-    }
+     
   }
   
 }
 .hios-track-list {
-  flex: 1 1 55%;
+  flex: 1 1 50%;
   margin: .4em;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
