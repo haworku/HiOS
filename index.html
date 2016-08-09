@@ -29,7 +29,7 @@
           <div class="hios-wrap mini">
             <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
             <div class="hios-song-title"></div>
-            <div class="hios-audio-controls mini">
+            <div class="hios-audio mini">
                 <i class="hios-play-pause icon-play" data-state="playpause" ></i>
                 <i class="hios-next icon-skip-forward" data-state="next"></i>
             </div>
@@ -50,17 +50,18 @@
                 data-state="tracking"
                 value= "0" min="0" max="100" 
               >
-     
-              <output 
-                for="tracking" 
-                id="hios-tracking-progress">
-                1.00
-              </output>
-              <output 
-                for="tracking" 
-                id="hios-tracking-duration">
-                10.00
-              </output>
+              <div id="tracking-output">
+                <output 
+                  for="tracking" 
+                  id="hios-tracking-progress">
+                  1.00
+                </output>
+                <output 
+                  for="tracking" 
+                  id="hios-tracking-duration">
+                  10.00
+                </output>
+              </div>
             </div>
             
             <div class ="hios-info full">
@@ -72,14 +73,14 @@
               <i class="hios-control hios-previous icon-skip-back" data-state="previous" ></i>
               <i class="hios-control hios-play-pause icon-play" data-state="playpause" ></i>
               <i class="hios-control hios-next icon-skip-forward" data-state="next"></i>
-              <input 
+            </div>
+            
+            <input 
                 class="hios-volume hios-track-controls" 
                 type="range" 
                 data-state="volume"
                 value=".5" min="0" max="1" step= ".01"
               >
-            </div>
-            
             <div class="hios-playback full">
           </div>
          <!--    <img 
