@@ -11,8 +11,12 @@ APP.attachListeners = function(e){
   // USER MANIPULATION
   var container = APP.view.getContainer();
 
-  container.addEventListener('click', function (e){
-    APP.handleEvent(e);
+  document.addEventListener('click', function (e){
+    if( !e.target.getAttribute('data-state') ){
+      APP.handleEvent('swap');
+    }else{
+      APP.handleEvent(e);
+    }
   }, false);
 
   container.addEventListener('dblclick', function (e){
@@ -61,7 +65,7 @@ APP.handleEvent = function (e) {
 
   // if event, get data-state, else directly assign parameter to string variable
   var string = target ? target.getAttribute('data-state') : e;
-  
+
   switch (string){
     case 'playpause':
       if (APP.state.playing) {
@@ -146,9 +150,11 @@ APP.handleEvent = function (e) {
 
       break;
     case 'swap':
-      target.getAttribute('id') == 'hios-minify' 
-        ? APP.view.swapSkin('mini') 
-        : APP.view.swapSkin('full');
+      if (target && target.getAttribute('id') == 'hios-minify'){
+        APP.view.swapSkin('mini');
+      }else{
+        APP.view.swapSkin('full');
+      }
 
       break;
  
