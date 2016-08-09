@@ -1,15 +1,14 @@
 'use strict';
 var hiosView = function () {
-  var selectors, trackHTML, getTime, populateCurrentTrack;
+  var selectors, trackHTML, appHTML, getTime, populateCurrentTrack;
 
   selectors = {};
-
-  trackHTML = 
-      `<img class="hios-thumbnail" src="/static/images/lemonade.jpg">
-        <div class="hios-info">
-          <div class="hios-song-title">adfd</div>
-          <div class="hios-song-artist">dasfasdf</div>
-        </div>`;
+  // appHTML = 
+  trackHTML = ` <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
+                <div class="hios-info">
+                  <div class="hios-song-title">adfd</div>
+                  <div class="hios-song-artist">dasfasdf</div>
+                </div> `;
 
   getTime = function (t) {
     var m=~~(t/60), s=~~(t % 60);
@@ -17,7 +16,6 @@ var hiosView = function () {
   };
 
   populateCurrentTrack = function (currentTrack) {
-    console.log(currentTrack);
     selectors.title[0].innerHTML = currentTrack.title;
     selectors.title[1].innerHTML = currentTrack.title;
     selectors.artist.innerHTML = currentTrack.artist;
@@ -29,6 +27,9 @@ var hiosView = function () {
 
   return { 
     buildHTML: function () {
+      var node =  document.createElement('div');
+      // node.className = 'hios-main-container';
+      // node.innerHTML = appHTML;
     // document.querySelector('body').appendChild = '<div id="hios-main-container"></div>';
     // document.querySelector('#hios-main-container').innerHTML = this.HTML;
     }, 
@@ -55,17 +56,29 @@ var hiosView = function () {
         trackList: document.querySelector('#hios-track-list'),
       };
     },
+
     getContainer: function (){
       return selectors.appContainer;
     },
     getSelectorProperty: function (selector, property){
       return  selectors[selector][property];
     },
+    /**
+     * resetTracking
+     * adjust tracking slider to beginning position and tracking duration time display
+     * called only once metadata has loaded
+     * @param  {Number} duration
+     */
     resetTracking: function (duration) {
       selectors.tracking.setAttribute('max', duration);
       selectors.trackingTimeDuration.innerHTML = getTime(duration);
       selectors.tracking.setAttribute('value', 0);
     },
+    /**
+     * play
+     * switch play/pause button display 
+     * @param  {Boolean} playing
+     */
     play: function (playing){
       if (playing === true) {
         selectors.playPause[0].className = 'hios-play-pause icon-play';
@@ -77,12 +90,17 @@ var hiosView = function () {
     },
     /**
      * shuffle
-     * 
+     * toggle shuffle button to active then back off after timeout
      * @param  {Boolean} shuffling 
      */
     shuffle: function (shuffling) {
       selectors.shuffle.className = shuffling === true ? 'hios-shuffle hios-activated' : 'hios-shuffle';
     },
+     /**
+     * loop
+     * toggle loop button depending on loop type, default: unactive
+     * @param  {String} loopType
+     */
     loop: function (loopType){
       switch (loopType){
         case 'current':
@@ -99,24 +117,38 @@ var hiosView = function () {
           break;
       }
     },
+    /**
+     * tracking
+     * adjusts tracking based on user manipulation OR timechange
+     * @param  {Number} currentTime, {Number} duration 
+     */
     tracking: function(currentTime, duration) {
-    // adjusts tracking based on user manipulation OR timechange
       selectors.tracking.value = currentTime;
       selectors.tracking.setAttribute('value', currentTime);
       selectors.trackingTimeProgress.innerHTML = getTime(currentTime);
       selectors.trackingTimeDuration.innerHTML= '-' + getTime(duration-currentTime);
     },
+    /**
+     * swapSkin
+     * changes display visibility of mini and full player
+     * @param  {String} skin
+     */
     swapSkin: function(skin) {
       document.querySelector('.hios-active').className = 'hios-inactive';
       var containerName = skin + 'Container';
       selectors[containerName].className = 'hios-active';
     },
+    /**
+     * updateTrackList
+     * re-renders all or part of track list based on action coming from event delegation
+     * re-renders currently playing track with populateCurrentTrack private method
+     * @param  {String} action, {Object} options hash
+     */
     updateTrackList: function(action, options) {
       var list = selectors.trackList
       switch (action){
         case 'removeTrack':
           if (options.track){
-            console.log(list)
             list.removeChild(list.childNodes[0]);
           };
           break;
@@ -128,7 +160,6 @@ var hiosView = function () {
             node.querySelector('.hios-song-title').innerHTML = options.add.title;
             node.querySelector('.hios-song-artist').innerHTML = options.add.artist;
             node.querySelector('.hios-thumbnail').setAttribute('src', options.add.image);
-            console.log('node', node)
             list.insertBefore(node, list.firstChild);
           };
           break;
@@ -150,8 +181,7 @@ var hiosView = function () {
           console.log('idk')
         break;
       }
-
-      populateCurrentTrack(options.track) //whenever track list updates, current track display updates
+      populateCurrentTrack(options.track) 
     },
   };
 };
