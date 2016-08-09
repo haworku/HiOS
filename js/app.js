@@ -22,7 +22,7 @@ APP.reset();
 APP.view = hiosView();
 APP.view.buildHTML();
 APP.view.defineSelectors();
-APP.view.populateCurrentTrack(APP.state.currentTrack);
+APP.view.updateTrackList('renderAll', {que: APP.state.nextQue, track: APP.state.currentTrack});
 
 APP.player = hiosPlayer();
 APP.player.init(APP.state.currentTrack.source);

@@ -20,9 +20,8 @@ APP.attachListeners = function(e){
   }, false);
 
   container.addEventListener('mousedown', function (e){
-    console.log('mousedown')
+    console.log('mousedown');
     APP.mousedown = true;
-    console.log(APP.mousedown)
   }, false);
 
   container.addEventListener('mouseup', function (e){
@@ -79,11 +78,10 @@ APP.handleEvent = function (e) {
         APP.state.completeQue.unshift(APP.state.currentTrack);
         APP.state.currentTrack =  APP.state.nextQue.shift();
         APP.player.update({time: 0, source: APP.state.currentTrack.source});
-        APP.view.populateCurrentTrack(APP.state.currentTrack);
-        APP.view.renderTrackList(APP.state.nextQue);
-      } else if (APP.state.loopAll) { //if looping playlist
+        APP.view.updateTrackList('removeTrack', {track: APP.state.currentTrack});
+      } else if (APP.state.loopAll) { //if no more songs left but looping playlist
         APP.reset();
-        APP.view.populateCurrentTrack(APP.state.currentTrack);
+        APP.view.updateTrackList('renderAll', {que: APP.state.nextQue, track: APP.state.currentTrack});
         APP.player.update({source:APP.state.currentTrack.source, volume: .5, currentTime: 0});
       } else {
           console.log('no more songs');
@@ -99,9 +97,8 @@ APP.handleEvent = function (e) {
       // dblclick go back one song
         APP.state.nextQue.unshift(APP.state.currentTrack);
         APP.state.currentTrack =  APP.state.completeQue.shift();
+        APP.view.updateTrackList('addTrack', {add: APP.state.nextQue[0], track: APP.state.currentTrack});
         APP.player.update({time: 0, source: APP.state.currentTrack.source});
-        APP.view.populateCurrentTrack(APP.state.currentTrack);
-        APP.view.renderTrackList(APP.state.nextQue);
         
       }
 
@@ -112,7 +109,7 @@ APP.handleEvent = function (e) {
       APP.view.shuffle(APP.state.shuffle);
       if (APP.state.shuffle) {
         APP.state.nextQue = APP.state.nextQue.hiosShuffle();
-        APP.view.renderTrackList(APP.state.nextQue);
+        APP.view.updateTrackList('renderAll', {que: APP.state.nextQue, track: APP.state.currentTrack});
       }
       break;
 

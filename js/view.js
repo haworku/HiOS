@@ -1,17 +1,30 @@
 'use strict';
 var hiosView = function () {
-  var selectors = {};
-  var trackHTML = `<div class="track hios-wrap">
-      <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
-      <div class="hios-info">
-        <div class="hios-song-title">adfd</div>
-        <div class="hios-song-artist">dasfasdf</div>
-      </div>
-    </div>`;
+  var selectors, trackHTML, getTime, populateCurrentTrack;
 
-  var getTime = function (t) {
+  selectors = {};
+
+  trackHTML = 
+      `<img class="hios-thumbnail" src="/static/images/lemonade.jpg">
+        <div class="hios-info">
+          <div class="hios-song-title">adfd</div>
+          <div class="hios-song-artist">dasfasdf</div>
+        </div>`;
+
+  getTime = function (t) {
     var m=~~(t/60), s=~~(t % 60);
     return (m<10?"0"+m:m)+':'+(s<10?"0"+s:s);
+  };
+
+  populateCurrentTrack = function (currentTrack) {
+    console.log(currentTrack);
+    selectors.title[0].innerHTML = currentTrack.title;
+    selectors.title[1].innerHTML = currentTrack.title;
+    selectors.artist.innerHTML = currentTrack.artist;
+    
+    selectors.thumbnail.forEach (function (img){
+      img.setAttribute('src', currentTrack.image);
+    });
   };
 
   return { 
@@ -35,10 +48,10 @@ var hiosView = function () {
         trackingTimeDuration: document.querySelector('#hios-tracking-duration'),
         minify: document.querySelector('#hios-minify'),
         fullify: document.querySelector('#hios-fullify'),
-        trackList: document.querySelectorAll('.hios-track'),
+        trackList: document.querySelector('#hios-track-list'),
         title: [document.querySelector('.mini > .hios-song-title'), document.querySelector('.full > .hios-song-title')],
         artist: document.querySelector('.full > .hios-song-artist'),
-        thumbnail: [document.querySelector('.mini > .hios-thumbnail'), document.querySelector('#hios-full > .hios-artwork-container > .hios-artwork'), document.querySelector('.hios-track >.hios-thumbnail')],
+        thumbnail: [document.querySelector('.mini > .hios-thumbnail'), document.querySelector('#hios-full > .hios-artwork-container > .hios-artwork')],
         trackList: document.querySelector('#hios-track-list'),
       };
     },
@@ -47,15 +60,6 @@ var hiosView = function () {
     },
     getSelectorProperty: function (selector, property){
       return  selectors[selector][property];
-    },
-    populateCurrentTrack: function (currentTrack) {
-      selectors.title[0].innerHTML = currentTrack.title;
-      selectors.title[1].innerHTML = currentTrack.title;
-      selectors.artist.innerHTML = currentTrack.artist;
-      
-      selectors.thumbnail.forEach (function (img){
-        img.setAttribute('src', currentTrack.image);
-      });
     },
     resetTracking: function (duration) {
       selectors.tracking.setAttribute('max', duration);
@@ -107,13 +111,47 @@ var hiosView = function () {
       var containerName = skin + 'Container';
       selectors[containerName].className = 'hios-active';
     },
-    renderTrackList: function(nextQue) {
-      // nextQue.forEach(function (track){
-      //   var trackNode = trackHTML;
-      //   trackNode..querySelector('.hios-song-title').innerHTML = track.title
-      //   selectors.trackList.appendChild(trackNode)
-      // })
-    // rerender track list array
+    updateTrackList: function(action, options) {
+      var list = selectors.trackList
+      switch (action){
+        case 'removeTrack':
+          if (options.track){
+            console.log(list)
+            list.removeChild(list.childNodes[0]);
+          };
+          break;
+        case 'addTrack':
+          if (options.track && options.add){
+            var node =  document.createElement('div');
+            node.className = 'hios-track';
+            node.innerHTML = trackHTML;
+            node.querySelector('.hios-song-title').innerHTML = options.add.title;
+            node.querySelector('.hios-song-artist').innerHTML = options.add.artist;
+            node.querySelector('.hios-thumbnail').setAttribute('src', options.add.image);
+            console.log('node', node)
+            list.insertBefore(node, list.firstChild);
+          };
+          break;
+        case 'renderAll':
+          if (options.track && options.que){
+            list.innerHTML = '';
+            options.que.forEach(function (track){
+              var node =  document.createElement('div');
+              node.className = 'hios-track';
+              node.innerHTML = trackHTML;
+              node.querySelector('.hios-song-title').innerHTML = track.title;
+              node.querySelector('.hios-song-artist').innerHTML = track.artist;
+              node.querySelector('.hios-thumbnail').setAttribute('src', track.image);
+              list.appendChild(node);
+            })
+          };
+          break;
+        default:
+          console.log('idk')
+        break;
+      }
+
+      populateCurrentTrack(options.track) //whenever track list updates, current track display updates
     },
   };
 };
