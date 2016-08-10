@@ -26,13 +26,6 @@ var hiosView = function () {
   };
 
   return { 
-    buildHTML: function () {
-      var node =  document.createElement('div');
-      // node.className = 'hios-main-container';
-      // node.innerHTML = appHTML;
-    // document.querySelector('body').appendChild = '<div id="hios-main-container"></div>';
-    // document.querySelector('#hios-main-container').innerHTML = this.HTML;
-    }, 
     defineSelectors: function(){
       selectors = {
         appContainer: document.querySelector('#hios-app'),
@@ -63,6 +56,12 @@ var hiosView = function () {
     getSelectorProperty: function (selector, property){
       return  selectors[selector][property];
     },
+    buildHTML: function () {
+      // var node =  document.createElement('div');
+      // node.className = 'hios-main-container';
+      // node.innerHTML = appHTML;
+    // document.querySelector('body').appendChild = node;
+    }, 
     /**
      * resetTracking
      * adjust tracking slider to beginning position and tracking duration time display
@@ -90,7 +89,7 @@ var hiosView = function () {
     },
     /**
      * shuffle
-     * toggle shuffle button to active then back off after timeout
+     * toggle shuffle button on and off with timeout
      * @param  {Boolean} shuffling 
      */
     shuffle: function (shuffling) {
