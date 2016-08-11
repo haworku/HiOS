@@ -146,45 +146,28 @@ var hiosView = function () {
      * re-renders currently playing track with populateCurrentTrack private method
      * @param  {String} action, {Object} options hash
      */
-    updateTrackList: function(action, options) {
+    updateTrackList: function(options) {
       var list = selectors.trackList
-      switch (action){
-        case 'removeTrack':
-          if (options.track){
-            list.removeChild(list.childNodes[0]);
-          };
-          break;
-        case 'addTrack':
-          if (options.track && options.add){
+      var nodeIndex = options.track.id - 1
+      console.log(nodeIndex)
+      console.log(list.childNodes)
+      list.childNodes[nodeIndex].className = 'hios-track hios-playing'
+    
+        if (options.track && options.music){
+          console.log(options.music)
+          list.innerHTML = '';
+          options.music.forEach(function (track){
             var node =  document.createElement('div');
             node.className = 'hios-track';
             node.setAttribute('data-state', 'next');
             node.innerHTML = trackHTML;
-            node.querySelector('.hios-song-title').innerHTML = options.add.title;
-            node.querySelector('.hios-song-artist').innerHTML = options.add.artist;
-            node.querySelector('.hios-thumbnail').setAttribute('src', options.add.image);
-            list.insertBefore(node, list.firstChild);
-          };
-          break;
-        case 'renderAll':
-          if (options.track && options.que){
-            list.innerHTML = '';
-            options.que.forEach(function (track){
-              var node =  document.createElement('div');
-              node.className = 'hios-track';
-              node.setAttribute('data-state', 'next');
-              node.innerHTML = trackHTML;
-              node.querySelector('.hios-song-title').innerHTML = track.title;
-              node.querySelector('.hios-song-artist').innerHTML = track.artist;
-              node.querySelector('.hios-thumbnail').setAttribute('src', track.image);
-              list.appendChild(node);
-            })
-          };
-          break;
-        default:
-          console.log('idk')
-        break;
-      }
+            node.querySelector('.hios-song-title').innerHTML = track.title;
+            node.querySelector('.hios-song-artist').innerHTML = track.artist;
+            node.querySelector('.hios-thumbnail').setAttribute('src', track.image);
+            list.appendChild(node);
+          })
+        };
+       
       populateCurrentTrack(options.track) 
     },
   };

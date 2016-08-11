@@ -54,6 +54,7 @@ APP.attachListeners = function(e){
 APP.attachListeners(); 
 
 APP.handleEvent = function (e) {
+  console.log('music', APP.state.music)
   if (e.preventDefault) e.preventDefault();
 
   // event element  - will be undefined if parameter is not event object
@@ -80,15 +81,15 @@ APP.handleEvent = function (e) {
         APP.state.currentTrack =  APP.state.nextQue[index];
         APP.state.nextQue = APP.state.nextQue.splice(index + 1, APP.state.nextQue.length -1);
         APP.player.update({time: 0, source: APP.state.currentTrack.source});
-        APP.view.updateTrackList('renderAll', {que: APP.state.nextQue, track: APP.state.currentTrack});
+        APP.view.updateTrackList({track: APP.state.currentTrack});
       } else if (APP.state.nextQue.length > 0) { // if more songs left
         APP.state.completeQue.unshift(APP.state.currentTrack);
         APP.state.currentTrack =  APP.state.nextQue.shift();
         APP.player.update({time: 0, source: APP.state.currentTrack.source});
-        APP.view.updateTrackList('removeTrack', {track: APP.state.currentTrack});
+        APP.view.updateTrackList({track: APP.state.currentTrack});
       } else if (APP.state.loopAll) { //if no more songs left but looping playlist
         APP.reset();
-        APP.view.updateTrackList('renderAll', {que: APP.state.nextQue, track: APP.state.currentTrack});
+        APP.view.updateTrackList({music: APP.state.nextQue, track: APP.state.currentTrack});
         APP.player.update({source:APP.state.currentTrack.source, volume: .5, currentTime: 0});
       } else {
           console.log('no more songs');
@@ -102,7 +103,7 @@ APP.handleEvent = function (e) {
       } else {
         APP.state.nextQue.unshift(APP.state.currentTrack);   // go back one song
         APP.state.currentTrack =  APP.state.completeQue.shift();
-        APP.view.updateTrackList('addTrack', {add: APP.state.nextQue[0], track: APP.state.currentTrack});
+        APP.view.updateTrackList({track: APP.state.currentTrack});
         APP.player.update({time: 0, source: APP.state.currentTrack.source});
       }
 
@@ -112,8 +113,9 @@ APP.handleEvent = function (e) {
       APP.state.shuffle = !APP.state.shuffle;
       APP.view.shuffle(APP.state.shuffle);
       if (APP.state.shuffle) {
+        APP.reset();
         APP.state.nextQue = APP.state.nextQue.hiosShuffle();
-        APP.view.updateTrackList('renderAll', {que: APP.state.nextQue, track: APP.state.currentTrack});
+        APP.view.updateTrackList({music: APP.state.nextQue, track: APP.state.currentTrack});
       }
       break;
 

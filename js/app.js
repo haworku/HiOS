@@ -3,9 +3,11 @@ var APP = {};
 APP.state = {};
 
 APP.reset = function () {
+  var clone = Object.assign([], music);
   APP.state = { 
+    music: music,
     completeQue: [], 
-    nextQue: music, 
+    nextQue: clone, 
     currentTrack: {}, 
     volume: .5,
     playing: true, 
@@ -22,7 +24,7 @@ APP.reset();
 APP.view = hiosView();
 APP.view.buildHTML();
 APP.view.defineSelectors();
-APP.view.updateTrackList('renderAll', {que: APP.state.nextQue, track: APP.state.currentTrack});
+APP.view.updateTrackList({music: APP.state.music, track: APP.state.currentTrack});
 
 APP.player = hiosPlayer();
 APP.player.init(APP.state.currentTrack.source);

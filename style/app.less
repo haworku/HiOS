@@ -5,6 +5,9 @@ body {
 .hios-active {
   display: block
 }
+.hios-playing {
+  background-color: purple;
+}
 .hios-inactive {
   display: none !important;
 }
@@ -114,7 +117,7 @@ input[type=range]{
     }
   }
   &> .hios-controls {
-    flex: 1 0 25%;
+    flex: 1 0 20%;
     width: 100%;
     overflow-y: hidden;
     margin: .4em;
@@ -124,8 +127,8 @@ input[type=range]{
     align-items: center;
     align-content: center;
     border: red 1px solid;
-    &>.hios-progress, .hios-volume{
-      flex: 1 0 20%;
+    &>.hios-progress {
+      flex: 1 0 10%;
       width: 100%;
       min-height: 2em;
       &.hios-progress{
@@ -183,13 +186,16 @@ input[type=range]{
         flex: 1 1 33.33%;
         text-align: center;
       }
-    } 
+    }
+    &>.hios-volume{
+      flex: 1 1 10%;
+    }
     &>.hios-playback{
     }  
   }
 }
 #hios-track-list {
-  flex: 1 1 45%;
+  flex: 1 1 50%;
   margin: .4em;
   width: 100%;
   overflow-y: scroll;
