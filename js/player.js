@@ -17,6 +17,9 @@ var hiosPlayer = function () {
     },
     audio: function () {
       return audio;
+    },
+    justStarted: function () {
+      return audio.currentTime < 5 ? true : false;
     }
   };
 };

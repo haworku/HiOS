@@ -19,10 +19,6 @@ APP.attachListeners = function(e){
     }
   }, false);
 
-  container.addEventListener('dblclick', function (e){
-    APP.handleEvent(e);
-  }, false);
-
   container.addEventListener('mousedown', function (e){
     console.log('mousedown');
     APP.mousedown = true;
@@ -94,11 +90,11 @@ APP.handleEvent = function (e) {
       break;
 
     case 'previous':
-      if (e.type == 'click' || APP.state.completeQue.length < 1){ 
-       // single click or no completed songs replays current song  
+      if (APP.state.completeQue.length === 0 || APP.player.justStarted() === false ){ 
+      // replay current song 
         APP.player.update(APP.state.playing, {time: 0});
       } else {
-      // dblclick go back one song
+      // go back to previous song
         APP.state.nextQue.unshift(APP.state.currentTrack);
         APP.state.currentTrack =  APP.state.completeQue.shift();
         APP.view.updateTrackList('addTrack', {add: APP.state.nextQue[0], track: APP.state.currentTrack});
