@@ -74,7 +74,14 @@ APP.handleEvent = function (e) {
       break;
 
     case 'next':
-      if (APP.state.nextQue.length > 0) { // if more songs left
+      // if triggered by click on track list, jump to that track 
+      if (target && target.getAttribute('class') == 'hios-track') {
+        var index = APP.view.getTrackIndex(target);
+        APP.state.currentTrack =  APP.state.nextQue[index];
+        APP.state.nextQue = APP.state.nextQue.splice(index + 1, APP.state.nextQue.length -1);
+        APP.player.update({time: 0, source: APP.state.currentTrack.source});
+        APP.view.updateTrackList('renderAll', {que: APP.state.nextQue, track: APP.state.currentTrack});
+      } else if (APP.state.nextQue.length > 0) { // if more songs left
         APP.state.completeQue.unshift(APP.state.currentTrack);
         APP.state.currentTrack =  APP.state.nextQue.shift();
         APP.player.update({time: 0, source: APP.state.currentTrack.source});
@@ -91,15 +98,12 @@ APP.handleEvent = function (e) {
 
     case 'previous':
       if (APP.state.completeQue.length === 0 || APP.player.justStarted() === false ){ 
-      // replay current song 
-        APP.player.update(APP.state.playing, {time: 0});
+        APP.player.update(APP.state.playing, {time: 0}); // replay current song 
       } else {
-      // go back to previous song
-        APP.state.nextQue.unshift(APP.state.currentTrack);
+        APP.state.nextQue.unshift(APP.state.currentTrack);   // go back one song
         APP.state.currentTrack =  APP.state.completeQue.shift();
         APP.view.updateTrackList('addTrack', {add: APP.state.nextQue[0], track: APP.state.currentTrack});
         APP.player.update({time: 0, source: APP.state.currentTrack.source});
-        
       }
 
       break;
@@ -120,7 +124,7 @@ APP.handleEvent = function (e) {
         APP.player.audio().loop = APP.state.loopCurrent;
         APP.view.loop('current');
       } else if (!APP.state.loopAll) {
-      //second click loops entire playlist
+      // second click loops entire playlist
         APP.state.loopCurrent = false;
         APP.state.loopAll = true;
         APP.view.loop('all');

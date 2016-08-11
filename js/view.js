@@ -56,6 +56,9 @@ var hiosView = function () {
     getSelectorProperty: function (selector, property){
       return  selectors[selector][property];
     },
+    getTrackIndex : function (element){
+      return Array.prototype.indexOf.call(selectors.trackList.children, element);  
+    },
     buildHTML: function () {
       // var node =  document.createElement('div');
       // node.className = 'hios-main-container';
@@ -155,6 +158,7 @@ var hiosView = function () {
           if (options.track && options.add){
             var node =  document.createElement('div');
             node.className = 'hios-track';
+            node.setAttribute('data-state', 'next');
             node.innerHTML = trackHTML;
             node.querySelector('.hios-song-title').innerHTML = options.add.title;
             node.querySelector('.hios-song-artist').innerHTML = options.add.artist;
@@ -168,6 +172,7 @@ var hiosView = function () {
             options.que.forEach(function (track){
               var node =  document.createElement('div');
               node.className = 'hios-track';
+              node.setAttribute('data-state', 'next');
               node.innerHTML = trackHTML;
               node.querySelector('.hios-song-title').innerHTML = track.title;
               node.querySelector('.hios-song-artist').innerHTML = track.artist;
