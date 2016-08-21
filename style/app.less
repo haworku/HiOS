@@ -176,16 +176,21 @@ input[type=range]{
     &> .hios-audio{
       flex: 1 1 30%;
       width: 100%;
-      min-height: 2em;
       display: flex;
       flex-flow: row wrap;
       align-items: center;
-      justify-content: center;
       border: red solid 1px;
       &> i {
         flex: 1 1 33.33%;
+        justify-content: center;
         text-align: center;
+        cursor: pointer;
+        transition: font-size .1s ease;
+        &:hover {
+          font-size: 1.2em;
+        }
       }
+
     }
     &>.hios-volume{
       flex: 1 1 10%;
