@@ -1,14 +1,16 @@
 'use strict';
 var hiosView = function () {
-  var selectors, trackHTML, appHTML, getTime, populateCurrentTrack;
+  var selectors, appHTML, trackHTML, getTime, populateCurrentTrack;
 
   selectors = {};
+
   // appHTML = 
   trackHTML = ` <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
                 <div class="hios-info">
                   <div class="hios-song-title">adfd</div>
                   <div class="hios-song-artist">dasfasdf</div>
                 </div> `;
+
 
   getTime = function (t) {
     var m=~~(t/60), s=~~(t % 60);
@@ -27,26 +29,28 @@ var hiosView = function () {
 
   return { 
     defineSelectors: function(){
+      var container = document.querySelector('#hios-app')
+
       selectors = {
-        appContainer: document.querySelector('#hios-app'),
-        miniContainer: document.querySelector('#hios-mini'),
-        fullContainer: document.querySelector('#hios-full'),
-        playPause: [document.querySelector('.mini > .hios-play-pause'), document.querySelector('.full > .hios-play-pause')],
-        next: [document.querySelector('.mini > .hios-next'), document.querySelector('.full > .hios-next')],
-        previous: document.querySelector('.full > .hios-previous'),
-        shuffle: document.querySelector('.hios-shuffle'),
-        loop: document.querySelector('.hios-loop'),
-        volume: document.querySelector('.hios-volume'),
-        tracking: document.querySelector('.hios-tracking'),
-        trackingTimeProgress: document.querySelector('#hios-tracking-progress'),
-        trackingTimeDuration: document.querySelector('#hios-tracking-duration'),
-        minify: document.querySelector('#hios-minify'),
-        fullify: document.querySelector('#hios-fullify'),
-        trackList: document.querySelector('#hios-track-list'),
-        title: [document.querySelector('.mini > .hios-song-title'), document.querySelector('.full > .hios-song-title')],
-        artist: document.querySelector('.full > .hios-song-artist'),
-        thumbnail: [document.querySelector('.mini > .hios-thumbnail'), document.querySelector('#hios-full > .hios-artwork-container > .hios-artwork')],
-        trackList: document.querySelector('#hios-track-list'),
+        appContainer: container,
+        miniContainer: container.querySelector('#hios-mini'),
+        fullContainer: container.querySelector('#hios-full'),
+        playPause: [container.querySelector('.mini > .hios-play-pause'), container.querySelector('.full > .hios-play-pause')],
+        next: [container.querySelector('.mini > .hios-next'), container.querySelector('.full > .hios-next')],
+        previous: container.querySelector('.full > .hios-previous'),
+        shuffle: container.querySelector('.hios-shuffle'),
+        loop: container.querySelector('.hios-loop'),
+        volume: container.querySelector('.hios-volume'),
+        tracking: container.querySelector('.hios-tracking'),
+        trackingTimeProgress: container.querySelector('#hios-tracking-progress'),
+        trackingTimeDuration: container.querySelector('#hios-tracking-duration'),
+        minify: container.querySelector('#hios-minify'),
+        fullify: container.querySelector('#hios-fullify'),
+        trackList: container.querySelector('#hios-track-list'),
+        title: [container.querySelector('.mini > .hios-song-title'), container.querySelector('.full > .hios-song-title')],
+        artist: container.querySelector('.full > .hios-song-artist'),
+        thumbnail: [container.querySelector('.mini > .hios-thumbnail'), container.querySelector('#hios-full > .hios-artwork-container > .hios-artwork')],
+        trackList: container.querySelector('#hios-track-list'),
       };
     },
 
