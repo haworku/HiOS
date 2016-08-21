@@ -170,6 +170,7 @@ var hiosView = function () {
           list.appendChild(node);
         })
       };
+      
       list.childNodes[nodeIndex].className = 'hios-track hios-playing'
       populateCurrentTrack(options.track) 
     },

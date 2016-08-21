@@ -54,4 +54,4 @@ var music = [
     'source': '/static/audio/Partition.mp3',
     'image': '/static/images/beyonce.jpg'
   }
-]
+];

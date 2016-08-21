@@ -4,7 +4,6 @@ fonts & animation: icomoon, css-animate
 
 ***dependency free***
 
-
 **Scripts**
 - `$ gulp js` build js files 
 - `$ gulp less` run less compiler on all less files
