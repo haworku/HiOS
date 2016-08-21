@@ -29,8 +29,6 @@ APP.attachListeners = function(e){
   }, false);
 
 
- 
-
   // AUDIO PLAYER 
   APP.player.audio().addEventListener('loadedmetadata', function(e){
     // wait to set tracking until duration data loads
@@ -54,7 +52,7 @@ APP.attachListeners = function(e){
 APP.attachListeners(); 
 
 APP.handleEvent = function (e) {
-  console.log('music', APP.state.music)
+  console.log('music', APP.state.music);
   if (e.preventDefault) e.preventDefault();
 
   // event element  - will be undefined if parameter is not event object
@@ -78,8 +76,10 @@ APP.handleEvent = function (e) {
       // if triggered by click on track list, jump to that track 
       if (target && target.getAttribute('class') == 'hios-track') {
         var index = APP.view.getTrackIndex(target);
-        APP.state.currentTrack =  APP.state.nextQue[index];
-        APP.state.nextQue = APP.state.nextQue.splice(index + 1, APP.state.nextQue.length -1);
+        var oldIndex = APP.state.currentTrack.id - 1;
+        APP.state.completeQue.unshift(APP.state.currentTrack);
+        APP.state.currentTrack =  APP.state.music[index];
+        APP.state.nextQue = APP.state.nextQue.splice(oldIndex + (index - oldIndex), APP.state.nextQue.length -1);      
         APP.player.update({time: 0, source: APP.state.currentTrack.source});
         APP.view.updateTrackList({track: APP.state.currentTrack});
       } else if (APP.state.nextQue.length > 0) { // if more songs left
