@@ -4,7 +4,7 @@ var hiosView = function () {
 
   selectors = {};
 
-  // appHTML = 
+  // appHTML =
   trackHTML = ` <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
                 <div class="hios-info">
                   <div class="hios-song-title">adfd</div>
@@ -21,13 +21,13 @@ var hiosView = function () {
     selectors.title[0].innerHTML = currentTrack.title;
     selectors.title[1].innerHTML = currentTrack.title;
     selectors.artist.innerHTML = currentTrack.artist;
-    
+
     selectors.thumbnail.forEach (function (img){
       img.setAttribute('src', currentTrack.image);
     });
   };
 
-  return { 
+  return {
     defineSelectors: function(){
       var container = document.querySelector('#hios-app')
 
@@ -40,10 +40,10 @@ var hiosView = function () {
         previous: container.querySelector('.full > .hios-previous'),
         shuffle: container.querySelector('.hios-shuffle'),
         loop: container.querySelector('.hios-loop'),
-        volume: container.querySelector('.hios-volume'),
-        tracking: container.querySelector('.hios-tracking'),
-        trackingTimeProgress: container.querySelector('#hios-tracking-progress'),
-        trackingTimeDuration: container.querySelector('#hios-tracking-duration'),
+        volume: container.querySelector('#hios-volume-tracking'),
+        tracking: container.querySelector('#hios-progress-tracking'),
+        trackingTimeProgress: container.querySelector('#hios-progress-completed'),
+        trackingTimeDuration: container.querySelector('#hios-progress-duration'),
         minify: container.querySelector('#hios-minify'),
         fullify: container.querySelector('#hios-fullify'),
         trackList: container.querySelector('#hios-track-list'),
@@ -61,14 +61,34 @@ var hiosView = function () {
       return  selectors[selector][property];
     },
     getTrackIndex : function (element){
-      return Array.prototype.indexOf.call(selectors.trackList.children, element);  
+      return Array.prototype.indexOf.call(selectors.trackList.children, element);
     },
     buildHTML: function () {
       // var node =  document.createElement('div');
       // node.className = 'hios-main-container';
       // node.innerHTML = appHTML;
     // document.querySelector('body').appendChild = node;
-    }, 
+    },
+    dragging : function (event, action){
+      var element = event.target;
+      switch (action){
+        case 'start':
+          element.style.opacity ='0.4'
+          event.dataTransfer.effectAllowed = 'move';
+          event.dataTransfer.setData('text/html', element.innerHTML);
+        break;
+        case 'over':
+          event.preventDefault();
+          event.dataTransfer.dropEffect = 'move';
+        break;
+        case 'drop':
+          event.stopPropagation();
+          // if element being dropped into is not is not hios-full adjust hios-mini css
+        break;
+
+      }
+
+    },
     /**
      * resetTracking
      * adjust tracking slider to beginning position and tracking duration time display
@@ -82,7 +102,7 @@ var hiosView = function () {
     },
     /**
      * play
-     * switch play/pause button display 
+     * switch play/pause button display
      * @param  {Boolean} playing
      */
     play: function (playing){
@@ -97,10 +117,10 @@ var hiosView = function () {
     /**
      * shuffle
      * toggle shuffle button on and off with timeout
-     * @param  {Boolean} shuffling 
+     * @param  {Boolean} shuffling
      */
     shuffle: function (shuffling) {
-      selectors.shuffle.className = shuffling === true ? 'hios-shuffle hios-activated' : 'hios-shuffle';
+      selectors.shuffle.className = shuffling === true ? 'hios-shuffle hios-control icon-shuffle hios-activated' : 'hios-shuffle hios-control icon-shuffle';
     },
      /**
      * loop
@@ -111,22 +131,22 @@ var hiosView = function () {
       switch (loopType){
         case 'current':
           console.log('loop current')
-          selectors.loop.className = 'hios-loop hios-activated'
+          selectors.loop.className = 'hios-loop hios-activated icon-repeat'
           break;
         case 'all':
           console.log('loop all')
-          selectors.loop.className = 'hios-loop hios-activated'
+          selectors.loop.className = 'hios-loop hios-activated icon-repeat'
           break;
         default:
           console.log('loop nothing')
-          selectors.loop.className = 'hios-loop'
+          selectors.loop.className = 'hios-loop icon-reeat'
           break;
       }
     },
     /**
      * tracking
      * adjusts tracking based on user manipulation OR timechange
-     * @param  {Number} currentTime, {Number} duration 
+     * @param  {Number} currentTime, {Number} duration
      */
     tracking: function(currentTime, duration) {
       selectors.tracking.value = currentTime;
@@ -155,7 +175,7 @@ var hiosView = function () {
       var nodeIndex = options.track.id - 1
       var previousNode = document.querySelector('.hios-playing')
       if (previousNode) previousNode.className = 'hios-track';
-     
+
       if (options.track && options.music){
         console.log(options.music)
         list.innerHTML = '';
@@ -170,9 +190,9 @@ var hiosView = function () {
           list.appendChild(node);
         })
       };
-      
+
       list.childNodes[nodeIndex].className = 'hios-track hios-playing'
-      populateCurrentTrack(options.track) 
+      populateCurrentTrack(options.track)
     },
   };
 };
