@@ -1,13 +1,10 @@
-// TO DO 
-  // renderTrackList
-  // any click on trackList plays that track
 
 /*global APP*/
 'use strict';
 APP.mousedown = false;
 
 APP.attachListeners = function(e){
- 
+
   // USER MANIPULATION
   var container = APP.view.getContainer();
 
@@ -28,12 +25,23 @@ APP.attachListeners = function(e){
     APP.mousedown = false;
   }, false);
 
+  container.addEventListener('dragstart', function(e){
+    if (e.target.getAtrribute('id') === 'hios-mini') APP.view.dragging(e.target, 'start');
+  }, false);
 
-  // AUDIO PLAYER 
+  container.addEventListener('dragend', function(e){
+    if (e.target.getAtrribute('id') === 'hios-mini') APP.view.dragging(e.target, 'over');
+  }, false);
+
+  container.addEventListener('drop', function(e){
+    if (e.target.getAtrribute('id') === 'hios-mini') APP.view.dragging(e.target, 'drop');
+  }, false);
+
+  // AUDIO PLAYER
   APP.player.audio().addEventListener('loadedmetadata', function(e){
     // wait to set tracking until duration data loads
-    APP.view.resetTracking(parseInt(APP.player.audio().duration,10)); 
-  }); 
+    APP.view.resetTracking(parseInt(APP.player.audio().duration,10));
+  });
 
   APP.player.audio().addEventListener('ended', function(e) {
     APP.handleEvent('next');
@@ -41,15 +49,15 @@ APP.attachListeners = function(e){
 
   APP.player.audio().addEventListener('timeupdate', function(e){
     // dynamically update tracking as song plays
-    if (APP.mousedown == false) 
+    if (APP.mousedown == false)
       APP.view.tracking(
         parseInt(APP.player.audio().currentTime, 10), parseInt(APP.player.audio().duration, 10)
-      ); 
+      );
   });
 
 };
 
-APP.attachListeners(); 
+APP.attachListeners();
 
 APP.handleEvent = function (e) {
   console.log('music', APP.state.music);
@@ -73,13 +81,13 @@ APP.handleEvent = function (e) {
       break;
 
     case 'next':
-      // if triggered by click on track list, jump to that track 
+      // if triggered by click on track list, jump to that track
       if (target && target.getAttribute('class') == 'hios-track') {
         var index = APP.view.getTrackIndex(target);
         var oldIndex = APP.state.currentTrack.id - 1;
         APP.state.completeQue.unshift(APP.state.currentTrack);
         APP.state.currentTrack =  APP.state.music[index];
-        APP.state.nextQue = APP.state.nextQue.splice(oldIndex + (index - oldIndex), APP.state.nextQue.length -1);      
+        APP.state.nextQue = APP.state.nextQue.splice(oldIndex + (index - oldIndex), APP.state.nextQue.length -1);
         APP.player.update({time: 0, source: APP.state.currentTrack.source});
         APP.view.updateTrackList({track: APP.state.currentTrack});
       } else if (APP.state.nextQue.length > 0) { // if more songs left
@@ -98,8 +106,8 @@ APP.handleEvent = function (e) {
       break;
 
     case 'previous':
-      if (APP.state.completeQue.length === 0 || APP.player.justStarted() === false ){ 
-        APP.player.update(APP.state.playing, {time: 0}); // replay current song 
+      if (APP.state.completeQue.length === 0 || APP.player.justStarted() === false ){
+        APP.player.update(APP.state.playing, {time: 0}); // replay current song
       } else {
         APP.state.nextQue.unshift(APP.state.currentTrack);   // go back one song
         APP.state.currentTrack =  APP.state.completeQue.shift();
@@ -115,12 +123,11 @@ APP.handleEvent = function (e) {
       if (APP.state.shuffle) {
         APP.reset();
         APP.state.nextQue = APP.state.nextQue.hiosShuffle();
-        APP.view.updateTrackList({music: APP.state.nextQue, track: APP.state.currentTrack});
       }
       break;
 
     case 'loop':
-      if (!APP.state.loopCurrent && !APP.state.loopAll){ 
+      if (!APP.state.loopCurrent && !APP.state.loopAll){
         // first click loops current track
         APP.state.loopCurrent = true;
         APP.player.audio().loop = APP.state.loopCurrent;
@@ -143,7 +150,7 @@ APP.handleEvent = function (e) {
 
     case 'tracking':  // audio player listneners also at work here
         APP.player.audio().currentTime = APP.view.getSelectorProperty('tracking', 'value');
-   
+
       break;
 
     case 'volume':
@@ -159,8 +166,8 @@ APP.handleEvent = function (e) {
       }
 
       break;
- 
-    default: 
+
+    default:
       console.log('default');
       break;
   }
