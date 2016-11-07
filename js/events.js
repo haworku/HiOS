@@ -7,6 +7,7 @@ APP.attachListeners = function(e){
 
   // USER MANIPULATION
   var container = APP.view.getContainer();
+  var mini = APP.view.getMini();
 
   document.addEventListener('click', function (e){
     if( !e.target.getAttribute('data-state') ){
@@ -25,17 +26,31 @@ APP.attachListeners = function(e){
     APP.mousedown = false;
   }, false);
 
-  container.addEventListener('dragstart', function(e){
-    if (e.target.getAtrribute('id') === 'hios-mini') APP.view.dragging(e.target, 'start');
+  mini.addEventListener('dragstart', function(e){
+    APP.view.dragging(e, 'start');
   }, false);
 
-  container.addEventListener('dragend', function(e){
-    if (e.target.getAtrribute('id') === 'hios-mini') APP.view.dragging(e.target, 'over');
+  container.addEventListener('dragover', function(e){
+    e.preventDefault();
+    if (e.stopPropagation) {
+      e.stopPropagation();
+    }
+    e.dataTransfer.dropEffect = 'move';
+    return false
   }, false);
 
   container.addEventListener('drop', function(e){
-    if (e.target.getAtrribute('id') === 'hios-mini') APP.view.dragging(e.target, 'drop');
+    console.log('drop')
+    e.preventDefault();
+    if (e.stopPropagation) {
+      e.stopPropagation();
+    }
+    APP.view.dragging(e, 'drop');
+    return false
   }, false);
+
+
+
 
   // AUDIO PLAYER
   APP.player.audio().addEventListener('loadedmetadata', function(e){
@@ -123,6 +138,8 @@ APP.handleEvent = function (e) {
       if (APP.state.shuffle) {
         APP.reset();
         APP.state.nextQue = APP.state.nextQue.hiosShuffle();
+      } else {
+        APP.view.updateTrackList({track: APP.state.currentTrack, music: APP.state.music});
       }
       break;
 

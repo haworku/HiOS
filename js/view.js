@@ -57,6 +57,9 @@ var hiosView = function () {
     getContainer: function (){
       return selectors.appContainer;
     },
+    getMini: function (){
+      return selectors.miniContainer;
+    },
     getSelectorProperty: function (selector, property){
       return  selectors[selector][property];
     },
@@ -70,20 +73,27 @@ var hiosView = function () {
     // document.querySelector('body').appendChild = node;
     },
     dragging : function (event, action){
+      console.log('in this')
       var element = event.target;
       switch (action){
         case 'start':
+          var style = window.getComputedStyle(event.target, null);
           element.style.opacity ='0.4'
           event.dataTransfer.effectAllowed = 'move';
-          event.dataTransfer.setData('text/html', element.innerHTML);
+          event.dataTransfer.setData(
+            'text/plain',
+            'hello'
+            // (parseInt(style.getPropertyValue("left"), 10) - event.clientX) + ',' + (parseInt(style.getPropertyValue("top"),10) - event.clientY)
+          );
         break;
-        case 'over':
-          event.preventDefault();
-          event.dataTransfer.dropEffect = 'move';
-        break;
+
         case 'drop':
-          event.stopPropagation();
-          // if element being dropped into is not is not hios-full adjust hios-mini css
+        console.log('drop')
+          var offset = event.dataTransfer.getData('text/plain').split(',');
+          var mini =  selectors.miniContainer;
+          element.style.opacity ='1';
+          mini.style.left = (event.clientX + parseInt(offset[0],10)) + 'px';
+          mini.style.top = (event.clientY + parseInt(offset[1],10)) + 'px';
         break;
 
       }
