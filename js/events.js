@@ -65,8 +65,6 @@ APP.attachListeners = function(e){
 
 };
 
-APP.attachListeners();
-
 APP.handleEvent = function (e) {
   console.log('music', APP.state.music);
   if (e.preventDefault) e.preventDefault();
