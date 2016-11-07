@@ -1,34 +1,48 @@
 'use strict';
 var APP = {};
-APP.state = {};
 
-APP.reset = function () {
-  var clone = Object.assign([], music);
-  APP.state = { 
-    music: music,
-    completeQue: [], 
-    nextQue: clone, 
-    currentTrack: {}, 
-    volume: .5,
-    playing: true, 
-    shuffle: false, 
-    loopCurrent: false,
-    loopAll: false
-  };
+APP.startPlayer = false;
 
- APP.state.currentTrack =  APP.state.nextQue.shift();
+APP.loadFiles = function () {
+
+  APP.startPlayer = true; //IF SUCCESS
 };
 
-APP.reset();
 
-APP.view = hiosView();
-APP.view.buildHTML();
-APP.view.defineSelectors();
-APP.view.updateTrackList({music: APP.state.music, track: APP.state.currentTrack});
+if (APP.startPlayer === true) {
+  APP.state = {};
 
-APP.player = hiosPlayer();
-APP.player.init(APP.state.currentTrack.source);
-APP.player.play(true);
+  APP.reset = function () {
+    var clone = Object.assign([], music);
+    APP.state = {
+      music: music,
+      completeQue: [],
+      nextQue: clone,
+      currentTrack: {},
+      volume: .5,
+      playing: true,
+      shuffle: false,
+      loopCurrent: false,
+      loopAll: false
+    };
+
+   APP.state.currentTrack =  APP.state.nextQue.shift();
+  };
+
+  APP.reset();
+
+  APP.view = hiosView();
+  APP.view.buildHTML();
+  APP.view.defineSelectors();
+  APP.view.updateTrackList({music: APP.state.music, track: APP.state.currentTrack});
+  APP.attachListeners();
+  APP.player = hiosPlayer();
+  APP.player.init(APP.state.currentTrack.source);
+  APP.player.play(true);
+
+
+}
+
 
 /**
  * Randomize array element order in-place.
