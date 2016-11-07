@@ -32,21 +32,14 @@ APP.attachListeners = function(e){
 
   container.addEventListener('dragover', function(e){
     e.preventDefault();
-    if (e.stopPropagation) {
-      e.stopPropagation();
-    }
+    if (e.stopPropagation) { e.stopPropagation(); }
     e.dataTransfer.dropEffect = 'move';
-    return false
   }, false);
 
   container.addEventListener('drop', function(e){
-    console.log('drop')
     e.preventDefault();
-    if (e.stopPropagation) {
-      e.stopPropagation();
-    }
+    if (e.stopPropagation) { e.stopPropagation(); }
     APP.view.dragging(e, 'drop');
-    return false
   }, false);
 
 
