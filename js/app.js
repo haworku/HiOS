@@ -29,11 +29,11 @@ APP.launch = function () {
   APP.view.defineSelectors();
   APP.view.updateTrackList({music: APP.state.music, track: APP.state.currentTrack});
 
-  APP.attachListeners();
-
   APP.player = hiosPlayer();
   APP.player.init(APP.state.currentTrack.source);
+  APP.attachListeners();
   APP.player.play(true);
+
 
 };
 

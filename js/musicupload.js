@@ -14,7 +14,7 @@
 
     Object.keys(files).forEach( function (key){
       music.push(
-        { 'id': 1,
+        { 'id': Number(key) + 1,
           'title': files[key].name.substr(0, files[key].name.lastIndexOf('.')) || files[key].name,
           'artist': 'Beyonce',
           'source': URL.createObjectURL(files[key]),
@@ -81,7 +81,7 @@
         }
       ];
     }
-
+    console.log(music)
     APP.launch()
   };
 
