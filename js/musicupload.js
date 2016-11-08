@@ -24,6 +24,7 @@
     });
 
     if (music.length == 0){  // if no valid audio files use static
+      console.log('using static files')
       music = [
         { 'id': 1,
           'title': '6 Inch',

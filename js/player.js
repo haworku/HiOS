@@ -1,5 +1,5 @@
 'use strict';
-
+console.log('loading player')
 var hiosPlayer = function () {
   var audio = {}; // this is the HTML5 audio object
 

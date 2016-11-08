@@ -2,25 +2,25 @@
 var APP = {};
 var music = []; // globally declared music holds file upload or uses test files - probably should be JS constant
 
+APP.reset = function () {
+  var clone = Object.assign([], music);
+  APP.state = {
+    music: music,
+    completeQue: [],
+    nextQue: clone,
+    currentTrack: {},
+    volume: .5,
+    playing: true,
+    shuffle: false,
+    loopCurrent: false,
+    loopAll: false
+  };
+
+ APP.state.currentTrack =  APP.state.nextQue.shift();
+};
+
 APP.launch = function () {
   APP.state = {};
-
-  APP.reset = function () {
-    var clone = Object.assign([], music);
-    APP.state = {
-      music: music,
-      completeQue: [],
-      nextQue: clone,
-      currentTrack: {},
-      volume: .5,
-      playing: true,
-      shuffle: false,
-      loopCurrent: false,
-      loopAll: false
-    };
-
-   APP.state.currentTrack =  APP.state.nextQue.shift();
-  };
 
   APP.reset();
 
@@ -33,8 +33,6 @@ APP.launch = function () {
   APP.player.init(APP.state.currentTrack.source);
   APP.attachListeners();
   APP.player.play(true);
-
-
 };
 
 
