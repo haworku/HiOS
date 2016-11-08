@@ -42,4 +42,6 @@
 .icon-repeat:before {
   content: "\e058";
 }
-
+.icon-close:before {
+  content: "\e058";
+}

@@ -1,10 +1,7 @@
-
-/*global APP*/
 'use strict';
-APP.mousedown = false;
-
+console.log('loading events')
 APP.attachListeners = function(e){
-
+  APP.mousedown = false;
   // USER MANIPULATION
   var container = APP.view.getContainer();
   var mini = APP.view.getMini();
