@@ -1,15 +1,8 @@
 'use strict';
 var APP = {};
+var music = []; // globally declared music holds file upload or uses test files - probably should be JS constant
 
-APP.startPlayer = false;
-
-APP.loadFiles = function () {
-
-  APP.startPlayer = true; //IF SUCCESS
-};
-
-
-if (APP.startPlayer === true) {
+APP.launch = function () {
   APP.state = {};
 
   APP.reset = function () {
@@ -35,13 +28,14 @@ if (APP.startPlayer === true) {
   APP.view.buildHTML();
   APP.view.defineSelectors();
   APP.view.updateTrackList({music: APP.state.music, track: APP.state.currentTrack});
+
   APP.attachListeners();
+
   APP.player = hiosPlayer();
   APP.player.init(APP.state.currentTrack.source);
   APP.player.play(true);
 
-
-}
+};
 
 
 /**
