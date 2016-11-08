@@ -142,7 +142,7 @@ var hiosView = function () {
       return Array.prototype.indexOf.call(selectors.trackList.children, element);
     },
     buildHTML: function () {
-      container.appendChild = appHTML;
+      document.querySelector('#hios-app').innerHTML = appHTML;
     },
     dragging : function (event, action){
       console.log('in this')
@@ -252,6 +252,7 @@ var hiosView = function () {
      */
     updateTrackList: function(options) {
       var list = selectors.trackList
+      console.log(selectors)
       var nodeIndex = options.track.id - 1
       var previousNode = document.querySelector('.hios-playing')
       if (previousNode) previousNode.className = 'hios-track';
