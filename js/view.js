@@ -6,10 +6,12 @@ var hiosView = function () {
 
   appHTML =
     `
-      <div id="hios-mini" draggable="true" class="hios-active">
+      <div id="hios-mini" draggable="true" class="hios-active animated slideInUp">
         <div class="hios-wrap mini">
           <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
-          <div class="hios-song-title"></div>
+          <div class="hios-song-title-box">
+             <div class="hios-song-title"></div>
+          </div>
           <div class="hios-audio mini">
               <i class="hios-play-pause icon-play" data-state="playpause" ></i>
               <i class="hios-next icon-skip-forward" data-state="next"></i>
@@ -81,8 +83,8 @@ var hiosView = function () {
     `
       <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
       <div class="hios-info">
-        <div class="hios-song-title">adfd</div>
-        <div class="hios-song-artist">dasfasdf</div>
+        <div class="hios-song-title slideInRight">adfd</div>
+        <div class="hios-song-artist slideInLeft">dasfasdf</div>
       </div>
     `;
 
@@ -122,7 +124,7 @@ var hiosView = function () {
         minify: container.querySelector('#hios-minify'),
         fullify: container.querySelector('#hios-fullify'),
         trackList: container.querySelector('#hios-track-list'),
-        title: [container.querySelector('.mini > .hios-song-title'), container.querySelector('.full > .hios-song-title')],
+        title: [container.querySelector('.mini > .hios-song-title-box > .hios-song-title'), container.querySelector('.full > .hios-song-title')],
         artist: container.querySelector('.full > .hios-song-artist'),
         thumbnail: [container.querySelector('.mini > .hios-thumbnail'), container.querySelector('#hios-full > .hios-artwork-container > .hios-artwork')],
         trackList: container.querySelector('#hios-track-list'),
