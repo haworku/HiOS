@@ -1,9 +1,16 @@
 body {
   position: relative;
   padding-top: 70px;
+  font-family: 'Space Mono', monospace;
+}
+[draggable]{
+  user-select: none;
 }
 .hios-active {
-  display: block !important;
+  display: block
+}
+.hios-playing {
+  background-color: purple;
 }
 .hios-inactive {
   display: none !important;
@@ -11,132 +18,257 @@ body {
 .hios-activated{
   background-color: red;
 }
-#hios-mini, #hios-full {
-  display: none;
-  position: fixed;
-  background-color: #bfbfbf;
-  border-radius: 10px;
-  padding: 10px;
-  margin: 5px 5px;
-  bottom: 0;
-}
-#hios-mini {
-  height: 100px;
-  width: 300px;
-}
-#hios-full {
-  border-radius: 10px;
-  right: 0;
-  top: 0;
-  width: 300px;
-}
-#hios-mini > img.hios-thumbnail {
-  display: inline-block;
-  border-radius: 5px;
-  -webkit-box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
-  -moz-box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
-  box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
-  max-height: 100px;
-  padding: 0;
-}
-#hios-full > img.hios-thumbnail {
-  display: block;
-  border-radius: 5px;
-  -webkit-box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
-  -moz-box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
-  box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
-  max-height: 200px;
-  max-width: 200px;
-  margin: 0 auto;
-  padding: 10px;
-}
-.hios-wrap{
-  float: right;
-  margin: 15px 0px;
-  width: 190px;
-}
-.hios-wrap > .hios-info, .hios-wrap > .hios-track-controls{
-  display: block;
-  margin: 0 auto;
-  text-align: center;
-}
-#hios-full > .hios-info {
-  display: block;
-  margin: 0 auto;
-  text-align: center;
-  margin: 10px;
-}
-.hios-track-controls > img{
-  display: inline-block;
-  height: 30px;
-  width: 30px;
-}
-#hios-full > .hios-track-controls{
-  display: block;
-  margin: 0 auto;
-  text-align: center;
-  margin-bottom: 10px;
-}
-#hios-full > .hios-list-controls {
-  display: block;
-  border-top: 1px solid black;
-  padding: 3px;
-  width: 280px;
-  text-align: right;
-}
-#hios-full > .hios-list-controls > img {
-  display: inline-block;
-  height: 20px;
-  width: 30px;
-  border-radius: 3px;
-}
-#hios-full > .hios-track-list {
-  display: block;
-  position: relative;
-  max-height: 400px;
-  overflow: scroll;
-}
-#hios-full > .hios-track-list > .track{
-  height: 100
-}
-.track > img.hios-thumbnail {
-  display: inline block;
-  border-radius: 5px;
-  -webkit-box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
-  -moz-box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
-  box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
-  max-height: 75px;
-  max-width: 75px;
-  margin: 0 auto;
-  padding: 3px;
-}
-.track {
-display: block;
-margin: 0 auto;
-padding: 5px;
-} 
-.track > .hios-wrap > .hios-song-title, .track > .hios-wrap > .hios-song-artist{
-    display: block;
-}
+.hios-audio, .hios-playblack {
+  font-size: 2em;
+  &i {
+    padding: .1em;
+    font-size: 2em;
+    transition: font-size .1s ease;
 
+    &:hover {
+      font-size: 1.2em;
+    }
+  }
+}
 input[type=range]{
-    -webkit-appearance: none;
-    width: 275px;
-}
-
-input[type=range]::-webkit-slider-runnable-track {
-    width: 275px;
+  -webkit-appearance: none;
+  width: 90%;
+  cursor: pointer;
+  background: none;
+  outline: none;
+  &::-webkit-slider-runnable-track {
     height: 5px;
-    background: #ddd;
+    background: #484848;
     border-radius: 3px;
-}
-
-input[type=range]::-webkit-slider-thumb {
+  }
+  &::-webkit-slider-thumb:before {
+  }
+  &::-webkit-slider-thumb {
     -webkit-appearance: none;
     border: none;
-    height: 16px;
-    width: 5px;
-    background: goldenrod;
-    margin-top: -4px;
+    height: 11px;
+    width: 4px;
+    position: relative;
+    background: white;
+    margin-top: -3px
+  }
 }
+.hios-wrap {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  align-items: center;
+  cursor: default;
+}
+
+#hios-mini, #hios-full {
+  position: fixed;
+  background-color: gainsboro;
+  bottom: 0;
+  padding: .4em;
+  z-index: 90
+}
+#hios-file-upload{ //make transparent
+  font-size: 1em;
+  text-align: center;
+  border-radius: 10px;
+  margin: .3em .3em;
+  z-index: 100;
+  cursor: pointer;
+}
+#hios-mini{
+  height: 60px;
+  width: 18em;
+  border-radius: 10px;
+  margin: .3em .3em;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  cursor: move;
+  &> .hios-wrap {
+    &> img.hios-thumbnail {
+      display: inline-block;
+      border-radius: .3em;
+      box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
+      max-width: 20%;
+      flex: 1 auto;
+      padding: 0;
+    }
+    &>.hios-song-title-box {
+      flex:  1 auto;
+      white-space: nowrap;
+      max-width: 55%;
+      &>.hios-song-title{
+        align-self: flex-start;
+        overflow: hidden;
+        overflow-x: -webkit-marquee;
+        -webkit-marquee-direction: forwards;
+        -webkit-marquee-style: scroll;
+        -webkit-marquee-speed: normal;
+        -webkit-marquee-increment: small;
+        -webkit-marquee-repetition: 5;
+        overflow-x: marquee-line;
+        marquee-direction: forward;
+        marquee-style: scroll;
+        marquee-speed: normal;
+        marquee-play-count: 5;
+        font-size: 1em;
+        padding: 15px;
+      }
+    }
+    &> .hios-audio  {
+      align-self: center;
+      flex: 1 auto;
+      max-width: 25%;
+      font-size: 1.5em;
+    }
+  }
+}
+
+#hios-full {
+  right: 0;
+  top: 0;
+  width: 18em;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  &> #hios-minify{
+    flex: 1 0 auto;
+    align-self: flex-end;
+    cursor: default;
+  }
+  &> .hios-artwork-container{
+    flex: 1 1 30%;
+    align-self: flex-start;
+    min-height: 16em;
+    display: flex;
+    justify-content: center;
+    &>img.hios-artwork{
+    width: 90%;
+    border-radius: .3em;
+    box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
+    }
+  }
+  &> .hios-controls {
+    flex: 1 0 20%;
+    width: 100%;
+    overflow-y: hidden;
+    margin: .4em;
+    padding: .3em 0;
+    display: flex;
+    flex-flow: column nowrap;
+    align-content: center;
+    border: red 1px solid;
+    &>.hios-progress {
+      flex: 1 0 10%;
+      width: 100%;
+      min-height: 2em;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      &> input {
+        flex: 1 0 50%;
+      }
+      &>#tracking-output{
+        width: 90%;
+        flex: 1 0 50%;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        &> output {
+          padding-top: .1em;
+          flex: 1 0 50%;
+          font-size: .7em;
+          color: #484848;
+          &#hios-progress-duration{
+            text-align: right;
+          }
+        }
+      }
+    }
+    &> .hios-info{
+      flex: 1 1 30%;
+      width: 100%;
+      min-height: 2em;
+      text-align: center;
+      border: red solid 1px;
+      &>.hios-song-title{
+        font-weight: bold;
+      }
+      &>.hios-song-artist{
+        color: firebrick;
+      }
+    }
+    &> .hios-audio{
+      flex: 1 1 30%;
+      width: 100%;
+      display: flex;
+      flex-flow: row wrap;
+      align-items: center;
+      border: red solid 1px;
+      &> i {
+        flex: 1 1 33.33%;
+        justify-content: center;
+        text-align: center;
+        cursor: pointer;
+        transition: font-size .1s ease;
+        &:hover {
+          font-size: 1.2em;
+        }
+      }
+
+    }
+    &>.hios-volume{
+      flex: 1 0 10%;
+      width: 100%;
+      min-height: 2em;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      &> input {
+        flex: 1 0 50%;
+      }
+    }
+    &>.hios-playback{
+      flex: 1 1 10%;
+    }
+  }
+}
+#hios-track-list {
+  flex: 1 1 50%;
+  margin: .4em;
+  width: 100%;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  border: blue 1px solid;
+  padding: .3em 0;
+  &> .hios-track {
+    min-height: 4em;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(51, 51, 51, 0.1);
+    &>img.hios-thumbnail {
+      flex: 1 1 30%;
+      border-radius: .3em;
+      margin: .3em;
+      box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
+      max-width: 20%;
+    }
+    &> .hios-info{
+      flex: 0 1 auto;
+      padding: .4em;
+      &> .hios-song-title{
+        font-weight: bold;
+        text-align: left;
+      }
+      &> .hios-song-artist{
+        text-align: left;
+      }
+    }
+  }
+}
+
 
