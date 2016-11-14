@@ -1,17 +1,17 @@
 const gulp = require('gulp');
-const run = require('gulp-run');
 const concat = require('gulp-concat');
 const livereload = require('gulp-livereload');
 const less = require('gulp-less');
+const autoprefixer = require('gulp-autoprefixer');
 const path = require('path');
 
 const watch = {
   less: ['style/*.less'],
-  js: ['js/music.js',
+  js: [ 'js/app.js',
         'js/player.js',
         'js/view.js',
-        'js/app.js',
-        'js/events.js'
+        'js/events.js',
+        'js/musicupload.js'
         ],
 };
 
@@ -27,6 +27,10 @@ gulp.task('less', () =>
       .pipe(less({
         paths: [path.join(__dirname, 'less', 'includes')],
       }))
+      .pipe(autoprefixer({
+        browsers: ['> 0%'],
+        cascade: true,
+      }))
       .pipe(concat('style.css'))
       .pipe(gulp.dest('dist/'))
       .pipe(livereload())
@@ -34,7 +38,6 @@ gulp.task('less', () =>
 
 gulp.task('dev', () => {
   livereload.listen();
-  run('node app.js').exec();
   gulp.watch(watch.less, ['less']);
   gulp.watch(watch.js, ['js']);
 });

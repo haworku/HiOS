@@ -1,10 +1,27 @@
-var AudioPlayer = function(currentSource) {// gets volume from web audio API
-  this.audio = new Audio(currentSource);
-};
+'use strict';
+console.log('loading player')
+var hiosPlayer = function () {
+  var audio = {}; // this is the HTML5 audio object
 
-AudioPlayer.prototype.update = function(options) {
-  this.audio.currentTime = (options.time || this.audio.currentTime);
-  this.audio.src= (options.source || this.audio.src);
+  return {
+    init: function (src){
+      audio = new Audio(src);
+    },
+    update: function (options) {
+      audio.currentTime = (options.time || audio.currentTime);
+      audio.src= (options.source || audio.src);
+      audio.volume = (options.volume || audio.volume);
+    },
+    play: function (bool) {
+      bool ? audio.play() : audio.pause();
+    },
+    audio: function () {
+      return audio;
+    },
+    justStarted: function () {
+      return audio.currentTime < 5 ? true : false;
+    }
+  };
 };
 
 

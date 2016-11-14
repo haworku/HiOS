@@ -15,96 +15,20 @@
 
     <link rel="shortcut icon" type="image/png" href="/static/images/favicon.png" />
     <link rel="stylesheet" href="dist/style.css" />
-
+    <link rel="stylesheet" href="static/icon/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Space+Mono" rel="stylesheet">
+    <link rel="stylesheet" href="static/animations/animate.css">
   </head>
 
-  <body>
-  <button id="hios-minify">Mini</button>
-  <button id="hios-fullify">Full</button>
-    
-    <div class="container-fluid" id="hios-main-container">
-
-      <div id="hios-mini" class="hios-active">
-        <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
-
-        <div class= "hios-wrap">
-          <div class="hios-info mini">
-            <div class="hios-song-title"></div>
-            <div class="hios-song-artist"></div>
-          </div>
-          
-          <div class="hios-track-controls mini">
-            <img class="hios-previous" src="static/images/controls/ios7-rewind.png" >
-            <img class= "hios-play-pause" src="static/images/controls/ios7-play.png" >
-            <img class="hios-next" src="static/images/controls/ios7-fastforward.png" >
-          </div>
-
-        </div>
-      </div>
-    
-
-      <div id="hios-full" class="">
-        <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
-
-        <div class ="hios-info full">
-          <div class="hios-song-title"></div>
-          <div class="hios-song-artist"></div>
-        </div>
-
-        <div class="hios-track-controls full">
-          <!-- <input class="hios-volume" type="range" value="0" name="volume" autocomplete="off"> -->
-          <input class="hios-tracking" type="range" value="0" min="0" max="100" name="tracking" autocomplete="off">
-          <img class="hios-previous" src="static/images/controls/ios7-rewind.png">
-          <img class= "hios-play-pause" src="static/images/controls/ios7-play.png">
-          <img class="hios-next" src="static/images/controls/ios7-fastforward.png">
-        </div>
-        
-        <div class="hios-list-controls full">
-          <img class="hios-shuffle" src="static/images/controls/shuffle.png">
-          <img class="hios-loop" src="static/images/controls/ios7-loop.png">
-        </div>
-     
-        <div class="hios-track-list">
-          <div class= "track">
-            <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
-            <div class="hios-wrap">
-              <div class="hios-song-title">adfd</div>
-              <div class="hios-song-artist">dasfasdf</div>
-            </div>
-          </div>
-          <div class= "track">
-            <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
-            <div class="hios-wrap">
-              <div class="hios-song-title">adfd</div>
-              <div class="hios-song-artist">dasfasdf</div>
-            </div>
-          </div>
-          <div class="track">
-            <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
-            <div class="hios-wrap">
-              <div class="hios-song-title">adfd</div>
-              <div class="hios-song-artist">dasfasdf</div>
-            </div>
-          </div>
-          <div class= "track">
-            <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
-            <div class="hios-wrap">
-              <div class="hios-song-title">adfd</div>
-              <div class="hios-song-artist">dasfasdf</div>
-            </div>
-          </div>
-          <div class= "track">
-            <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
-            <div class="hios-wrap">
-              <div class="hios-song-title">adfd</div>
-              <div class="hios-song-artist">dasfasdf</div>
-            </div>
-          </div>
-     
-      </div>
-
+  <body data-state="swap">
+  <div id="hios-app">
+    <div id="hios-file-upload" class="animated slideInUp">
+      Upload Music Files To Test Player
+      <div id="message"></div>
+      <input type="file" multiple accept="audio/*"/>
     </div>
-    
+  </div>
+
     <script src="/dist/script.js"></script>
 
     <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
