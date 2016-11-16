@@ -10,6 +10,20 @@ function handleRequest(
 }
 chrome.extension.onRequest.addListener(handleRequest);
 
+chrome.browserAction.onClicked.addListener(function(tab) {
+  console.log("Hello you clicked")
+  chrome.tabs.sendRequest(
+        //Selected tab id
+        tab.id,
+        //Params inside a object data
+        {callFunction: 'hios'},
+        //Optional callback function
+        function(response) {
+          console.log(response);
+        }
+      );
+});
+
 function hios(){
   var hios = document.createElement('div');
   hios.id = 'hios-app';
