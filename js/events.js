@@ -123,6 +123,8 @@ APP.handleEvent = function (e) {
       if (APP.state.shuffle) {
         APP.reset();
         APP.state.nextQue = APP.state.nextQue.hiosShuffle();
+      } else {
+        APP.view.updateTrackList({track: APP.state.currentTrack, music: APP.state.music});
       }
       break;
 

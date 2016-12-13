@@ -73,15 +73,18 @@ var hiosView = function () {
       var element = event.target;
       switch (action){
         case 'start':
+          console.log('start')
           element.style.opacity ='0.4'
           event.dataTransfer.effectAllowed = 'move';
           event.dataTransfer.setData('text/html', element.innerHTML);
         break;
         case 'over':
+        console.log('over')
           event.preventDefault();
           event.dataTransfer.dropEffect = 'move';
         break;
         case 'drop':
+          console.log('drop')
           event.stopPropagation();
           // if element being dropped into is not is not hios-full adjust hios-mini css
         break;
