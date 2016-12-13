@@ -1,12 +1,10 @@
-
-/*global APP*/
 'use strict';
-APP.mousedown = false;
-
+console.log('loading events')
 APP.attachListeners = function(e){
-
+  APP.mousedown = false;
   // USER MANIPULATION
   var container = APP.view.getContainer();
+  var mini = APP.view.getMini();
 
   document.addEventListener('click', function (e){
     if( !e.target.getAttribute('data-state') ){
@@ -25,17 +23,24 @@ APP.attachListeners = function(e){
     APP.mousedown = false;
   }, false);
 
-  container.addEventListener('dragstart', function(e){
-    if (e.target.getAtrribute('id') === 'hios-mini') APP.view.dragging(e.target, 'start');
+  mini.addEventListener('dragstart', function(e){
+    APP.view.dragging(e, 'start');
   }, false);
 
-  container.addEventListener('dragend', function(e){
-    if (e.target.getAtrribute('id') === 'hios-mini') APP.view.dragging(e.target, 'over');
+  container.addEventListener('dragover', function(e){
+    e.preventDefault();
+    if (e.stopPropagation) { e.stopPropagation(); }
+    e.dataTransfer.dropEffect = 'move';
   }, false);
 
   container.addEventListener('drop', function(e){
-    if (e.target.getAtrribute('id') === 'hios-mini') APP.view.dragging(e.target, 'drop');
+    e.preventDefault();
+    if (e.stopPropagation) { e.stopPropagation(); }
+    APP.view.dragging(e, 'drop');
   }, false);
+
+
+
 
   // AUDIO PLAYER
   APP.player.audio().addEventListener('loadedmetadata', function(e){
@@ -56,8 +61,6 @@ APP.attachListeners = function(e){
   });
 
 };
-
-APP.attachListeners();
 
 APP.handleEvent = function (e) {
   console.log('music', APP.state.music);

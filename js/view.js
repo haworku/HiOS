@@ -4,12 +4,89 @@ var hiosView = function () {
 
   selectors = {};
 
-  // appHTML =
-  trackHTML = ` <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
-                <div class="hios-info">
-                  <div class="hios-song-title">adfd</div>
-                  <div class="hios-song-artist">dasfasdf</div>
-                </div> `;
+  appHTML =
+    `
+      <div id="hios-mini" draggable="true" class="hios-active animated slideInUp">
+        <div class="hios-wrap mini">
+          <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
+          <div class="hios-song-title-box">
+             <div class="hios-song-title"></div>
+          </div>
+          <div class="hios-audio mini">
+              <i class="hios-play-pause icon-play" data-state="playpause" ></i>
+              <i class="hios-next icon-skip-forward" data-state="next"></i>
+          </div>
+        </div>
+      </div>
+
+      <div id="hios-full" class="hios-inactive">
+        <i id="hios-minify" data-state="swap">X</i>
+        <div class="hios-artwork-container">
+          <img class="hios-artwork" src="/static/images/lemonade.jpg">
+        </div>
+        <div class="hios-controls full">
+          <div class ="hios-progress">
+            <input
+              id= "hios-progress-tracking"
+              class="hios-tracking"
+              type="range"
+              data-state="tracking"
+              value= "0" min="0" max="100"
+            >
+            <div id="tracking-output">
+              <output
+                for="tracking"
+                id="hios-progress-completed">
+                1.00
+              </output>
+              <output
+                for="tracking"
+                id="hios-progress-duration">
+                10.00
+              </output>
+            </div>
+          </div>
+
+          <div class ="hios-info full">
+            <div class="hios-song-title"></div>
+            <div class="hios-song-artist"></div>
+          </div>
+
+          <div class="hios-audio full">
+            <i class="hios-control hios-previous icon-skip-back" data-state="previous" ></i>
+            <i class="hios-control hios-play-pause icon-play" data-state="playpause" ></i>
+            <i class="hios-control hios-next icon-skip-forward" data-state="next"></i>
+          </div>
+
+          <div class="hios-volume" full>
+            <input
+                id="hios-volume-tracking"
+                class="hios-tracking"
+                type="range"
+                data-state="volume"
+                value=".5" min="0" max="1" step= ".01"
+              >
+          </div>
+
+          <div class="hios-playback full">
+            <i class="hios-control hios-shuffle icon-shuffle" data-state="shuffle"></i>
+            <i class="hios-control hios-loop icon-repeat" data-state="repeat"></i>
+          </div>
+
+        </div>
+        <div id="hios-track-list">
+        </div>
+      </div>
+    `;
+
+  trackHTML =
+    `
+      <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
+      <div class="hios-info">
+        <div class="hios-song-title slideInRight">adfd</div>
+        <div class="hios-song-artist slideInLeft">dasfasdf</div>
+      </div>
+    `;
 
 
   getTime = function (t) {
@@ -47,7 +124,7 @@ var hiosView = function () {
         minify: container.querySelector('#hios-minify'),
         fullify: container.querySelector('#hios-fullify'),
         trackList: container.querySelector('#hios-track-list'),
-        title: [container.querySelector('.mini > .hios-song-title'), container.querySelector('.full > .hios-song-title')],
+        title: [container.querySelector('.mini > .hios-song-title-box > .hios-song-title'), container.querySelector('.full > .hios-song-title')],
         artist: container.querySelector('.full > .hios-song-artist'),
         thumbnail: [container.querySelector('.mini > .hios-thumbnail'), container.querySelector('#hios-full > .hios-artwork-container > .hios-artwork')],
         trackList: container.querySelector('#hios-track-list'),
@@ -57,6 +134,9 @@ var hiosView = function () {
     getContainer: function (){
       return selectors.appContainer;
     },
+    getMini: function (){
+      return selectors.miniContainer;
+    },
     getSelectorProperty: function (selector, property){
       return  selectors[selector][property];
     },
@@ -64,15 +144,14 @@ var hiosView = function () {
       return Array.prototype.indexOf.call(selectors.trackList.children, element);
     },
     buildHTML: function () {
-      // var node =  document.createElement('div');
-      // node.className = 'hios-main-container';
-      // node.innerHTML = appHTML;
-    // document.querySelector('body').appendChild = node;
+      document.querySelector('#hios-app').innerHTML = appHTML;
     },
     dragging : function (event, action){
+      console.log('in this')
       var element = event.target;
       switch (action){
         case 'start':
+<<<<<<< ours
           console.log('start')
           element.style.opacity ='0.4'
           event.dataTransfer.effectAllowed = 'move';
@@ -82,11 +161,29 @@ var hiosView = function () {
         console.log('over')
           event.preventDefault();
           event.dataTransfer.dropEffect = 'move';
+=======
+          var style = window.getComputedStyle(event.target, null);
+          element.style.opacity ='0.4'
+          event.dataTransfer.effectAllowed = 'move';
+          event.dataTransfer.setData(
+            'text/plain',
+            (parseInt(style.getPropertyValue("left"), 10) - event.clientX) + ',' + (parseInt(style.getPropertyValue("top"),10) - event.clientY)
+          );
+>>>>>>> theirs
         break;
+
         case 'drop':
+<<<<<<< ours
           console.log('drop')
           event.stopPropagation();
           // if element being dropped into is not is not hios-full adjust hios-mini css
+=======
+          var offset = event.dataTransfer.getData('text/plain').split(',');
+          var mini =  selectors.miniContainer;
+          mini.style.opacity ='1';
+          mini.style.left = (event.clientX + parseInt(offset[0],10)) + 'px';
+          mini.style.top = (event.clientY + parseInt(offset[1],10)) + 'px';
+>>>>>>> theirs
         break;
 
       }
@@ -175,12 +272,12 @@ var hiosView = function () {
      */
     updateTrackList: function(options) {
       var list = selectors.trackList
+      console.log(selectors)
       var nodeIndex = options.track.id - 1
       var previousNode = document.querySelector('.hios-playing')
       if (previousNode) previousNode.className = 'hios-track';
 
       if (options.track && options.music){
-        console.log(options.music)
         list.innerHTML = '';
         options.music.forEach(function (track){
           var node =  document.createElement('div');

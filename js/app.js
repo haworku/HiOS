@@ -1,17 +1,17 @@
 'use strict';
 var APP = {};
-APP.state = {};
+var music = []; // globally declared music holds file upload or uses test files - probably should be JS constant
 
 APP.reset = function () {
   var clone = Object.assign([], music);
-  APP.state = { 
+  APP.state = {
     music: music,
-    completeQue: [], 
-    nextQue: clone, 
-    currentTrack: {}, 
+    completeQue: [],
+    nextQue: clone,
+    currentTrack: {},
     volume: .5,
-    playing: true, 
-    shuffle: false, 
+    playing: true,
+    shuffle: false,
     loopCurrent: false,
     loopAll: false
   };
@@ -19,16 +19,22 @@ APP.reset = function () {
  APP.state.currentTrack =  APP.state.nextQue.shift();
 };
 
-APP.reset();
+APP.launch = function () {
+  APP.state = {};
 
-APP.view = hiosView();
-APP.view.buildHTML();
-APP.view.defineSelectors();
-APP.view.updateTrackList({music: APP.state.music, track: APP.state.currentTrack});
+  APP.reset();
 
-APP.player = hiosPlayer();
-APP.player.init(APP.state.currentTrack.source);
-APP.player.play(true);
+  APP.view = hiosView();
+  APP.view.buildHTML();
+  APP.view.defineSelectors();
+  APP.view.updateTrackList({music: APP.state.music, track: APP.state.currentTrack});
+
+  APP.player = hiosPlayer();
+  APP.player.init(APP.state.currentTrack.source);
+  APP.attachListeners();
+  APP.player.play(true);
+};
+
 
 /**
  * Randomize array element order in-place.

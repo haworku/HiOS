@@ -1,6 +1,7 @@
 body {
   position: relative;
   padding-top: 70px;
+  font-family: 'Space Mono', monospace;
 }
 [draggable]{
   user-select: none;
@@ -67,11 +68,21 @@ input[type=range]{
   padding: .4em;
   z-index: 90
 }
-#hios-mini {
+#hios-file-upload{ //make transparent
+  font-size: 1em;
+  text-align: center;
+  border-radius: 10px;
+  margin: .3em .3em;
+  z-index: 100;
+  cursor: pointer;
+}
+#hios-mini{
   height: 60px;
   width: 18em;
   border-radius: 10px;
   margin: .3em .3em;
+  left: 0;
+  top: 0;
   z-index: 100;
   cursor: move;
   &> .hios-wrap {
@@ -83,14 +94,33 @@ input[type=range]{
       flex: 1 auto;
       padding: 0;
     }
-    &> .hios-song-title {
+    &>.hios-song-title-box {
       flex:  1 auto;
-      padding: 15px;
+      white-space: nowrap;
+      max-width: 55%;
+      &>.hios-song-title{
+        align-self: flex-start;
+        overflow: hidden;
+        overflow-x: -webkit-marquee;
+        -webkit-marquee-direction: forwards;
+        -webkit-marquee-style: scroll;
+        -webkit-marquee-speed: normal;
+        -webkit-marquee-increment: small;
+        -webkit-marquee-repetition: 5;
+        overflow-x: marquee-line;
+        marquee-direction: forward;
+        marquee-style: scroll;
+        marquee-speed: normal;
+        marquee-play-count: 5;
+        font-size: 1em;
+        padding: 15px;
+      }
     }
-    &> .hios-audio-controls {
+    &> .hios-audio  {
       align-self: center;
       flex: 1 auto;
-      max-width: 25%
+      max-width: 25%;
+      font-size: 1.5em;
     }
   }
 }
