@@ -6,10 +6,12 @@ var hiosView = function () {
 
   appHTML =
     `
-      <div id="hios-mini" draggable="true" class="hios-active">
+      <div id="hios-mini" draggable="true" class="hios-active animated slideInUp">
         <div class="hios-wrap mini">
           <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
-          <div class="hios-song-title"></div>
+          <div class="hios-song-title-box">
+             <div class="hios-song-title"></div>
+          </div>
           <div class="hios-audio mini">
               <i class="hios-play-pause icon-play" data-state="playpause" ></i>
               <i class="hios-next icon-skip-forward" data-state="next"></i>
@@ -81,8 +83,8 @@ var hiosView = function () {
     `
       <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
       <div class="hios-info">
-        <div class="hios-song-title">adfd</div>
-        <div class="hios-song-artist">dasfasdf</div>
+        <div class="hios-song-title slideInRight">adfd</div>
+        <div class="hios-song-artist slideInLeft">dasfasdf</div>
       </div>
     `;
 
@@ -122,7 +124,7 @@ var hiosView = function () {
         minify: container.querySelector('#hios-minify'),
         fullify: container.querySelector('#hios-fullify'),
         trackList: container.querySelector('#hios-track-list'),
-        title: [container.querySelector('.mini > .hios-song-title'), container.querySelector('.full > .hios-song-title')],
+        title: [container.querySelector('.mini > .hios-song-title-box > .hios-song-title'), container.querySelector('.full > .hios-song-title')],
         artist: container.querySelector('.full > .hios-song-artist'),
         thumbnail: [container.querySelector('.mini > .hios-thumbnail'), container.querySelector('#hios-full > .hios-artwork-container > .hios-artwork')],
         trackList: container.querySelector('#hios-track-list'),
@@ -149,6 +151,17 @@ var hiosView = function () {
       var element = event.target;
       switch (action){
         case 'start':
+<<<<<<< ours
+          console.log('start')
+          element.style.opacity ='0.4'
+          event.dataTransfer.effectAllowed = 'move';
+          event.dataTransfer.setData('text/html', element.innerHTML);
+        break;
+        case 'over':
+        console.log('over')
+          event.preventDefault();
+          event.dataTransfer.dropEffect = 'move';
+=======
           var style = window.getComputedStyle(event.target, null);
           element.style.opacity ='0.4'
           event.dataTransfer.effectAllowed = 'move';
@@ -156,14 +169,21 @@ var hiosView = function () {
             'text/plain',
             (parseInt(style.getPropertyValue("left"), 10) - event.clientX) + ',' + (parseInt(style.getPropertyValue("top"),10) - event.clientY)
           );
+>>>>>>> theirs
         break;
 
         case 'drop':
+<<<<<<< ours
+          console.log('drop')
+          event.stopPropagation();
+          // if element being dropped into is not is not hios-full adjust hios-mini css
+=======
           var offset = event.dataTransfer.getData('text/plain').split(',');
           var mini =  selectors.miniContainer;
           mini.style.opacity ='1';
           mini.style.left = (event.clientX + parseInt(offset[0],10)) + 'px';
           mini.style.top = (event.clientY + parseInt(offset[1],10)) + 'px';
+>>>>>>> theirs
         break;
 
       }
