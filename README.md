@@ -1,5 +1,6 @@
 ## HiOS Music Player
-*HANA's music player, HTML5 & Javascript, styled off iOS 10 music player*
+*HTML5 & LESS & pure Javascript, styled off iOS 10 music and redux design patterns*
+
 fonts & animation: icomoon, css-animate
 
 ***dependency free***
