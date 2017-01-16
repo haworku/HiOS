@@ -1,5 +1,6 @@
   let state = {
     music: [],
+    playerAudio: {},
     completeQue: [],
     nextQue: []
     currentTrack: {},
