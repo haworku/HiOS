@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "HiOS Music Player",
-  "description": "In-browser music player styled off i0S 10 Music, injected over existing page.",
+  "description": "pure javascript music player",
   "default_locale": "en",
   "version": "0.0.1",
   "author": "haworku",
