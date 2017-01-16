@@ -27,7 +27,7 @@
 .icon-disk:before {
   content: "\e901";
 }
-.icon-play:before {
+.icon-upload:before {
   content: "\e929";
 }
 .icon-enlarge:before {
@@ -36,7 +36,7 @@
 .icon-shrink:before {
   content: "\e98c";
 }
-.icon-play3:before {
+.icon-play:before {
   content: "\ea1c";
 }
 .icon-pause:before {
