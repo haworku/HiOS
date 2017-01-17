@@ -20,7 +20,7 @@ var hiosView = function () {
       </div>
 
       <div id="hios-full" class="hios-inactive">
-        <i id="hios-minify" data-state="swap">X</i>
+        <i id="hios-minify" class="icon-shrink" data-state="swap"></i>
         <div class="hios-artwork-container">
           <img class="hios-artwork" src="/static/images/lemonade.jpg">
         </div>
@@ -151,7 +151,6 @@ var hiosView = function () {
       var element = event.target;
       switch (action){
         case 'start':
-<<<<<<< ours
           console.log('start')
           element.style.opacity ='0.4'
           event.dataTransfer.effectAllowed = 'move';
@@ -161,29 +160,18 @@ var hiosView = function () {
         console.log('over')
           event.preventDefault();
           event.dataTransfer.dropEffect = 'move';
-=======
-          var style = window.getComputedStyle(event.target, null);
-          element.style.opacity ='0.4'
-          event.dataTransfer.effectAllowed = 'move';
-          event.dataTransfer.setData(
-            'text/plain',
-            (parseInt(style.getPropertyValue("left"), 10) - event.clientX) + ',' + (parseInt(style.getPropertyValue("top"),10) - event.clientY)
-          );
->>>>>>> theirs
         break;
 
         case 'drop':
-<<<<<<< ours
+
           console.log('drop')
           event.stopPropagation();
           // if element being dropped into is not is not hios-full adjust hios-mini css
-=======
           var offset = event.dataTransfer.getData('text/plain').split(',');
           var mini =  selectors.miniContainer;
           mini.style.opacity ='1';
           mini.style.left = (event.clientX + parseInt(offset[0],10)) + 'px';
           mini.style.top = (event.clientY + parseInt(offset[1],10)) + 'px';
->>>>>>> theirs
         break;
 
       }
@@ -272,6 +260,7 @@ var hiosView = function () {
      */
     updateTrackList: function(options) {
       var list = selectors.trackList
+      console.log(list)
       console.log(selectors)
       var nodeIndex = options.track.id - 1
       var previousNode = document.querySelector('.hios-playing')

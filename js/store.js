@@ -1,8 +1,10 @@
+const createStore = (combinedReducer) => {
+  console.log('loading store')
   let state = {
     music: [],
-    playerAudio: {},
+    audioObject: {}, // HTML5 audio object
     completeQue: [],
-    nextQue: []
+    nextQue: [],
     currentTrack: {},
     volume: .5,
     playing: false,
@@ -13,22 +15,24 @@
 
   let listeners = [] //because the subscribe function can be called many times we need to keep track of the change listeners
 
-  const getState = () => state;
+  const getState = () => state; // current state
 
-  const dispatch = (action ( => {
-    state = reducer(state, action);
+
+ 
+   const dispatch = (action)  => {
+    state = combinedReducer(state, action);
     listeners.forEach( listeners => listener() 
-    ); //notify each listener after there's a new state from reducer
+    ); // notify each listener after there's a new state from reducer
   }
+  
+  dispatch({}) // intial state to be rendered when store created
 
-  const subscribe = (listener) => {
-    listeners.push(listener);
-    return () => {
-      listeners = listeners.filter( l => l !== listener )// to remove listener subscribe again
-    }
-  };
-
-  dispatch({}) //for intial state to be rendered when store created
-
-  return { getState, dispatch, subscribe };
+ return { getState, dispatch};
 }
+
+  // const subscribe = (listener) => {
+  //   listeners.push(listener);
+  //   return () => {
+  //     listeners = listeners.filter( l => l !== listener )// to remove listener subscribe again
+  //   }
+  // };
