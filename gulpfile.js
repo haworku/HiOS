@@ -8,10 +8,13 @@ const path = require('path');
 const watch = {
   less: ['style/*.less'],
   js: [ 
-        'js/app.js',
-        'js/player.js',
-        'js/view.js',
-        'js/events.js',
+        'js/store.js',
+        'js/redux-player.js',
+        'js/redux-app.js',
+        // 'js/app.js',
+        // 'js/player.js',
+        // 'js/view.js',
+        // 'js/events.js',
         'js/musicupload.js'
         ],
 };
