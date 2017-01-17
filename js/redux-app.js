@@ -7,7 +7,7 @@ APP.launch = function (music) {
   APP.store.dispatch({type: 'BUILD HTML'});
   APP.store.dispatch({type: 'UPDATE_TRACKLIST'});
   APP.store.subscribe() // attach all DOM & audio object listeners
-  APP.store.dispatch({type: 'play'})
+  APP.store.dispatch({type: 'PLAY_PAUSE'})
 };
 
 
