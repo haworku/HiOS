@@ -1,10 +1,9 @@
 'use strict';
 var APP = {};
-var music = []; // globally declared music holds file upload or uses test files - probably should be JS constant
 
-APP.launch = function () {
+APP.launch = function (music) {
   APP.store = createStore(audioReducer);
-  APP.store.dispatch({type: 'LOAD_PLAYER'});
+  APP.store.dispatch({type: 'LOAD_PLAYER', uploadedMusic: music}); // music from musicupload.js
   APP.store.dispatch({type: 'BUILD HTML'});
   APP.store.dispatch({type: 'UPDATE_TRACKLIST'});
   APP.store.subscribe() // attach all DOM & audio object listeners
