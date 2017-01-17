@@ -10,10 +10,10 @@ const audioReducer = (state = {}, action) => {
       console.log('loaded player')
       return state;
 
-  	case 'PLAY':
-      return state;
-    case 'PAUSE':
-      return state;
+  	case 'PLAY_PAUSE':
+      return Object.assign( {}, state, {
+        playing: !state.playing
+        });
     case 'NEXT':
       return state;
     case 'PREVIOUS':
@@ -22,7 +22,20 @@ const audioReducer = (state = {}, action) => {
       return state;
     case 'UPDATE_AUDIO':
       return state;
+    case 'TOGGLE_SHUFFLE':
+      return Object.assign( {}, state, {
+        shuffle: !state.shuffle
+        });
+    case 'TOGGLE_REPEAT':
+      return Object.assign( {}, state, {
+        loopAll: !state.loopAll
+        });
+      return state;
     default:
       return state;
   }
 }
+
+const togglePlay = (playing) =>  {
+  return 
+}; 
