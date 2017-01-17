@@ -1,6 +1,6 @@
-const audioReducer = (state = 0, action){
+const audioReducer = (state = 0, action) => {
   switch (action.type){
-  	CASE 'LOAD_AUDIO':
+  	case 'LOAD_AUDIO':
       // var clone = Object.assign([], music);
       // put music in store and clone music for nextQue
       // store.currentTrack =  store.nextQue.shift();
@@ -8,17 +8,17 @@ const audioReducer = (state = 0, action){
       console.log('load player')
       return state;
 
-  	CASE 'PLAY':
+  	case 'PLAY':
       return state;
-    CASE 'PAUSE':
+    case 'PAUSE':
       return state;
-    CASE 'NEXT':
+    case 'NEXT':
       return state;
-    CASE 'PREVIOUS':
+    case 'PREVIOUS':
       return state;
-    CASE 'RESTART':
+    case 'RESTART':
       return state;
-    CASE 'UPDATE_AUDIO':
+    case 'UPDATE_AUDIO':
       return state;
     default:
       return state;

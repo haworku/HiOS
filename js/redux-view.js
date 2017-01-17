@@ -1,17 +1,17 @@
-const viewReducer = (state = 0, action){
+const viewReducer = (state = 0, action) =>{
   switch (action.type){
-  	CASE 'BUILD HTML':
+  	case 'BUILD HTML':
       // combine with define selectors
       console.log('load player')
       return state;
 
-  	CASE 'UPDATE_TRACKLIST':
+  	case 'UPDATE_TRACKLIST':
   	// combine with populate current track
       return state;
-    CASE 'RESET_TRACKING':
+    case 'RESET_TRACKING':
     	//called only once metadata has loaded
       return state;
-    CASE 'SWAP_SKIN':
+    case 'SWAP_SKIN':
       return state;
     default:
       return state;

@@ -1,6 +1,6 @@
 'use strict';
 var APP = {};
-const music = []; // globally declared music holds file upload or uses test files - probably should be JS constant
+var music = []; // globally declared music holds file upload or uses test files - probably should be JS constant
 
 APP.launch = function () {
   APP.store = createStore(audioReducer);
