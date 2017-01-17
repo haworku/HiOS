@@ -1,11 +1,13 @@
-const audioReducer = (state = 0, action) => {
+const audioReducer = (state = {}, action) => {
   switch (action.type){
   	case 'LOAD_AUDIO':
-      // var clone = Object.assign([], music);
-      // put music in store and clone music for nextQue
-      // store.currentTrack =  store.nextQue.shift();
-      // APP.player.init(APP.state.currentTrack.source);
-      console.log('load player')
+      return Object.assign( {}, state, {
+        music: action.uploadedMusic,
+        currentTrack: action.uploadedMusic[0],
+        nextQue: action.uploadedMusic.slice(1, -1),
+        audioObject: new Audio(action.uploadedMusic[0].source) // init HTML5 audio object for player with current track
+        });
+      console.log('loaded player')
       return state;
 
   	case 'PLAY':

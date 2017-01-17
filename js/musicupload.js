@@ -8,7 +8,7 @@
   var URL = window.URL || window.webkitURL;
 
   var loadMusic = function (e){
-    music = [];
+    let music = [];
 
     var files = this.files;
 
@@ -82,8 +82,7 @@
         }
       ];
     }
-    console.log(music)
-    APP.launch()
+    APP.launch(music)
   };
 
   var inputNode = document.querySelector('input')
