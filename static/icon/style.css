@@ -24,24 +24,42 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-skip-back:before {
-  content: "\e050";
+.icon-disk:before {
+  content: "\e901";
+}
+.icon-upload:before {
+  content: "\e929";
+}
+.icon-enlarge:before {
+  content: "\e98b";
+}
+.icon-shrink:before {
+  content: "\e98c";
 }
 .icon-play:before {
-  content: "\e052";
+  content: "\ea1c";
 }
 .icon-pause:before {
-  content: "\e053";
+  content: "\ea1d";
+}
+.icon-skip-back:before {
+  content: "\ea1f";
 }
 .icon-skip-forward:before {
-  content: "\e056";
+  content: "\ea20";
 }
-.icon-shuffle:before {
-  content: "\e057";
+.icon-volume-high:before {
+  content: "\ea26";
+}
+.icon-volume-mute:before {
+  content: "\ea29";
 }
 .icon-repeat:before {
-  content: "\e058";
+  content: "\ea2d";
 }
-.icon-close:before {
-  content: "\e058";
+.icon-shuffle:before {
+  content: "\ea30";
+}
+.icon-currently-playing:before {
+  content: "\e900";
 }
