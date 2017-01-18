@@ -1,12 +1,32 @@
 'use strict';
 var APP = {};
 
+const combineReducers = (reducers) => { // takes in reducer functions
+  return (state = {}, action) => { // returns a new function representing all reducers logic combined
+    return Object.keys(reducers).reduce(
+      (nextState, key) => { // nextState is function holding reducer, key is the reducer function
+        nextState[key] = reducers[key]( // goes into each reducer function
+          state[key], 
+          action
+        );
+      return nextState;
+      },
+      {}
+    );
+  };
+}; 
+
 APP.launch = function (music) {
-  APP.store = createStore(audioReducer);
-  APP.store.dispatch({type: 'LOAD_PLAYER', uploadedMusic: music}); // music from musicupload.js
+  const combinedReducer = combineReducers({
+    audioReducer,
+    viewReducer
+  }); 
+
+  APP.store = createStore(combinedReducer);
+  APP.store.dispatch({type: 'LOAD_AUDIO', uploadedMusic: music}); // music from musicupload.js;
   APP.store.dispatch({type: 'BUILD HTML'});
   APP.store.dispatch({type: 'UPDATE_TRACKLIST'});
-  APP.store.subscribe() // attach all DOM & audio object listeners
+  // APP.store.subscribe() // attach all DOM & audio object listeners
   APP.store.dispatch({type: 'PLAY_PAUSE'})
 };
 
