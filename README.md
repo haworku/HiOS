@@ -42,8 +42,8 @@ The purpose of the store is to hold the state tree object
 - store.dispatch( {type: 'INCREMENT'} ) dispatches an action
 - store.subscribe() follows everytime store changes so that you can update UI and do whatever else
 ```javascript
-const createStore = (reducer, initialState) => {
-  let state = initialState;
+const createStore = (reducer) => {
+  let state;
   let listeners = [] //because the subscribe function can be called many times we need to keep track of the change listeners
   
   const getState = () => state;
@@ -69,13 +69,14 @@ const createStore = (reducer, initialState) => {
 ### WATCH OUT / WARNINGS ###
 - When reducers operate on properties of the state tree that are arrays -- use .concat (instead of .push), .slice (instead of .splice) to keep function pure and non-mutating
 - WHen reducers operate on properties of the state tree that are objects -- use Object.assign from ES6 (instead of reassigning values with = something or = !something)
+
 ```javascript
-const combineReducers = (reducers) => {
-  return (state = {}, action) => {
+const combineReducers = (reducers) => { // takes in reducer functions
+  return (state = {}, action) => { // returns a new function representing all reducers logic combined
     return Object.keys(reducers).reduce(
-      (nextState, key) => {
-        nextState[key] = reducers[key](
-          state[key],
+      (nextState, key) => { // nextState is function holding reducer, key is the reducer function
+        nextState[key] = reducers[key]( // goes into each reducer function
+          state[key], 
           action
         );
       return nextState;

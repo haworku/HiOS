@@ -2,12 +2,18 @@ const audioReducer = (state = {}, action) => {
   console.log('recieved action: ', action.type, ' previous state: ', state)
 
   switch (action.type){
-  	case 'LOAD_AUDIO':
+  	case 'LOAD_PLAYER':
       return Object.assign( {}, state, {
         music: action.uploadedMusic,
-        currentTrack: action.uploadedMusic[0],
+        audioObject: new Audio(action.uploadedMusic[0].source), // initializes HTML5 audio object for player with current track
+        completeQue: [],
         nextQue: action.uploadedMusic.slice(1, -1),
-        audioObject: new Audio(action.uploadedMusic[0].source) // init HTML5 audio object for player with current track
+        currentTrack: action.uploadedMusic[0],
+        volume: .5,
+        playing: false,
+        shuffle: false,
+        loopCurrent: false,
+        loopAll: false
         });
 
   	case 'PLAY_PAUSE':
