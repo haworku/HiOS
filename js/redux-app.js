@@ -16,13 +16,15 @@ const combineReducers = (reducers) => { // takes in reducer functions
   };
 }; 
 
+
 APP.launch = function (music) {
   const combinedReducer = combineReducers({
-    audioReducer,
+    playerReducer,
     viewReducer
   }); 
 
   APP.store = createStore(combinedReducer);
+
   APP.store.dispatch({type: 'LOAD_AUDIO', uploadedMusic: music}); // music from musicupload.js;
   APP.store.dispatch({type: 'BUILD HTML'});
   APP.store.dispatch({type: 'UPDATE_TRACKLIST'});
