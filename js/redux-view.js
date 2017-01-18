@@ -1,10 +1,5 @@
 const viewReducer = (state = 0, action) =>{
   switch (action.type){
-  	case 'BUILD HTML':
-      // combine with define selectors
-      console.log('load player')
-      return state;
-
   	case 'UPDATE_TRACKLIST':
   	// combine with populate current track
       return state;

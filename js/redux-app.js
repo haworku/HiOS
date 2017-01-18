@@ -26,8 +26,9 @@ APP.launch = function (music) {
   APP.store = createStore(combinedReducer);
 
   APP.store.dispatch({type: 'LOAD_AUDIO', uploadedMusic: music}); // music from musicupload.js;
-  APP.store.dispatch({type: 'BUILD HTML'});
-  APP.store.dispatch({type: 'UPDATE_TRACKLIST'});
+  APP.view = hiosView();
+  APP.view.buildHTML();
+  APP.view.defineSelectors();
   // APP.store.subscribe() // attach all DOM & audio object listeners
   APP.store.dispatch({type: 'PLAY_PAUSE'})
 };
