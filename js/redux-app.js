@@ -16,13 +16,27 @@ const combineReducers = (reducers) => { // takes in reducer functions
   };
 }; 
 
+
 APP.launch = function (music) {
   const combinedReducer = combineReducers({
     audioReducer,
     viewReducer
   }); 
 
-  APP.store = createStore(combinedReducer);
+  const initialState = {
+    music: [],
+    audioObject: {}, // HTML5 audio object
+    completeQue: [],
+    nextQue: [],
+    currentTrack: {},
+    volume: .5,
+    playing: false,
+    shuffle: false,
+    loopCurrent: false,
+    loopAll: false
+  };
+
+  APP.store = createStore(combinedReducer, initialState);
   APP.store.dispatch({type: 'LOAD_AUDIO', uploadedMusic: music}); // music from musicupload.js;
   APP.store.dispatch({type: 'BUILD HTML'});
   APP.store.dispatch({type: 'UPDATE_TRACKLIST'});
