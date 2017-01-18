@@ -10,6 +10,7 @@ const watch = {
   js: [ 
         'js/store.js',
         'js/redux-player.js',
+        'js/redux-view.js',
         'js/redux-app.js',
         // 'js/app.js',
         // 'js/player.js',
