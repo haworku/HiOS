@@ -14,7 +14,7 @@ const watch = {
         'js/redux-app.js',
         // 'js/app.js',
         // 'js/player.js',
-        // 'js/view.js',
+        'js/view.js',
         // 'js/events.js',
         'js/musicupload.js'
         ],
