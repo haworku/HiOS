@@ -19,18 +19,19 @@ const combineReducers = (reducers) => { // takes in reducer functions
 
 APP.launch = function (music) {
   const combinedReducer = combineReducers({
-    playerReducer,
-    viewReducer
+    playerReducer
   }); 
 
   APP.store = createStore(combinedReducer);
-
-  APP.store.dispatch({type: 'LOAD_AUDIO', uploadedMusic: music}); // music from musicupload.js;
+  APP.store.dispatch({type: 'LOAD_PLAYER', uploadedMusic: music}); // music from musicupload.js;
   APP.view = hiosView();
   APP.view.buildHTML();
-  APP.view.defineSelectors();
+  // APP.view.defineSelectors();
+  // APP.events = hiosEvents();
   // APP.store.subscribe() // attach all DOM & audio object listeners
-  APP.store.dispatch({type: 'PLAY_PAUSE'})
+  APP.store.dispatch({type: 'UPDATE_AUDIO'})
+  // play audio
+  console.log(APP.store.getState().playerReducer  );
 };
 
 
