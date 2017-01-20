@@ -1,18 +1,10 @@
-const viewReducer = (state = 0, action) =>{
-  switch (action.type){
-  	case 'UPDATE_TRACKLIST':
-  	// combine with populate current track
-      return state;
+// 'use strict';
+// console.log('loading view')
 
-    case 'RESET_TRACKING':
-    	//called only once metadata has loaded
-      return state;
-    case 'SWAP_SKIN':
-      return state;
-      
-    default:
-      return state;
-  }
-}
+// const hiosView = (store) => {
 
-// need to be listening for events from audioReducer play/pause etc.
+// }
+
+// need to be listening for events from audioReducer play/pause etc. 
+// need to reset tracking once metadata loaded
+// update tracklist and populate current track
