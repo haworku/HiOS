@@ -5,7 +5,7 @@ const playerReducer = (state = {}, action) => {
   	case 'LOAD_PLAYER':
       return Object.assign( {}, state, {
         music: action.uploadedMusic,
-        audioObject: new Audio(action.uploadedMusic[0].source), // HTML5 audio object with current track
+        audioObject: new Audio(), // HTML5 audio object with current track
         completeQue: [],
         nextQue: action.uploadedMusic.slice(1, -1),
         currentTrack: action.uploadedMusic[0],
@@ -14,36 +14,48 @@ const playerReducer = (state = {}, action) => {
         shuffle: false,
         loopCurrent: false,
         loopAll: false
-        });
+      });
 
-  	case 'PLAY_PAUSE':
+  	case 'TOGGLE_PLAY':
       return Object.assign( {}, state, {
-        playing: !state.playing
+        playing: !state.playing,
         });
     case 'NEXT':
       return state;
     case 'PREVIOUS':
       return state;
-    case 'RESTART':
-    // audio.currentTime < 5 ? true : false;
-      return Object.assign( {}, state, {
-        audioObject: !state.playing
-        });
-    case 'UPDATE':
-      // audio.currentTime = (options.time || audio.currentTime);
-      // audio.src= (options.source || audio.src);
-      // audio.volume = (options.volume || audio.volume);
-      return state
+    case 'RESTART': // CHECK THIS OUT
+      if (state.audioObject.currentTime < 5){
+        return Object.assign( {}, state.audioObject, { currentTime: 0});
+      } else {
+        return state;
+      }
+
     case 'UPDATE_AUDIO':
-      return state;
+      return Object.assign( {}, state, {
+        audioObject: Object.assign( {}, state.audioObject, {
+          currentTime: (action.tracking || state.audioObject.currentTime),
+          src: state.currentTrack.source,
+          volume: (action.volume || state.audioObject.volume)
+        })     
+      });
+
+    case 'VOLUME':
+      return Object.assign( {}, state, {
+        volume: action.volume
+        }); 
+      return state
+
     case 'TOGGLE_SHUFFLE':
       return Object.assign( {}, state, {
         shuffle: !state.shuffle
-        });
-    case 'TOGGLE_REPEAT':
+      });
+
+    case 'TOGGLE_LOOP':
       return Object.assign( {}, state, {
         loopAll: !state.loopAll
-        });
+      });
+
       return state;
     default:
       return state;
