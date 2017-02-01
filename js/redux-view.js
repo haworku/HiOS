@@ -1,7 +1,7 @@
 'use strict';
 console.log('loading view')
 
- hiosView = () => {
+ hiosView = (eventHandler) => {
 	appHTML =
     `
       <div id="hios-mini" draggable="true" class="hios-active animated slideInUp">
@@ -112,14 +112,25 @@ console.log('loading view')
       };
     }
 
+    addListeners = () => {
+      console.log('HANDLER', eventHandler)
+      selectors.appContainer.addEventListener('click', function (e){
+        if( !e.target.getAttribute('data-state') ){
+          eventHandler.onClick('swap');
+        }else{
+          eventHandler.onClick(e);
+        }
+      }, false);
+    };
+
    	return {
 			buildHTML: () => {
 	   		document.querySelector('#hios-app').innerHTML = appHTML;
         defineSelectors();
+        addListeners();
       },
       updateView: (currentState) => {
         //returns a listener???? wtf
-        console.log('im a function')
       }
    };
 }

@@ -8,7 +8,7 @@ APP.launch = function (music) { // called from musicupload.js
 
   APP.store = createStore(combinedReducer);
   APP.events = hiosEvents();
-  APP.view = hiosView();
+  APP.view = hiosView(APP.events);
   observeStore(APP.store, APP.view.updateView);
 
   //WRAP 
