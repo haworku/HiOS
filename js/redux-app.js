@@ -1,8 +1,8 @@
 'use strict';
 var APP = {};
 
-const combineReducers = (reducers) => { // takes in reducer functions
-  return (state = {}, action) => { // returns a new function representing all reducers logic combined
+const combineReducers = (reducers) => { 
+  return (state = {}, action) => {
     return Object.keys(reducers).reduce(
       (nextState, key) => { // nextState is function holding reducer, key is the reducer function
         nextState[key] = reducers[key]( // goes into each reducer function
@@ -17,13 +17,13 @@ const combineReducers = (reducers) => { // takes in reducer functions
 }; 
 
 
-APP.launch = function (music) {
+APP.launch = function (music) { // called from musicupload.js
   const combinedReducer = combineReducers({
     playerReducer
   }); 
 
   APP.store = createStore(combinedReducer);
-  APP.store.dispatch({type: 'LOAD_PLAYER', uploadedMusic: music}); // music from musicupload.js;
+  APP.store.dispatch({type: 'LOAD_PLAYER', uploadedMusic: music}); 
   APP.view = hiosView();
   APP.view.buildHTML();
   // APP.view.defineSelectors();
