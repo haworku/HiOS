@@ -66,20 +66,23 @@ hiosEvents = (store) => {
 		    	store.dispatch({type:'TOGGLE_LOOP'})
 		      break;
 
-		    case 'tracking':  // audio player listeners also at work here
-		      store.dispatch({type: 'UPDATE_AUDIO', tracking: view.getSelectorProperty('tracking, value') }) 
+		    case 'tracking':  
+		     // audio player listeners also at work here
+		    	// get property directly from target ??? not need for reference to HTML
+		      store.dispatch({type: 'UPDATE_AUDIO', tracking: 0 }) 
 		      break;
 
 		    case 'volume':
-		      store.dispatch({type: 'UPDATE_AUDIO', volume: view.getSelectorProperty('volume, value') }) 
-		      store.dispatch({type: 'VOLUME', volume: view.getSelectorProperty('volume, value') }) 
+		    // get property directly from target ??? no need for reference to HTML
+		      store.dispatch({type: 'UPDATE_AUDIO', volume: 0}) 
+		      store.dispatch({type: 'VOLUME', volume: 0 }) 
 		      break;
 
 		    case 'swap':
 		      if (target && target.getAttribute('id') == 'hios-minify'){
-		        APP.view.swapSkin('mini');
+		      	// dispatch event
 		      }else{
-		        APP.view.swapSkin('full');
+		      	// dispatch event
 		      }
 		      break;
 
@@ -90,31 +93,7 @@ hiosEvents = (store) => {
 	  }
 
   return { 
-  	defineSelectors: () => {
-      let container = document.querySelector('#hios-app')
 
-      selectors = {
-        appContainer: container,
-        miniContainer: container.querySelector('#hios-mini'),
-        fullContainer: container.querySelector('#hios-full'),
-        playPause: [container.querySelector('.mini > .hios-play-pause'), container.querySelector('.full > .hios-play-pause')],
-        next: [container.querySelector('.mini > .hios-next'), container.querySelector('.full > .hios-next')],
-        previous: container.querySelector('.full > .hios-previous'),
-        shuffle: container.querySelector('.hios-shuffle'),
-        loop: container.querySelector('.hios-loop'),
-        volume: container.querySelector('#hios-volume-tracking'),
-        tracking: container.querySelector('#hios-progress-tracking'),
-        trackingTimeProgress: container.querySelector('#hios-progress-completed'),
-        trackingTimeDuration: container.querySelector('#hios-progress-duration'),
-        minify: container.querySelector('#hios-minify'),
-        fullify: container.querySelector('#hios-fullify'),
-        trackList: container.querySelector('#hios-track-list'),
-        title: [container.querySelector('.mini > .hios-song-title-box > .hios-song-title'), container.querySelector('.full > .hios-song-title')],
-        artist: container.querySelector('.full > .hios-song-artist'),
-        thumbnail: [container.querySelector('.mini > .hios-thumbnail'), container.querySelector('#hios-full > .hios-artwork-container > .hios-artwork')],
-        trackList: container.querySelector('#hios-track-list'),
-      };
-    },
 	  addListeners: () => {
   		console.log('add Events')
   		selectors.appContainer.addEventListener('click', function (e){
