@@ -6,8 +6,8 @@ hiosEvents = (store) => {
 
 	let onClick =  (e) => {
 	  	if (e.preventDefault) e.preventDefault();
+
 		  let target = e.target || e.srcElement;
-		  // var string = target ? target.getAttribute('data-state') : e;
 		  console.log('click', target.getAttribute('data-state'))
 
 	    switch (target.getAttribute('data-state')) {
