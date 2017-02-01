@@ -15,7 +15,6 @@ APP.launch = function (music) { // called from musicupload.js
   // where should these  happen - side effects of loading player
   APP.store.dispatch({type: 'LOAD_PLAYER', uploadedMusic: music}); 
   APP.view.buildHTML(); 
-  APP.events.defineSelectors();
   APP.events.addListeners();
   // ./ WRAP
 
