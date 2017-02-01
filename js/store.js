@@ -18,7 +18,7 @@ const createStore = (combinedReducer) => {
     }
   }
 
-  dispatch({}) // intial state to be rendered when store created
+  dispatch({}) // initial state rendered when store created
 
   return { getState, dispatch, subscribe};
 };

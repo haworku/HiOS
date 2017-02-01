@@ -11,12 +11,12 @@ fonts & animation: icomoon, css-animate
 - `$ npm run dev`  and  `$ npm run serve` start development server at 127.0.0.1:8000 (also complies js and less files)
 
 -----------------------------------------------------
-## LEARNING REDUX FROM SCRATCH NOTES
+## MY LEARNING REDUX NOTES
 *Based on egghead.io videos as well as redux.js.org docs*
 
 ### Purpose of Redux
 1.  Keep track of the current state of an application in a single JS object. 
-2.  All mutations to the state tree are explict. Changes to the state are initiated (and will only ever occur) after an *action* is dispatched.  The change to the state, as described through the action, has a type, usually a string such as 'ADD_TODO'.  It may also pass other additional data.  
+2.  All mutations to the state tree are explicit. Changes to the state are initiated (and will only ever occur) after an *action* is dispatched.  The change to the state, as described through the action, has a type, usually a string such as 'ADD_TODO'.  It may also pass other additional data.  
 3.   State mutations in a redux app always occur through a pure function.  This function should take in the previous state & dispatched action and return the new state.  The *reducer*, basically a switch/case statement, is where the logic for executing state mutations are held.
 
 
