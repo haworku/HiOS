@@ -1,7 +1,7 @@
 'use strict';
 console.log('loading view')
 
- hiosView = (store) => {
+ hiosView = () => {
 	appHTML =
     `
       <div id="hios-mini" draggable="true" class="hios-active animated slideInUp">
@@ -90,6 +90,9 @@ console.log('loading view')
 			buildHTML: () => {
 	   		document.querySelector('#hios-app').innerHTML = appHTML;
 	   	},
+      updateView: () => {
+
+      }
    };
 }
 
