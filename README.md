@@ -12,7 +12,7 @@ fonts & animation: icomoon, css-animate
 
 -----------------------------------------------------
 ## MY LEARNING REDUX NOTES
-*Based on egghead.io videos as well as redux.js.org docs*
+*Based on egghead.io videos and redux.js.org docs, otherwise source quoted directly*
 
 ### Purpose of Redux
 1.  Keep track of the current state of an application in a single JS object. 
@@ -70,6 +70,29 @@ const createStore = (reducer) => {
 - When reducers operate on properties of the state tree that are arrays -- use .concat (instead of .push), .slice (instead of .splice) to keep function pure and non-mutating
 - WHen reducers operate on properties of the state tree that are objects -- use Object.assign from ES6 (instead of reassigning values with = something or = !something)
 
+
+### Potential Utils 
+Don't subscribe directly to store changes (https://github.com/reactjs/redux/issues/303#issuecomment-125184409) instead turn it observable 
+```javascript
+function observeStore(store, select, onChange) {
+  let currentState;
+
+  function handleChange() {
+    let nextState = select(store.getState());
+    if (nextState !== currentState) {
+      currentState = nextState;
+      onChange(currentState);
+    }
+  }
+
+  let unsubscribe = store.subscribe(handleChange);
+  handleChange();
+  return unsubscribe;
+}
+
+```
+
+Might be useful to combine reducers into a single function then send into store
 ```javascript
 const combineReducers = (reducers) => { // takes in reducer functions
   return (state = {}, action) => { // returns a new function representing all reducers logic combined
