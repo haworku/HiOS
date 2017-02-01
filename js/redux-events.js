@@ -1,10 +1,10 @@
 'use strict';
 console.log('loading events')
 
-hiosEvents = (store) => {
-	let selectors = {};
+hiosEvents = () => {
 
-	let onClick =  (e) => {
+  return { 
+  	onClick: (e) => {
 	  	if (e.preventDefault) e.preventDefault();
 
 		  let target = e.target || e.srcElement;
@@ -90,19 +90,6 @@ hiosEvents = (store) => {
 		      console.log('default');
 		      break;     
 	    }
-	  }
-
-  return { 
-
-	  // addListeners: () => {
-  	// 	console.log('add Events')
-  	// 	selectors.appContainer.addEventListener('click', function (e){
-		 //    if( !e.target.getAttribute('data-state') ){
-		 //      onClick('swap');
-		 //    }else{
-		 //      onClick(e);
-		 //    }
-		 //  }, false);
-  
+	  },
   }
 }
