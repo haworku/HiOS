@@ -14,7 +14,7 @@ const createStore = (combinedReducer) => {
   const subscribe = (listener) => {
     listeners.push(listener);
     return () => {
-      listeners = listeners.filter( l => l !== listener )//to remove listener subscribe again
+      listeners = listeners.filter( l => l !== listener )// to remove listener subscribe again
     }
   }
 
