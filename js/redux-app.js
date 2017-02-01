@@ -27,8 +27,8 @@ APP.launch = function (music) { // called from musicupload.js
   APP.events = hiosEvents(APP.store);
   APP.view = hiosView();
   APP.view.buildHTML();
-  // APP.view.defineSelectors();
-  // APP.events = hiosEvents();
+  APP.events.defineSelectors();
+  APP.events.addListeners();
   // APP.store.subscribe() // attach all DOM & audio object listeners
   APP.store.dispatch({type: 'UPDATE_AUDIO'})
   // play audio

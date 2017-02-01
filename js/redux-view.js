@@ -87,7 +87,7 @@ console.log('loading view')
     `;
 
    	return {
-			buildHTML: function () {
+			buildHTML: () => {
 	   		document.querySelector('#hios-app').innerHTML = appHTML;
 	   	},
    };
