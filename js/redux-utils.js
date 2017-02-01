@@ -1,6 +1,5 @@
 observeStore = (store, onChange) => {
   let currentState;
-
   handleChange = () => {
     let nextState = store.getState();
     if (nextState !== currentState) {

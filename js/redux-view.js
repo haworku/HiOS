@@ -118,8 +118,8 @@ console.log('loading view')
         defineSelectors();
       },
       updateView: (currentState) => {
-
-
+        //returns a listener???? wtf
+        console.log('im a function')
       }
    };
 }

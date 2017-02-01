@@ -6,8 +6,9 @@ const createStore = (combinedReducer) => {
   const getState = () => state; // current state
 
   const dispatch = (action)  => {
+      console.log('listeners', listeners)
     state = combinedReducer(state, action);
-    listeners.forEach( listeners => listener() 
+    listeners.forEach( listener => listener() 
     ); // notify each listener after there's a new state from reducer
   }
 

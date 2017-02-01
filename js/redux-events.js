@@ -94,16 +94,15 @@ hiosEvents = (store) => {
 
   return { 
 
-	  addListeners: () => {
-  		console.log('add Events')
-  		selectors.appContainer.addEventListener('click', function (e){
-		    if( !e.target.getAttribute('data-state') ){
-		      onClick('swap');
-		    }else{
-		      onClick(e);
-		    }
-		  }, false);
-
-  	},
+	  // addListeners: () => {
+  	// 	console.log('add Events')
+  	// 	selectors.appContainer.addEventListener('click', function (e){
+		 //    if( !e.target.getAttribute('data-state') ){
+		 //      onClick('swap');
+		 //    }else{
+		 //      onClick(e);
+		 //    }
+		 //  }, false);
+  
   }
 }
