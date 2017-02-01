@@ -7,14 +7,18 @@ APP.launch = function (music) { // called from musicupload.js
   }); 
 
   APP.store = createStore(combinedReducer);
-  APP.store.dispatch({type: 'LOAD_PLAYER', uploadedMusic: music}); 
-  APP.events = hiosEvents(APP.store);
+  APP.events = hiosEvents();
   APP.view = hiosView();
-  APP.view.buildHTML();
+  observeStore(APP.store, APP.view.updateView())
+
+  //WRAP 
+  // where should these  happen - side effects of loading player
+  APP.store.dispatch({type: 'LOAD_PLAYER', uploadedMusic: music}); 
+  APP.view.buildHTML(); 
   APP.events.defineSelectors();
   APP.events.addListeners();
-  // APP.store.subscribe() // attach all DOM & audio object listeners
+  // ./ WRAP
+
   APP.store.dispatch({type: 'UPDATE_AUDIO'})
-  // play audio
-  console.log(APP.store.getState().playerReducer  );
+  
 };
