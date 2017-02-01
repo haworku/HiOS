@@ -1,28 +1,30 @@
 ## HiOS Music Player
-* HTML5 & LESS & pure Javascript, styled off iOS 10 music and redux design patterns *
-
-fonts & animation: icomoon, css-animate
+*HTML5 & LESS & pure Javascript, styled off iOS 10 music and redux design patterns*
 
 ***dependency free***
 
 **Scripts**
 - `$ gulp js` build js files 
 - `$ gulp less` run less compiler on all less files
-- `$ npm run dev`  and  `$ npm run serve` start development server at 127.0.0.1:8000 (also complies js and less files)
+- `$ npm run dev`  and  `$ npm run serve` start development server at 127.0.0.1:8000
+
+fonts & animation: icomoon, css-animate
 
 -----------------------------------------------------
-## MY LEARNING REDUX NOTES
-*Based on egghead.io videos as well as redux.js.org docs*
+### My Notes On Learning Redux
+*Based on egghead.io videos and redux.js.org docs, otherwise source quoted directly*
 
-### Purpose of Redux
+#### Purpose of Redux
 1.  Keep track of the current state of an application in a single JS object. 
 2.  All mutations to the state tree are explicit. Changes to the state are initiated (and will only ever occur) after an *action* is dispatched.  The change to the state, as described through the action, has a type, usually a string such as 'ADD_TODO'.  It may also pass other additional data.  
 3.   State mutations in a redux app always occur through a pure function.  This function should take in the previous state & dispatched action and return the new state.  The *reducer*, basically a switch/case statement, is where the logic for executing state mutations are held.
 
 
-### Examples of redux-like approach 
+#### Examples of redux-like approach 
+
 SAMPLE REDUCER
 The purpose of a reducer is to hold the logic for state mutations
+
 ```javascript
 const counterReducer = (state = 0, action) => {
   switch (action.type) {
@@ -35,6 +37,7 @@ const counterReducer = (state = 0, action) => {
   }
 }
 ```
+
 SAMPLE STORE 
 The purpose of the store is to hold the state tree object
 
@@ -66,10 +69,33 @@ const createStore = (reducer) => {
   return { getState, dispatch, subscribe };
 }
 ```
-### WATCH OUT / WARNINGS ###
+*WATCH OUT / WARNINGS*
 - When reducers operate on properties of the state tree that are arrays -- use .concat (instead of .push), .slice (instead of .splice) to keep function pure and non-mutating
-- WHen reducers operate on properties of the state tree that are objects -- use Object.assign from ES6 (instead of reassigning values with = something or = !something)
+- When reducers operate on properties of the state tree that are objects -- use Object.assign from ES6 (instead of reassigning values with = something or = !something)
 
+
+#### Potential Utils 
+Don't subscribe directly to store changes (https://github.com/reactjs/redux/issues/303#issuecomment-125184409) instead turn it observable 
+```javascript
+function observeStore(store, select, onChange) {
+  let currentState;
+
+  function handleChange() {
+    let nextState = select(store.getState());
+    if (nextState !== currentState) {
+      currentState = nextState;
+      onChange(currentState);
+    }
+  }
+
+  let unsubscribe = store.subscribe(handleChange);
+  handleChange();
+  return unsubscribe;
+}
+
+```
+
+Might be useful to combine reducers into a single function then send into store
 ```javascript
 const combineReducers = (reducers) => { // takes in reducer functions
   return (state = {}, action) => { // returns a new function representing all reducers logic combined
@@ -85,17 +111,14 @@ const combineReducers = (reducers) => { // takes in reducer functions
     );
   };
 }; 
-```
 
-### OTHER USEFUL THINGS ###
-combineReducers() from scratch - this creates single reducer representing all reducing functions to be passed to createStore()
-```javascript
 const combinedReducer = combineReducers({
     a : sliceReducerA,
     b : sliceReducerB
 }); 
 ```
-Handle special cases in reducers, such as those where additional data is passed beyond previous state and action
+
+Handle special cross slice cases in reducers, such as those where additional data is passed beyond previous state and action
 ```javascript
 function crossSliceReducer(state, action) {
     switch(action.type) {
@@ -108,13 +131,5 @@ function crossSliceReducer(state, action) {
         }
         default : return state;
     }
-}
-```
-Another way to create single reducer by combining multiple reducer functions following standard format then handling any last special cases
-```javascript
-function rootReducer(state, action) {
-    const intermediateState = combinedReducer(state, action);
-    const finalState = crossSliceReducer(intermediateState, action);
-    return finalState;
 }
 ```
