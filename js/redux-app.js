@@ -24,6 +24,7 @@ APP.launch = function (music) { // called from musicupload.js
 
   APP.store = createStore(combinedReducer);
   APP.store.dispatch({type: 'LOAD_PLAYER', uploadedMusic: music}); 
+  APP.events = hiosEvents(APP.store);
   APP.view = hiosView();
   APP.view.buildHTML();
   // APP.view.defineSelectors();
