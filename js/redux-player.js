@@ -8,7 +8,7 @@ const playerReducer = (state = {}, action) => {
         fullPlayer: false,
         audioObject: new Audio(), // HTML5 audio object with current track
         completeQue: [],
-        nextQue: action.uploadedMusic.slice(1, -1),
+        nextQue: action.uploadedMusic.slice(1),
         currentTrack: action.uploadedMusic[0],
         volume: .5,
         playing: false,
@@ -22,6 +22,11 @@ const playerReducer = (state = {}, action) => {
         playing: !state.playing,
         });
     case 'NEXT':
+      return Object.assign( {}, state, {
+        completeQue: state.completeQue.concat(state.currentTrack),
+        nextQue: state.nextQue.slice(1),
+        currentTrack: state.nextQue[0]
+      });
       // if more songs left go to next song
       // no more songs left but looping playlist start over
       // if no more songs left and not looping stop playing
@@ -29,16 +34,16 @@ const playerReducer = (state = {}, action) => {
     case 'JUMP_TO':
       return state;
     case 'PREVIOUS':
-      // start over if just started
-      // otherwise go back one song
-      return state;
-    case 'RESTART': // CHECK THIS OUT
       if (state.audioObject.currentTime < 5){
         return Object.assign( {}, state.audioObject, { currentTime: 0});
       } else {
-        return state;
+        return Object.assign( {}, state, {
+          completeQue: state.completeQue.slice(-1),
+          nextQue: [].concat(state.currentTrack, state.nextQue),
+          currentTrack: state.completeQue[-1]
+        });
       }
-
+      return state;
     case 'UPDATE_AUDIO':
       return Object.assign( {}, state, {
         audioObject: Object.assign( {}, state.audioObject, {
