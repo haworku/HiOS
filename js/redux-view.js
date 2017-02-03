@@ -113,13 +113,8 @@ console.log('loading view')
     }
 
     addListeners = () => {
-      console.log('HANDLER', eventHandler)
-      selectors.appContainer.addEventListener('click', function (e){
-        if( !e.target.getAttribute('data-state') ){
-          eventHandler.onClick('swap');
-        }else{
-          eventHandler.onClick(e);
-        }
+      document.addEventListener('click', function (e){
+         eventHandler.onClick(e);
       }, false);
     };
 

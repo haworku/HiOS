@@ -1,24 +1,30 @@
 'use strict';
 console.log('loading events')
 
-hiosEvents = () => {
+hiosEvents = (store) => {
 
   return { 
   	onClick: (e) => {
+  		let target = e.target || e.srcElement;
+  		let type = '';
+
 	  	if (e.preventDefault) e.preventDefault();
 
-		  let target = e.target || e.srcElement;
-		  console.log('click', target.getAttribute('data-state'))
-
-	    switch (target.getAttribute('data-state')) {
+		  if( !e.target.getAttribute('data-state') ){
+	      type = 'swap'
+	    }else{
+	      type = target.getAttribute('data-state');
+	    }
+	
+	    switch (type) {
 		    case 'playpause':
 		      store.dispatch({type: 'TOGGLE_PLAY'});
 		      store.dispatch({type: 'UPDATE_AUDIO'});
 		      break;
 
 		    case 'next':
-		      store.dispatch({type:'NEXT', track:})
-		       store.dispatch({type: 'UPDATE_AUDIO', tracking: 0 }) 
+		      store.dispatch({type:'NEXT'})
+		      store.dispatch({type: 'UPDATE_AUDIO', tracking: 0 }) 
 		      break;
 
 		    case 'previous':
@@ -27,7 +33,7 @@ hiosEvents = () => {
 		      break;
 
 		    case 'jump': 
-		        store.dispatch({type:'JUMP_TO', track:})
+		        store.dispatch({type:'JUMP_TO', track: ''})
 		        store.dispatch({type: 'UPDATE_AUDIO', tracking: 0 }) 
 		      break;
 
@@ -52,11 +58,7 @@ hiosEvents = () => {
 		      break;
 
 		    case 'swap':
-		      if (target && target.getAttribute('id') == 'hios-minify'){
-		      	store.dispatch({type: 'TOGGLE_PLAYER_TYPE'})
-		      }else{
-		      	store.dispatch({type: 'TOGGLE_PLAYER_TYPE'})
-		      }
+		      store.dispatch({type: 'TOGGLE_PLAYER_TYPE'})
 		      break;
 
 		    default:
