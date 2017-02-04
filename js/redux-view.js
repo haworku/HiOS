@@ -2,6 +2,7 @@
 console.log('loading view')
 
  hiosView = (eventHandler) => {
+  selectors = {};
 	appHTML =
     `
       <div id="hios-mini" draggable="true" class="hios-active animated slideInUp">
@@ -125,6 +126,15 @@ console.log('loading view')
         addListeners();
       },
       updateView: (currentState) => {
+        console.log('state', currentState)
+        if (currentState.playerReducer.fullPlayer == true){
+          selectors.miniContainer.className = 'hios-inactive'
+          selectors.fullContainer.className = 'hios-active'
+        } else {
+          selectors.miniContainer.className = 'hios-active'
+          selectors.fullContainer.className = 'hios-inactive'
+        }
+      
         //returns a listener???? wtf
       }
    };
