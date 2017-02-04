@@ -1,12 +1,11 @@
 const playerReducer = (state = {}, action) => {
-  console.log('recieved action: ', action.type, ' previous state: ', state)
+  console.log('received action: ', action.type, ' previous state: ', state)
 
   switch (action.type){
   	case 'LOAD_PLAYER':
       return Object.assign( {}, state, {
         music: action.uploadedMusic,
         fullPlayer: false,
-        audioObject: new Audio(), // HTML5 audio object with current track
         completeQue: [],
         nextQue: action.uploadedMusic.slice(1),
         currentTrack: action.uploadedMusic[0],
@@ -20,7 +19,7 @@ const playerReducer = (state = {}, action) => {
   	case 'TOGGLE_PLAY':
       return Object.assign( {}, state, {
         playing: !state.playing,
-        });
+      });
 
     case 'NEXT':
       if (state.nextQue.length > 0){ // go to next song
@@ -71,9 +70,9 @@ const playerReducer = (state = {}, action) => {
     case 'UPDATE_AUDIO':
       return Object.assign( {}, state, {
         audioObject: Object.assign( {}, state.audioObject, {
-          currentTime: (action.tracking || state.audioObject.currentTime),
+          // currentTime: (action.tracking || state.audioObject.currentTime), ACK
           src: state.currentTrack.source,
-          volume: (action.volume || state.audioObject.volume)
+          // volume: (action.volume || state.audioObject.volume) ACK
         })     
       });
 
