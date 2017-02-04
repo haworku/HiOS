@@ -28,6 +28,13 @@ combineReducers = (reducers) => {
   };
 }; 
 
+resetNextQue = (shuffling, music) => {
+
+}
+
+shuffleCurrentTrack = (shuffling, music) => {
+}
+
 /**
  * Randomize array element order in-place.  Using Durstenfeld shuffle algorithm.
  */
