@@ -12,6 +12,7 @@ const watch = {
         'js/store.js',
         'js/redux-player.js',
         'js/redux-view.js',
+        'js/redux-audio.js',
         'js/redux-events.js',
         'js/redux-app.js',
         // 'js/app.js',
