@@ -1,7 +1,7 @@
 'use strict';
 var APP = {};
 
-APP.launch = function (music) { // called from musicupload.js
+APP.launch = function (music) { // this method is called from musicupload.js
   const combinedReducer = combineReducers({
     playerReducer
   }); 
@@ -12,10 +12,5 @@ APP.launch = function (music) { // called from musicupload.js
   APP.view = hiosView(APP.events, APP.audio);
   APP.view.buildHTML(); 
   observeStore(APP.store, APP.view.updateView);
-
-  //WRAP 
-  // where should these  happen - side effects of loading player
-  APP.store.dispatch({type: 'LOAD_PLAYER', uploadedMusic: music}); 
-  // ./ WRAP
-  
+  APP.store.dispatch({type: 'LOAD_PLAYER', uploadedMusic: music});   
 };

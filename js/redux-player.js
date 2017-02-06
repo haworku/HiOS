@@ -34,7 +34,7 @@ const playerReducer = (state = {}, action) => {
           nextQue: resetNextQue(state.shuffle, state.music),
           currentTrack: state.completeQue[0], 
         });
-      } else { //  reset player to start over NEED TO ALSO REFRESH DOM NO SONGS HIGHLIGHTED
+      } else { //  reset player to start over NEED TO ALSO REFRESH DOM CUZ NO SONGS WILL BE HIGHLIGHTED
         return Object.assign( {}, state, {
           completeQue: [],
           nextQue: action.music.slice(1),

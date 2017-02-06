@@ -46,7 +46,6 @@ hiosEvents = (store) => {
 		      break;
 
 		    case 'tracking':  
-		    	// audio player listeners also at work here
 		    	// get new tracking value directly from target 
 		      store.dispatch({type: 'UPDATE_AUDIO', tracking: 0 }) 
 		      break;
