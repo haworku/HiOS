@@ -8,7 +8,7 @@
 - `$ gulp less` run less compiler on all less files
 - `$ npm run dev`  and  `$ npm run serve` start development server at 127.0.0.1:8000
 
-fonts & animation: icomoon, css-animate
+fonts & animation: icomoon, css-animate, noun project (credit in filename)
 
 -----------------------------------------------------
 ### My Notes On Learning Redux
