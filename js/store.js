@@ -1,15 +1,14 @@
 const createStore = (combinedReducer) => {
   console.log('creating store')
   let state;
-  let listeners = [] // because the subscribe function can be called many times we need to keep track of the change listeners
+  let listeners = [] //  keep track of the change listeners
 
   const getState = () => state; // current state
 
   const dispatch = (action)  => {
-      console.log('listeners', listeners)
+    console.log('listeners', listeners)
     state = combinedReducer(state, action);
-    listeners.forEach( listener => listener() 
-    ); // notify each listener after there's a new state from reducer
+    listeners.forEach( listener => listener() ); // notify each listener after there's a new state from reducer
   }
 
   const subscribe = (listener) => {

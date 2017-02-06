@@ -25,8 +25,8 @@ const playerReducer = (state = {}, action) => {
       if (state.nextQue.length > 0){ // go to next song
         return Object.assign( {}, state, {
           completeQue: state.completeQue.concat(state.currentTrack),
-          nextQue: action.nextQue.slice(1),
-          currentTrack:action.nextQue[0],
+          nextQue: state.nextQue.slice(1),
+          currentTrack: state.nextQue[0],
         });
       } else if (state.loopAll == true) { // set player to continue looping
         return Object.assign( {}, state, {
@@ -34,7 +34,7 @@ const playerReducer = (state = {}, action) => {
           nextQue: resetNextQue(state.shuffle, state.music),
           currentTrack: state.completeQue[0], 
         });
-      } else { //  reset player to start over NEED TO ALSO REFRESH DOM NO SONGS HIGHLIGHTED
+      } else { //  reset player to start over NEED TO ALSO REFRESH DOM CUZ NO SONGS WILL BE HIGHLIGHTED
         return Object.assign( {}, state, {
           completeQue: [],
           nextQue: action.music.slice(1),
@@ -103,5 +103,3 @@ const playerReducer = (state = {}, action) => {
       return state;
   }
 };
-
-

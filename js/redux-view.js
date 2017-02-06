@@ -134,12 +134,6 @@ console.log('loading view')
           selectors.miniContainer.className = 'hios-active'
           selectors.fullContainer.className = 'hios-inactive'
         }
-      
-        //returns a listener???? wtf
       }
    };
 }
-
-// need to be listening for events from audioReducer play/pause etc. 
-// need to reset tracking once metadata loaded
-// update tracklist and populate current track
