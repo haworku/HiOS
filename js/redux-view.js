@@ -135,11 +135,12 @@ console.log('loading view')
           selectors.fullContainer.className = 'hios-inactive'
         }
       
-        //returns a listener???? wtf
+              // Considerations
+        // - This method will check every property of the current state and rerender everything 
+        // - What about listening to events from audio object /redux-audio.org?  How will that link to this process?
+        //   - specific audio listeners in question (reset tracking once metadata has loaded, move tracking as song progresses)
+
+
       }
    };
 }
-
-// need to be listening for events from audioReducer play/pause etc. 
-// need to reset tracking once metadata loaded
-// update tracklist and populate current track
