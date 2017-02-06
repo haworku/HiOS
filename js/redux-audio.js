@@ -1,7 +1,7 @@
 'use strict';
 
 hiosAudio = () => {
-  var audio = {}; // this is the HTML5 audio object
+  var audio = {}; // HTML5 audio object
 
   return {
     init: function (src){
@@ -23,6 +23,3 @@ hiosAudio = () => {
     }
   };
 };
-
-
-

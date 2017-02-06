@@ -18,7 +18,7 @@
           'title': files[key].name.substr(0, files[key].name.lastIndexOf('.')) || files[key].name,
           'artist': 'Beyonce',
           'source': URL.createObjectURL(files[key]),
-          'image': '/static/images/lemonade.jpg'
+          'image': '/static/images/album_cover_Andrew_Fortnum.png'
         }
       );
     });
