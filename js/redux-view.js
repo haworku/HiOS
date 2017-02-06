@@ -7,7 +7,7 @@ console.log('loading view')
     `
       <div id="hios-mini" draggable="true" class="hios-active animated slideInUp">
         <div class="hios-wrap mini">
-          <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
+          <img class="hios-thumbnail" src="/static/images/album_cover_Andrew_Fortnum.png">
           <div class="hios-song-title-box">
              <div class="hios-song-title"></div>
           </div>
@@ -21,7 +21,7 @@ console.log('loading view')
       <div id="hios-full" class="hios-inactive">
         <i id="hios-minify" class="icon-shrink" data-state="swap"></i>
         <div class="hios-artwork-container">
-          <img class="hios-artwork" src="/static/images/lemonade.jpg">
+          <img class="hios-artwork" src="/static/images/album_cover_Andrew_Fortnum.png">
         </div>
         <div class="hios-controls full">
           <div class ="hios-progress">
