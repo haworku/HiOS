@@ -11,16 +11,17 @@
 fonts & animation: icomoon, css-animate, noun project (credit in filename)
 
 -----------------------------------------------------
-### My Notes On Learning Redux
-*Based on egghead.io videos and redux.js.org docs, otherwise source quoted directly*
+### Notes On Learning Redux
+*Sources: [egghead.io](https://egghead.io/courses/getting-started-with-redux) , [redux.js.org](redux.js.org), otherwise noted in-line*
 
 #### Purpose of Redux
 1.  Keep track of the current state of an application in a single JS object. 
 2.  All mutations to the state tree are explicit. Changes to the state are initiated (and will only ever occur) after an *action* is dispatched.  The change to the state, as described through the action, has a type, usually a string such as 'ADD_TODO'.  It may also pass other additional data.  
 3.   State mutations in a redux app always occur through a pure function.  This function should take in the previous state & dispatched action and return the new state.  The *reducer*, basically a switch/case statement, is where the logic for executing state mutations are held.
 
+![redux-pattern](static/images/redux.png)
 
-#### Examples of redux-like approach 
+#### Vanilla Implementation
 
 SAMPLE REDUCER
 The purpose of a reducer is to hold the logic for state mutations
@@ -75,7 +76,7 @@ const createStore = (reducer) => {
 
 
 #### Potential Utils 
-Don't subscribe directly to store changes (https://github.com/reactjs/redux/issues/303#issuecomment-125184409) instead turn it observable 
+Make store changes observable - since we shouldn't [subscribe directly](https://github.com/reactjs/redux/issues/303#issuecomment-125184409)
 ```javascript
 function observeStore(store, select, onChange) {
   let currentState;
@@ -95,7 +96,7 @@ function observeStore(store, select, onChange) {
 
 ```
 
-Might be useful to combine reducers into a single function then send into store
+Combine multiple reducers into a single function then send into store
 ```javascript
 const combineReducers = (reducers) => { // takes in reducer functions
   return (state = {}, action) => { // returns a new function representing all reducers logic combined
@@ -118,7 +119,7 @@ const combinedReducer = combineReducers({
 }); 
 ```
 
-Handle special cross slice cases in reducers, such as those where additional data is passed beyond previous state and action
+Handle special cross-slice cases in reducers, such as those where additional data is passed beyond previous state and action
 ```javascript
 function crossSliceReducer(state, action) {
     switch(action.type) {
