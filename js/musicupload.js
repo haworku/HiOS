@@ -1,8 +1,4 @@
 (function loadLocalAudio() {
-// refactor to use DataView and ID3 tags
-// https://ericbidelman.tumblr.com/post/8343485440/reading-mp3-id3-tags-in-javascript
-// have a default fallback image, title, artist
-
   'use strict';
 
   var URL = window.URL || window.webkitURL;
