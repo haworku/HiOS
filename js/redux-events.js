@@ -29,7 +29,7 @@ hiosEvents = (store) => {
 
 		    case 'previous':
 		      store.dispatch({type: 'PREVIOUS', tracking: 0 }) 
-		    	store.dispatch({type: 'UPDATE_AUDIO', tracking: 0 }) 
+		      store.dispatch({type: 'UPDATE_AUDIO', tracking: 0 }) 
 		      break;
 
 		    case 'jump': 
