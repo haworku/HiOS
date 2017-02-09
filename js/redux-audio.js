@@ -15,7 +15,7 @@ hiosAudio = () => {
     play: function (bool) {
       bool ? audio.play() : audio.pause();
     },
-    audio: function () {
+    returnAudio: function () {
       return audio;
     },
     justStarted: function () {
