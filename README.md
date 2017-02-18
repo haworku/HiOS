@@ -1,8 +1,6 @@
 ## HiOS Music Player
 *HTML5 & LESS & pure Javascript, styled off iOS 10 music and redux design patterns*
 
-***dependency free***
-
 **Scripts**
 - `$ gulp js` build js files 
 - `$ gulp less` run less compiler on all less files
