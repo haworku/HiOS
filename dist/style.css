@@ -1,0 +1,482 @@
+body {
+  position: relative;
+  padding-top: 70px;
+  font-family: 'Space Mono', monospace;
+}
+[draggable] {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.hios-active {
+  display: block;
+}
+.hios-playing {
+  background-color: purple;
+}
+.hios-inactive {
+  display: none !important;
+}
+.hios-activated {
+  background-color: red;
+}
+.hios-audio,
+.hios-playblack {
+  font-size: 2em;
+}
+.hios-audioi,
+.hios-playblacki {
+  padding: .1em;
+  font-size: 2em;
+  -webkit-transition: font-size 0.1s ease;
+  -o-transition: font-size 0.1s ease;
+  -moz-transition: font-size 0.1s ease;
+  transition: font-size 0.1s ease;
+}
+.hios-audioi:hover,
+.hios-playblacki:hover {
+  font-size: 1.2em;
+}
+input[type=range] {
+  -webkit-appearance: none;
+  width: 90%;
+  cursor: pointer;
+  background: none;
+  outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  height: 5px;
+  background: #484848;
+  -webkit-border-radius: 3px;
+          border-radius: 3px;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: none;
+  height: 11px;
+  width: 4px;
+  position: relative;
+  background: white;
+  margin-top: -3px;
+}
+.hios-wrap {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row;
+      -ms-flex-flow: row;
+          flex-flow: row;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+     -moz-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+     -moz-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: default;
+  height: 100%;
+}
+#hios-mini,
+#hios-full {
+  position: fixed;
+  background-color: gainsboro;
+  bottom: 0;
+  padding: .4em;
+  z-index: 90;
+}
+#hios-file-upload {
+  font-size: 1em;
+  text-align: center;
+  -webkit-border-radius: 10px;
+     -moz-border-radius: 10px;
+          border-radius: 10px;
+  margin: .3em .3em;
+  z-index: 100;
+  cursor: pointer;
+}
+#hios-mini {
+  height: 60px;
+  width: 18em;
+  -webkit-border-radius: 10px;
+     -moz-border-radius: 10px;
+          border-radius: 10px;
+  margin: .3em .3em;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  cursor: move;
+}
+#hios-mini > .hios-wrap > img.hios-thumbnail {
+  display: inline-block;
+  -webkit-border-radius: .3em;
+     -moz-border-radius: .3em;
+          border-radius: .3em;
+  -webkit-box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
+     -moz-box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
+          box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
+  max-width: 20%;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 auto;
+     -moz-box-flex: 1;
+      -ms-flex: 1 auto;
+          flex: 1 auto;
+  padding: 0;
+}
+#hios-mini > .hios-wrap > .hios-song-title-box {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 auto;
+     -moz-box-flex: 1;
+      -ms-flex: 1 auto;
+          flex: 1 auto;
+  white-space: nowrap;
+  max-width: 55%;
+}
+#hios-mini > .hios-wrap > .hios-song-title-box > .hios-song-title {
+  -webkit-align-self: flex-start;
+      -ms-flex-item-align: start;
+          align-self: flex-start;
+  overflow: hidden;
+  overflow-x: -webkit-marquee;
+  -webkit-marquee-direction: forwards;
+  -webkit-marquee-style: scroll;
+  -webkit-marquee-speed: normal;
+  -webkit-marquee-increment: small;
+  -webkit-marquee-repetition: 5;
+  overflow-x: marquee-line;
+  marquee-direction: forward;
+  marquee-style: scroll;
+  marquee-speed: normal;
+  marquee-play-count: 5;
+  font-size: 1em;
+  padding: 15px;
+}
+#hios-mini > .hios-wrap > .hios-audio {
+  -webkit-align-self: center;
+      -ms-flex-item-align: center;
+              -ms-grid-row-align: center;
+          align-self: center;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 auto;
+     -moz-box-flex: 1;
+      -ms-flex: 1 auto;
+          flex: 1 auto;
+  max-width: 25%;
+  font-size: 1.5em;
+}
+#hios-full {
+  right: 0;
+  top: 0;
+  width: 18em;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: column nowrap;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+     -moz-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+     -moz-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+#hios-full > #hios-minify {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 0 auto;
+     -moz-box-flex: 1;
+      -ms-flex: 1 0 auto;
+          flex: 1 0 auto;
+  -webkit-align-self: flex-end;
+      -ms-flex-item-align: end;
+          align-self: flex-end;
+  cursor: default;
+}
+#hios-full > .hios-artwork-container {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 1 35%;
+     -moz-box-flex: 1;
+      -ms-flex: 1 1 35%;
+          flex: 1 1 35%;
+  -webkit-align-self: flex-center;
+      -ms-flex-item-align: flex-center;
+          align-self: flex-center;
+  /*min-height: 10em;*/
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+     -moz-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+#hios-full > .hios-artwork-container > img.hios-artwork {
+  height: 100%;
+  -webkit-border-radius: .3em;
+     -moz-border-radius: .3em;
+          border-radius: .3em;
+  -webkit-box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
+     -moz-box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
+          box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
+}
+#hios-full > .hios-controls {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 0 25%;
+     -moz-box-flex: 1;
+      -ms-flex: 1 0 25%;
+          flex: 1 0 25%;
+  width: 100%;
+  overflow-y: hidden;
+  margin: .4em;
+  padding: .3em 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: column nowrap;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  -webkit-align-content: center;
+      -ms-flex-line-pack: center;
+          align-content: center;
+  /*border: red 1px solid;*/
+}
+#hios-full > .hios-controls > .hios-progress {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 0 10%;
+     -moz-box-flex: 1;
+      -ms-flex: 1 0 10%;
+          flex: 1 0 10%;
+  width: 100%;
+  min-height: 2em;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: column nowrap;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+     -moz-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+#hios-full > .hios-controls > .hios-progress > input {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 0 50%;
+     -moz-box-flex: 1;
+      -ms-flex: 1 0 50%;
+          flex: 1 0 50%;
+}
+#hios-full > .hios-controls > .hios-progress > #tracking-output {
+  width: 90%;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 0 50%;
+     -moz-box-flex: 1;
+      -ms-flex: 1 0 50%;
+          flex: 1 0 50%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+     -moz-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+#hios-full > .hios-controls > .hios-progress > #tracking-output > output {
+  padding-top: .1em;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 0 50%;
+     -moz-box-flex: 1;
+      -ms-flex: 1 0 50%;
+          flex: 1 0 50%;
+  font-size: .7em;
+  color: #484848;
+}
+#hios-full > .hios-controls > .hios-progress > #tracking-output > output#hios-progress-duration {
+  text-align: right;
+}
+#hios-full > .hios-controls > .hios-info {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 1 30%;
+     -moz-box-flex: 1;
+      -ms-flex: 1 1 30%;
+          flex: 1 1 30%;
+  width: 100%;
+  min-height: 2.5em;
+  text-align: center;
+  /*border: red solid 1px;*/
+}
+#hios-full > .hios-controls > .hios-info > .hios-song-title {
+  font-weight: bold;
+  font-size: 1.5em;
+}
+#hios-full > .hios-controls > .hios-info > .hios-song-artist {
+  color: firebrick;
+  font-size: 1em;
+}
+#hios-full > .hios-controls > .hios-audio {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 1 30%;
+     -moz-box-flex: 1;
+      -ms-flex: 1 1 30%;
+          flex: 1 1 30%;
+  min-height: 1em;
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+     -moz-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+#hios-full > .hios-controls > .hios-audio > i {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 1 33.33%;
+     -moz-box-flex: 1;
+      -ms-flex: 1 1 33.33%;
+          flex: 1 1 33.33%;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+     -moz-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  -webkit-transition: font-size 0.1s ease;
+  -o-transition: font-size 0.1s ease;
+  -moz-transition: font-size 0.1s ease;
+  transition: font-size 0.1s ease;
+}
+#hios-full > .hios-controls > .hios-audio > i:hover {
+  font-size: 1.2em;
+}
+#hios-full > .hios-controls > .hios-volume {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 0 10%;
+     -moz-box-flex: 1;
+      -ms-flex: 1 0 10%;
+          flex: 1 0 10%;
+  width: 100%;
+  min-height: 2em;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: column nowrap;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+     -moz-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+#hios-full > .hios-controls > .hios-volume > input {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 0 50%;
+     -moz-box-flex: 1;
+      -ms-flex: 1 0 50%;
+          flex: 1 0 50%;
+}
+#hios-full > .hios-controls > .hios-playback {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 1 10%;
+     -moz-box-flex: 1;
+      -ms-flex: 1 1 10%;
+          flex: 1 1 10%;
+}
+#hios-track-list {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 1 40%;
+     -moz-box-flex: 1;
+      -ms-flex: 1 1 40%;
+          flex: 1 1 40%;
+  margin: .4em;
+  width: 100%;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  border: blue 1px solid;
+  padding: .3em 0;
+}
+#hios-track-list > .hios-track {
+  min-height: 4em;
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+     -moz-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+     -moz-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-bottom: 1px solid rgba(51, 51, 51, 0.1);
+}
+#hios-track-list > .hios-track > img.hios-thumbnail {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 1 30%;
+     -moz-box-flex: 1;
+      -ms-flex: 1 1 30%;
+          flex: 1 1 30%;
+  -webkit-border-radius: .3em;
+     -moz-border-radius: .3em;
+          border-radius: .3em;
+  margin: .3em;
+  -webkit-box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
+     -moz-box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
+          box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.8);
+  max-width: 20%;
+}
+#hios-track-list > .hios-track > .hios-info {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 1 auto;
+     -moz-box-flex: 0;
+      -ms-flex: 0 1 auto;
+          flex: 0 1 auto;
+  padding: .4em;
+}
+#hios-track-list > .hios-track > .hios-info > .hios-song-title {
+  font-weight: bold;
+  text-align: left;
+}
+#hios-track-list > .hios-track > .hios-info > .hios-song-artist {
+  text-align: left;
+}
