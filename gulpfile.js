@@ -8,7 +8,8 @@ const path = require('path');
 const watch = {
   less: ['style/*.less'],
   js: [ 
-        // 'js/id3.min.js',
+        '/node_modules/animatejs/index.js',
+        'node_modules/id3js/id3.min.js',
         'js/redux-utils.js',
         'js/store.js',
         'js/redux-player.js',
