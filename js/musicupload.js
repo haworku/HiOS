@@ -9,13 +9,17 @@
     let files = this.files;
     let tracks = [];
 
-    let launchPromise = new Promise(function(resolve, reject){ 
-      console.log('ran launch', tracks)
-      (tracks.length > 0) ? resolve() : reject();
-    });
+    let launchPromise = () => { 
+      if (tracks.length > 0){
+        APP.launch(tracks)
+        console.log('launching with: ', tracks)
+      } else {
+        console.log('what a problem', tracks, tracks.length);
+      } 
+    };
 
 
-    let fn = function asyncTrackGenerator(fileKey){ // sample async action
+    let fn = function asyncTrackGenerator(fileKey){ // sample async action https://stackoverflow.com/questions/31413749/node-js-promise-all-and-foreach
       let tags = {};
 
       id3( files[fileKey], function(err, id3Tags) {
@@ -48,7 +52,6 @@
 
     generatorComplete
       .then(launchPromise)
-      .then(APP.launch(tracks))
       .catch(function(error) {
         console.log(Error('Something went wrong cannot launch player'))  
       });
