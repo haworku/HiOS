@@ -1,6 +1,6 @@
 'use strict';
 
-hiosAudio = () => {
+const hiosAudio = () => {
   var audio = {}; // HTML5 audio object
 
   return {
