@@ -1,69 +1,80 @@
 'use strict';
 console.log('loading actions')
+// action creators simply return an action
+const hiosActions = (audioobject) => {
+	const PLAY = 'TOGGLE_PLAY'
+	const NEXT = 'NEXT'
+	const PREVIOUS = 'PREVIOUS'
+	const JUMP = "JUMP_TO"
+	const SHUFFLE = "TOGGLE_SHUFFLE"
+	const LOOP = "TOGGLE_LOOP"
+	const UPDATE_VOLUME = "VOLUME"
+	const SWAP_SKIN = "TOGGLE_PLAYER_TYPE"
 
-const hiosActions = (store) => {
-	playPause = () => {
 
-	}
-  return { 
-  	onClick: (e) => {
-  		let target = e.target || e.srcElement;
-  		let type = '';
-
-	  	if (e.preventDefault) e.preventDefault();
-
-		  if( !e.target.getAttribute('data-state') ){
-	      type = 'swap'
-	    }else{
-	      type = target.getAttribute('data-state');
-	    }
 	
-	    switch (type) {
-		    case 'playpause':
-		      store.dispatch({type: 'TOGGLE_PLAY'});
-		      break;
+  return { 
+  	
+		playPause: () => {
+		  return {
+		    type: PLAY,
+		  }
+		},
 
-		    case 'next':
-		      store.dispatch({type:'NEXT'})
-		      store.dispatch({type: 'UPDATE_AUDIO', tracking: 0 }) 
-		      break;
+		nextTrack: () => {
+		  return {
+		    type: NEXT,
+		    tracking: 0
+		  }
+		},
+		
+		previousTrack: () => {
+			if (audio.currentTime < 5){
+				audio.currentTime = 0
+			} else {
+				return {
+			    type: PREVIOUS,
+		  	}
+			}
+		  
+		},
 
-		    case 'previous':
-		      store.dispatch({type: 'PREVIOUS', tracking: 0 }) 
-		      store.dispatch({type: 'UPDATE_AUDIO', tracking: 0 }) 
-		      break;
+		jumpToTrack: (track) => {
+		  return {
+		    type: JUMP,
+		    track: track
+		  }
+		},
 
-		    case 'jump': 
-		        store.dispatch({type:'JUMP_TO', track: ''})
-		        store.dispatch({type: 'UPDATE_AUDIO', tracking: 0 }) 
-		      break;
+		shuffle: () => {
+		  return {
+		    type: SHUFFLE
+		  }
+		},
 
-		    case 'shuffle':
-		      store.dispatch({type:'TOGGLE_SHUFFLE'})
-		      break;
+		loop:  () => {
+		  return {
+		    type: LOOP
+		  }
+		},
 
-		    case 'loop':
-		    	store.dispatch({type:'TOGGLE_LOOP'})
-		      break;
+		updateTracking: (value) => {
+			// doesn't involve store
+		},
 
-		    case 'tracking':  
-		    	// get new tracking value directly from target 
-		      store.dispatch({type: 'UPDATE_AUDIO', tracking: 0 }) 
-		      break;
+		updateVolume: (value) => {
+		  return {
+		    type: UPDATE_VOLUME,
+		    volume: value
+		  }
+		},
 
-		    case 'volume':
-		   	 // get new volume value directly from target
-		      store.dispatch({type: 'UPDATE_AUDIO', volume: 0}) 
-		      break;
+		swapSkin: () => {
+		  return {
+		    type: SWAP_SKIN
+		  }
+		},
+		 
+	}
 
-		    case 'swap':
-		      store.dispatch({type: 'TOGGLE_PLAYER_TYPE'})
-		      break;
-
-		    default:
-		      console.log('default');
-		      break;     
-	    }
-	  },
-  }
 }
