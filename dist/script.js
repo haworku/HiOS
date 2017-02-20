@@ -52,20 +52,20 @@ hiosShuffle = (array) => {
 const createStore = (combinedReducer) => {
   console.log('creating store')
   let state;
-  let listeners = [] //  keep track of the change listeners
+  let listeners = [];
 
-  const getState = () => state; // current state
+  const getState = () => state; 
 
   const dispatch = (action)  => {
     console.log('listeners', listeners)
     state = combinedReducer(state, action);
-    listeners.forEach( listener => listener() ); // notify each listener after there's a new state from reducer
+    listeners.forEach( listener => listener() ); 
   }
 
   const subscribe = (listener) => {
     listeners.push(listener);
     return () => {
-      listeners = listeners.filter( l => l !== listener )// to remove listener subscribe again
+      listeners = listeners.filter( l => l !== listener ) // to remove listener subscribe again
     }
   }
 
@@ -142,21 +142,14 @@ const playerReducer = (state = {}, action) => {
         });
       }
 
-
-    case 'UPDATE_AUDIO':
-      return Object.assign( {}, state, {
-        audioObject: Object.assign( {}, state.audioObject, {
-          // currentTime: (action.tracking || state.audioObject.currentTime), ACK
-          src: state.currentTrack.source,
-          // volume: (action.volume || state.audioObject.volume) ACK
-        })     
-      });
-
-    case 'VOLUME':
-      return Object.assign( {}, state, {
-        volume: action.volume
-        }); 
-
+    // case 'UPDATE_AUDIO':
+    //   return Object.assign( {}, state, {
+    //     audioObject: Object.assign( {}, state.audioObject, {
+    //       // currentTime: (action.tracking || state.audioObject.currentTime), ACK
+    //       src: state.currentTrack.source,
+    //       // volume: (action.volume || state.audioObject.volume) ACK
+    //     })     
+    //   });
 
     case 'TOGGLE_SHUFFLE':
       return Object.assign( {}, state, {
@@ -180,7 +173,7 @@ const playerReducer = (state = {}, action) => {
   }
 };
 
-'use strict';
+// 'use strict';
 console.log('loading view')
 
  hiosView = (eventHandler) => {
@@ -322,7 +315,7 @@ console.log('loading view')
 
 'use strict';
 
-hiosAudio = () => {
+const hiosAudio = () => {
   var audio = {}; // HTML5 audio object
 
   return {
@@ -347,10 +340,12 @@ hiosAudio = () => {
 };
 
 'use strict';
-console.log('loading events')
+console.log('loading actions')
 
-hiosEvents = (store) => {
+const hiosActions = (store) => {
+	playPause = () => {
 
+	}
   return { 
   	onClick: (e) => {
   		let target = e.target || e.srcElement;
@@ -367,7 +362,6 @@ hiosEvents = (store) => {
 	    switch (type) {
 		    case 'playpause':
 		      store.dispatch({type: 'TOGGLE_PLAY'});
-		      store.dispatch({type: 'UPDATE_AUDIO'});
 		      break;
 
 		    case 'next':
@@ -401,7 +395,6 @@ hiosEvents = (store) => {
 		    case 'volume':
 		   	 // get new volume value directly from target
 		      store.dispatch({type: 'UPDATE_AUDIO', volume: 0}) 
-		      store.dispatch({type: 'VOLUME', volume: 0 }) 
 		      break;
 
 		    case 'swap':
@@ -425,9 +418,9 @@ APP.launch = function (music) { // this method is called from musicupload.js
   }); 
 
   APP.store = createStore(combinedReducer);
-  APP.events = hiosEvents(APP.store);
+  APP.actions = hiosActions(APP.store);
   APP.audio = hiosAudio();
-  APP.view = hiosView(APP.events, APP.audio);
+  APP.view = hiosView(APP.actions, APP.audio);
   APP.view.buildHTML(); 
   observeStore(APP.store, APP.view.updateView);
   APP.store.dispatch({type: 'LOAD_PLAYER', uploadedMusic: music});   
