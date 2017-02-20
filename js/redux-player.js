@@ -51,8 +51,9 @@ const playerReducer = (state = {}, action) => {
     case 'JUMP_TO':
       return Object.assign( {}, state, {
         completeQue: state.completeQue.concat(state.currentTrack),
-        nextQue: resetNextQue(state.shuffle, state.nexQue.slice(1)),
+        nextQue: resetNextQue(state.shuffle, action.jumptoIndex),
         currentTrack: state.music[action.jumpToIndex],
+        tracking: 0,
       });
 
     case 'PREVIOUS':
@@ -66,21 +67,15 @@ const playerReducer = (state = {}, action) => {
         });
       }
 
-
-    case 'UPDATE_AUDIO':
+    case 'UPDATE_VOLUME':
       return Object.assign( {}, state, {
-        audioObject: Object.assign( {}, state.audioObject, {
-          // currentTime: (action.tracking || state.audioObject.currentTime), ACK
-          src: state.currentTrack.source,
-          // volume: (action.volume || state.audioObject.volume) ACK
-        })     
+        volume: (action.volume || state.volume)
       });
 
-    case 'VOLUME':
+    case 'UPDATE_TRACKING':
       return Object.assign( {}, state, {
-        volume: action.volume
-        }); 
-
+      // maybe doesn't involve store   
+      });
 
     case 'TOGGLE_SHUFFLE':
       return Object.assign( {}, state, {
