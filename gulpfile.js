@@ -15,7 +15,7 @@ const watch = {
         'js/redux-player.js',
         'js/redux-view.js',
         'js/redux-audio.js',
-        'js/redux-events.js',
+        'js/redux-actions.js',
         'js/redux-app.js',
         'js/musicupload.js'
         ],
