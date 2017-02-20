@@ -1,7 +1,7 @@
 'use strict';
 console.log('loading view')
 
- hiosView = (eventHandler) => {
+const hiosView = (eventHandler) => {
   selectors = {};
 	appHTML =
     `
