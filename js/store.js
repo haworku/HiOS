@@ -1,20 +1,20 @@
 const createStore = (combinedReducer) => {
   console.log('creating store')
   let state;
-  let listeners = [] //  keep track of the change listeners
+  let listeners = [];
 
-  const getState = () => state; // current state
+  const getState = () => state; 
 
   const dispatch = (action)  => {
     console.log('listeners', listeners)
     state = combinedReducer(state, action);
-    listeners.forEach( listener => listener() ); // notify each listener after there's a new state from reducer
+    listeners.forEach( listener => listener() ); 
   }
 
   const subscribe = (listener) => {
     listeners.push(listener);
     return () => {
-      listeners = listeners.filter( l => l !== listener )// to remove listener subscribe again
+      listeners = listeners.filter( l => l !== listener ) // to remove listener subscribe again
     }
   }
 
