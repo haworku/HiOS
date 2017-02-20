@@ -23,8 +23,7 @@ const hiosActions = (audioobject) => {
 
 		nextTrack: () => {
 		  return {
-		    type: NEXT,
-		    tracking: 0
+		    type: NEXT
 		  }
 		},
 		
@@ -35,8 +34,7 @@ const hiosActions = (audioobject) => {
 				return {
 			    type: PREVIOUS,
 		  	}
-			}
-		  
+			}  
 		},
 
 		jumpToTrack: (track) => {

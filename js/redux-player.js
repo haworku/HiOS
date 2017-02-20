@@ -57,24 +57,16 @@ const playerReducer = (state = {}, action) => {
       });
 
     case 'PREVIOUS':
-      if (state.audioObject.currentTime < 5){
-        return Object.assign( {}, state.audioObject, { currentTime: 0});
-      } else {
-        return Object.assign( {}, state, {
-          completeQue: state.completeQue.slice(-1),
-          nextQue: [].concat(state.currentTrack, state.nextQue),
-          currentTrack: state.completeQue[-1]
-        });
-      }
+      return Object.assign( {}, state, {
+        completeQue: state.completeQue.slice(-1),
+        nextQue: [].concat(state.currentTrack, state.nextQue),
+        currentTrack: state.completeQue[-1]
+      });
+    
 
     case 'UPDATE_VOLUME':
       return Object.assign( {}, state, {
         volume: (action.volume || state.volume)
-      });
-
-    case 'UPDATE_TRACKING':
-      return Object.assign( {}, state, {
-      // maybe doesn't involve store   
       });
 
     case 'TOGGLE_SHUFFLE':
