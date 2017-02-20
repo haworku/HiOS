@@ -1,8 +1,10 @@
 'use strict';
-console.log('loading events')
+console.log('loading actions')
 
-hiosEvents = (store) => {
+const hiosActions = (store) => {
+	playPause = () => {
 
+	}
   return { 
   	onClick: (e) => {
   		let target = e.target || e.srcElement;
@@ -19,7 +21,6 @@ hiosEvents = (store) => {
 	    switch (type) {
 		    case 'playpause':
 		      store.dispatch({type: 'TOGGLE_PLAY'});
-		      store.dispatch({type: 'UPDATE_AUDIO'});
 		      break;
 
 		    case 'next':
@@ -53,7 +54,6 @@ hiosEvents = (store) => {
 		    case 'volume':
 		   	 // get new volume value directly from target
 		      store.dispatch({type: 'UPDATE_AUDIO', volume: 0}) 
-		      store.dispatch({type: 'VOLUME', volume: 0 }) 
 		      break;
 
 		    case 'swap':
