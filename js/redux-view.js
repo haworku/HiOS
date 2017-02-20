@@ -2,8 +2,8 @@
 console.log('loading view')
 
 const hiosView = (eventHandler) => {
-  selectors = {};
-	appHTML =
+  let selectors = {};
+	let appHTML =
     `
       <div id="hios-mini" draggable="true" class="hios-active animated slideInUp">
         <div class="hios-wrap mini">
@@ -12,7 +12,7 @@ const hiosView = (eventHandler) => {
              <div class="hios-song-title"></div>
           </div>
           <div class="hios-audio mini">
-              <i class="hios-play-pause icon-play" data-state="playpause" ></i>
+              <i class="hios-play-pause icon-play" onclick="APP.actions.playPause()" ></i>
               <i class="hios-next icon-skip-forward" data-state="next"></i>
           </div>
         </div>
@@ -53,7 +53,7 @@ const hiosView = (eventHandler) => {
 
           <div class="hios-audio full">
             <i class="hios-control hios-previous icon-skip-back" data-state="previous" ></i>
-            <i class="hios-control hios-play-pause icon-play" data-state="playpause" ></i>
+            <i class="hios-control hios-play-pause icon-play" onclick="APP.actions.playPause()" ></i>
             <i class="hios-control hios-next icon-skip-forward" data-state="next"></i>
           </div>
 
@@ -78,7 +78,7 @@ const hiosView = (eventHandler) => {
       </div>
     `;
 
-  trackHTML =
+  let trackHTML =
     `
       <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
       <div class="hios-info">
@@ -87,7 +87,7 @@ const hiosView = (eventHandler) => {
       </div>
     `;
 
-    defineSelectors = () => {
+    const defineSelectors = () => {
       let container = document.querySelector('#hios-app')
 
       selectors = {
@@ -113,7 +113,7 @@ const hiosView = (eventHandler) => {
       };
     }
 
-    addListeners = () => {
+    const addListeners = () => {
       document.addEventListener('click', function (e){
          eventHandler.onClick(e);
       }, false);
@@ -124,6 +124,10 @@ const hiosView = (eventHandler) => {
 	   		document.querySelector('#hios-app').innerHTML = appHTML;
         defineSelectors();
         addListeners();
+      },
+      bindActions: (actionCreators, dispatch) => {
+        dispatch
+
       },
       updateView: (currentState) => {
         console.log('state', currentState)
