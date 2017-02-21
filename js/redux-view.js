@@ -12,7 +12,7 @@ const hiosView = (eventHandler) => {
              <div class="hios-song-title"></div>
           </div>
           <div class="hios-audio mini">
-              <i class="hios-play-pause icon-play" onclick="APP.actions.playPause()" ></i>
+              <i class="hios-play-pause icon-play" onclick="APP.hiosBind.playPause()" ></i>
               <i class="hios-next icon-skip-forward" data-state="next"></i>
           </div>
         </div>
@@ -53,7 +53,7 @@ const hiosView = (eventHandler) => {
 
           <div class="hios-audio full">
             <i class="hios-control hios-previous icon-skip-back" data-state="previous" ></i>
-            <i class="hios-control hios-play-pause icon-play" onclick="APP.actions.playPause()" ></i>
+            <i class="hios-control hios-play-pause icon-play" onclick="APP.hiosBind.playPause()" ></i>
             <i class="hios-control hios-next icon-skip-forward" data-state="next"></i>
           </div>
 
@@ -113,21 +113,17 @@ const hiosView = (eventHandler) => {
       };
     }
 
-    const addListeners = () => {
-      document.addEventListener('click', function (e){
-         eventHandler.onClick(e);
-      }, false);
-    };
+    // const addListeners = () => {
+    //   document.addEventListener('click', function (e){
+    //      eventHandler.onClick(e);
+    //   }, false);
+    // };
 
    	return {
 			buildHTML: () => {
 	   		document.querySelector('#hios-app').innerHTML = appHTML;
         defineSelectors();
-        addListeners();
-      },
-      bindActions: (actionCreators, dispatch) => {
-        dispatch
-
+        // addListeners();
       },
       updateView: (currentState) => {
         console.log('state', currentState)
