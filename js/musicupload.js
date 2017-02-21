@@ -53,6 +53,7 @@
     generatorComplete
       .then(launchPromise)
       .catch(function(error) {
+        console.log(error)
         console.log(Error('Something went wrong cannot launch player'))  
       });
   }
