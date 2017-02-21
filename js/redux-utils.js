@@ -13,6 +13,25 @@ observeStore = (store, onChange) => {
   return unsubscribe;
 }
 
+bindActionCreators = (actionCreators, dispatchFunction) => {
+
+  const bindActionCreator = (actionCreator, dispatch) => {
+  return (...args) => dispatch(actionCreator(...args))
+  }
+
+  const keys = Object.keys(actionCreators)
+  const boundActionCreators = {}
+
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i]
+    const actionCreator = actionCreators[key]
+    if (typeof actionCreator === 'function') {
+      boundActionCreators[key] = bindActionCreator(actionCreator, dispatchFunction)
+    }
+  }
+  return boundActionCreators
+}
+
 combineReducers = (reducers) => { 
   return (state = {}, action) => {
     return Object.keys(reducers).reduce(

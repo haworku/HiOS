@@ -14,6 +14,25 @@ observeStore = (store, onChange) => {
   return unsubscribe;
 }
 
+bindActionCreators = (actionCreators, dispatchFunction) => {
+
+  const bindActionCreator = (actionCreator, dispatch) => {
+  return (...args) => dispatch(actionCreator(...args))
+  }
+
+  const keys = Object.keys(actionCreators)
+  const boundActionCreators = {}
+
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i]
+    const actionCreator = actionCreators[key]
+    if (typeof actionCreator === 'function') {
+      boundActionCreators[key] = bindActionCreator(actionCreator, dispatchFunction)
+    }
+  }
+  return boundActionCreators
+}
+
 combineReducers = (reducers) => { 
   return (state = {}, action) => {
     return Object.keys(reducers).reduce(
@@ -127,29 +146,23 @@ const playerReducer = (state = {}, action) => {
     case 'JUMP_TO':
       return Object.assign( {}, state, {
         completeQue: state.completeQue.concat(state.currentTrack),
-        nextQue: resetNextQue(state.shuffle, state.nexQue.slice(1)),
+        nextQue: resetNextQue(state.shuffle, action.jumptoIndex),
         currentTrack: state.music[action.jumpToIndex],
+        tracking: 0,
       });
 
     case 'PREVIOUS':
-      if (state.audioObject.currentTime < 5){
-        return Object.assign( {}, state.audioObject, { currentTime: 0});
-      } else {
-        return Object.assign( {}, state, {
-          completeQue: state.completeQue.slice(-1),
-          nextQue: [].concat(state.currentTrack, state.nextQue),
-          currentTrack: state.completeQue[-1]
-        });
-      }
+      return Object.assign( {}, state, {
+        completeQue: state.completeQue.slice(-1),
+        nextQue: [].concat(state.currentTrack, state.nextQue),
+        currentTrack: state.completeQue[-1]
+      });
+    
 
-    // case 'UPDATE_AUDIO':
-    //   return Object.assign( {}, state, {
-    //     audioObject: Object.assign( {}, state.audioObject, {
-    //       // currentTime: (action.tracking || state.audioObject.currentTime), ACK
-    //       src: state.currentTrack.source,
-    //       // volume: (action.volume || state.audioObject.volume) ACK
-    //     })     
-    //   });
+    case 'UPDATE_VOLUME':
+      return Object.assign( {}, state, {
+        volume: (action.volume || state.volume)
+      });
 
     case 'TOGGLE_SHUFFLE':
       return Object.assign( {}, state, {
@@ -173,12 +186,12 @@ const playerReducer = (state = {}, action) => {
   }
 };
 
-// 'use strict';
+'use strict';
 console.log('loading view')
 
- hiosView = (eventHandler) => {
-  selectors = {};
-	appHTML =
+const hiosView = (eventHandler) => {
+  let selectors = {};
+	let appHTML =
     `
       <div id="hios-mini" draggable="true" class="hios-active animated slideInUp">
         <div class="hios-wrap mini">
@@ -187,7 +200,7 @@ console.log('loading view')
              <div class="hios-song-title"></div>
           </div>
           <div class="hios-audio mini">
-              <i class="hios-play-pause icon-play" data-state="playpause" ></i>
+              <i class="hios-play-pause icon-play" onclick="APP.hiosBind.playPause()" ></i>
               <i class="hios-next icon-skip-forward" data-state="next"></i>
           </div>
         </div>
@@ -228,7 +241,7 @@ console.log('loading view')
 
           <div class="hios-audio full">
             <i class="hios-control hios-previous icon-skip-back" data-state="previous" ></i>
-            <i class="hios-control hios-play-pause icon-play" data-state="playpause" ></i>
+            <i class="hios-control hios-play-pause icon-play" onclick="APP.hiosBind.playPause()" ></i>
             <i class="hios-control hios-next icon-skip-forward" data-state="next"></i>
           </div>
 
@@ -253,7 +266,7 @@ console.log('loading view')
       </div>
     `;
 
-  trackHTML =
+  let trackHTML =
     `
       <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
       <div class="hios-info">
@@ -262,7 +275,7 @@ console.log('loading view')
       </div>
     `;
 
-    defineSelectors = () => {
+    const defineSelectors = () => {
       let container = document.querySelector('#hios-app')
 
       selectors = {
@@ -288,17 +301,17 @@ console.log('loading view')
       };
     }
 
-    addListeners = () => {
-      document.addEventListener('click', function (e){
-         eventHandler.onClick(e);
-      }, false);
-    };
+    // const addListeners = () => {
+    //   document.addEventListener('click', function (e){
+    //      eventHandler.onClick(e);
+    //   }, false);
+    // };
 
    	return {
 			buildHTML: () => {
 	   		document.querySelector('#hios-app').innerHTML = appHTML;
         defineSelectors();
-        addListeners();
+        // addListeners();
       },
       updateView: (currentState) => {
         console.log('state', currentState)
@@ -341,76 +354,85 @@ const hiosAudio = () => {
 
 'use strict';
 console.log('loading actions')
+// action creators simply return an action
+const hiosActions = (audioobject) => {
+	const PLAY = 'TOGGLE_PLAY'
+	const NEXT = 'NEXT'
+	const PREVIOUS = 'PREVIOUS'
+	const JUMP = "JUMP_TO"
+	const SHUFFLE = "TOGGLE_SHUFFLE"
+	const LOOP = "TOGGLE_LOOP"
+	const UPDATE_VOLUME = "VOLUME"
+	const SWAP_SKIN = "TOGGLE_PLAYER_TYPE"
 
-const hiosActions = (store) => {
-	playPause = () => {
 
-	}
-  return { 
-  	onClick: (e) => {
-  		let target = e.target || e.srcElement;
-  		let type = '';
-
-	  	if (e.preventDefault) e.preventDefault();
-
-		  if( !e.target.getAttribute('data-state') ){
-	      type = 'swap'
-	    }else{
-	      type = target.getAttribute('data-state');
-	    }
 	
-	    switch (type) {
-		    case 'playpause':
-		      store.dispatch({type: 'TOGGLE_PLAY'});
-		      break;
+  return { 
+  	
+		playPause: () => {
+		  return {
+		    type: PLAY,
+		  }
+		},
 
-		    case 'next':
-		      store.dispatch({type:'NEXT'})
-		      store.dispatch({type: 'UPDATE_AUDIO', tracking: 0 }) 
-		      break;
+		nextTrack: () => {
+		  return {
+		    type: NEXT
+		  }
+		},
+		
+		previousTrack: () => {
+			if (audio.currentTime < 5){
+				audio.currentTime = 0
+			} else {
+				return {
+			    type: PREVIOUS,
+		  	}
+			}  
+		},
 
-		    case 'previous':
-		      store.dispatch({type: 'PREVIOUS', tracking: 0 }) 
-		      store.dispatch({type: 'UPDATE_AUDIO', tracking: 0 }) 
-		      break;
+		jumpToTrack: (track) => {
+		  return {
+		    type: JUMP,
+		    track: track
+		  }
+		},
 
-		    case 'jump': 
-		        store.dispatch({type:'JUMP_TO', track: ''})
-		        store.dispatch({type: 'UPDATE_AUDIO', tracking: 0 }) 
-		      break;
+		shuffle: () => {
+		  return {
+		    type: SHUFFLE
+		  }
+		},
 
-		    case 'shuffle':
-		      store.dispatch({type:'TOGGLE_SHUFFLE'})
-		      break;
+		loop:  () => {
+		  return {
+		    type: LOOP
+		  }
+		},
 
-		    case 'loop':
-		    	store.dispatch({type:'TOGGLE_LOOP'})
-		      break;
+		updateTracking: (value) => {
+			// doesn't involve store
+		},
 
-		    case 'tracking':  
-		    	// get new tracking value directly from target 
-		      store.dispatch({type: 'UPDATE_AUDIO', tracking: 0 }) 
-		      break;
+		updateVolume: (value) => {
+		  return {
+		    type: UPDATE_VOLUME,
+		    volume: value
+		  }
+		},
 
-		    case 'volume':
-		   	 // get new volume value directly from target
-		      store.dispatch({type: 'UPDATE_AUDIO', volume: 0}) 
-		      break;
+		swapSkin: () => {
+		  return {
+		    type: SWAP_SKIN
+		  }
+		},
+		 
+	}
 
-		    case 'swap':
-		      store.dispatch({type: 'TOGGLE_PLAYER_TYPE'})
-		      break;
-
-		    default:
-		      console.log('default');
-		      break;     
-	    }
-	  },
-  }
 }
 
 'use strict';
-var APP = {};
+let APP = {};
 
 APP.launch = function (music) { // this method is called from musicupload.js
   const combinedReducer = combineReducers({
@@ -421,6 +443,7 @@ APP.launch = function (music) { // this method is called from musicupload.js
   APP.actions = hiosActions(APP.store);
   APP.audio = hiosAudio();
   APP.view = hiosView(APP.actions, APP.audio);
+  APP.hiosBind = bindActionCreators(APP.actions, APP.store.dispatch)
   APP.view.buildHTML(); 
   observeStore(APP.store, APP.view.updateView);
   APP.store.dispatch({type: 'LOAD_PLAYER', uploadedMusic: music});   
@@ -437,13 +460,17 @@ APP.launch = function (music) { // this method is called from musicupload.js
     let files = this.files;
     let tracks = [];
 
-    let launchPromise = new Promise(function(resolve, reject){ 
-      console.log('ran launch', tracks)
-      (tracks.length > 0) ? resolve() : reject();
-    });
+    let launchPromise = () => { 
+      if (tracks.length > 0){
+        APP.launch(tracks)
+        console.log('launching with: ', tracks)
+      } else {
+        console.log('what a problem', tracks, tracks.length);
+      } 
+    };
 
 
-    let fn = function asyncTrackGenerator(fileKey){ // sample async action
+    let fn = function asyncTrackGenerator(fileKey){ // sample async action https://stackoverflow.com/questions/31413749/node-js-promise-all-and-foreach
       let tags = {};
 
       id3( files[fileKey], function(err, id3Tags) {
@@ -476,8 +503,8 @@ APP.launch = function (music) { // this method is called from musicupload.js
 
     generatorComplete
       .then(launchPromise)
-      .then(APP.launch(tracks))
       .catch(function(error) {
+        console.log(error)
         console.log(Error('Something went wrong cannot launch player'))  
       });
   }

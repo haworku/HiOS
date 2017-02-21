@@ -1,5 +1,5 @@
 'use strict';
-var APP = {};
+let APP = {};
 
 APP.launch = function (music) { // this method is called from musicupload.js
   const combinedReducer = combineReducers({
@@ -10,6 +10,7 @@ APP.launch = function (music) { // this method is called from musicupload.js
   APP.actions = hiosActions(APP.store);
   APP.audio = hiosAudio();
   APP.view = hiosView(APP.actions, APP.audio);
+  APP.hiosBind = bindActionCreators(APP.actions, APP.store.dispatch)
   APP.view.buildHTML(); 
   observeStore(APP.store, APP.view.updateView);
   APP.store.dispatch({type: 'LOAD_PLAYER', uploadedMusic: music});   
