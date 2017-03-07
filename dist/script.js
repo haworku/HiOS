@@ -20,14 +20,14 @@ hiosShuffle = (array) => {
   return array;
 };
 
-import { createStore } from 'redux';
-import playerReducer from './reducers';
+import { createStore } from 'redux'
+// import playerReducer from './reducers';
 
-const hiosApp = combineReducers({
-  playerReducer;
-}); 
+// const hiosApp = combineReducers({
+//   playerReducer;
+// }); 
 
-let store = createStore(hiosApp)
+// let store = createStore(hiosApp)
 
 const playerReducer = (state = {}, action) => {
   console.log('received action: ', action.type, ' previous state: ', state)
