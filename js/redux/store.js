@@ -1,5 +1,5 @@
 import { createStore } from 'redux'
-import hiosApp from './reducers'
+import playerReducer from './reducers'
 
 const hiosApp = combineReducers({
   playerReducer
