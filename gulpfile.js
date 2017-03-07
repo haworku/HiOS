@@ -11,13 +11,14 @@ const watch = {
         // 'node_modules/animatejs/index.js',
         'node_modules/id3js/id3.min.js',
         'js/utils.js',
-        'js/store.js',
-        'js/reducers/player-reducer.js',
+        'js/redux/store.js',
+        'js/redux/constants.js',
+        'js/redux/reducers/player-reducer.js',
         'js/redux-view.js',
         'js/redux-audio.js',
-        'js/actions/player-action.js',
+        'js/redux/actions/player-action.js',
         'js/redux-app.js',
-        'js/musicupload.js'
+        'js/music-upload.js'
         ],
 };
 
