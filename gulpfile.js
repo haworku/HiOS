@@ -10,12 +10,12 @@ const watch = {
   js: [ 
         // 'node_modules/animatejs/index.js',
         'node_modules/id3js/id3.min.js',
-        'js/redux-utils.js',
+        'js/utils.js',
         'js/store.js',
-        'js/redux-player.js',
+        'js/reducers/player-reducer.js',
         'js/redux-view.js',
         'js/redux-audio.js',
-        'js/redux-actions.js',
+        'js/actions/player-action.js',
         'js/redux-app.js',
         'js/musicupload.js'
         ],
