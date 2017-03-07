@@ -1,10 +1,14 @@
 ## HiOS Music Player
-*HTML5 & LESS & pure Javascript, styled off iOS 10 music and redux design patterns*
+*HTML5 & LESS & pure Javascript & Redux, styled off iOS 10 music*
 
 **Scripts**
 - `$ gulp js` build js files 
 - `$ gulp less` run less compiler on all less files
 - `$ npm run dev`  and  `$ npm run serve` start development server at 127.0.0.1:8000
+
+**Dependencies**
+- redux
+- id3js
 
 fonts & animation: icomoon, css-animate, noun project (credit in filename)
 
