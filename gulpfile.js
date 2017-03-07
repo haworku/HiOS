@@ -11,15 +11,15 @@ const watch = {
         // 'node_modules/animatejs/index.js',
         'node_modules/redux/dist/redux.min.js',
         'node_modules/id3js/id3.min.js',
-        'js/utils.js',
+        // 'js/utils.js',
         'js/redux/store.js',
-        'js/redux/constants.js',
-        'js/redux/reducers/player-reducer.js',
-        'js/redux-view.js',
-        'js/redux-audio.js',
-        'js/redux/actions/player-action.js',
-        'js/redux-app.js',
-        'js/music-upload.js'
+        // 'js/redux/constants.js',
+        // 'js/redux/reducers/player-reducer.js',
+        // 'js/redux-view.js',
+        // 'js/redux-audio.js',
+        // 'js/redux/actions/player-action.js',
+        // 'js/redux-app.js',
+        // 'js/music-upload.js'
         ],
 };
 
