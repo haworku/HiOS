@@ -1,8 +1,8 @@
-import { createStore } from 'redux'
-import playerReducer from './reducers'
+import { createStore } from 'redux';
+import playerReducer from './reducers';
 
 const hiosApp = combineReducers({
-  playerReducer
+  playerReducer;
 }); 
 
 let store = createStore(hiosApp)

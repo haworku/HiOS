@@ -9,6 +9,7 @@ const watch = {
   less: ['style/*.less'],
   js: [ 
         // 'node_modules/animatejs/index.js',
+        'node_modules/redux/dist/redux.min.js',
         'node_modules/id3js/id3.min.js',
         'js/utils.js',
         'js/redux/store.js',
