@@ -10,21 +10,19 @@ const hiosActions = (audioobject) => {
 	const LOOP = "TOGGLE_LOOP"
 	const UPDATE_VOLUME = "VOLUME"
 	const SWAP_SKIN = "TOGGLE_PLAYER_TYPE"
-
-
 	
   return { 
   	
 		playPause: () => {
 		  return {
 		    type: PLAY,
-		  }
+		  };
 		},
 
 		nextTrack: () => {
 		  return {
 		    type: NEXT
-		  }
+		  };
 		},
 		
 		previousTrack: () => {
@@ -33,7 +31,7 @@ const hiosActions = (audioobject) => {
 			} else {
 				return {
 			    type: PREVIOUS,
-		  	}
+		  	};
 			}  
 		},
 
@@ -41,13 +39,13 @@ const hiosActions = (audioobject) => {
 		  return {
 		    type: JUMP,
 		    track: track
-		  }
+		  };
 		},
 
-		shuffle: () => {
-		  return {
+		 shuffle: () => {
+			 return {
 		    type: SHUFFLE
-		  }
+		  };
 		},
 
 		loop:  () => {
@@ -64,15 +62,15 @@ const hiosActions = (audioobject) => {
 		  return {
 		    type: UPDATE_VOLUME,
 		    volume: value
-		  }
+		  };
 		},
 
 		swapSkin: () => {
 		  return {
 		    type: SWAP_SKIN
-		  }
+		  };
 		},
 		 
-	}
+	};
 
-}
+};
