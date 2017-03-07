@@ -2,7 +2,7 @@ const playerReducer = (state = {}, action) => {
   console.log('received action: ', action.type, ' previous state: ', state)
 
   switch (action.type){
-  	case 'LOAD_PLAYER':
+  	case 'LOAD':
       return Object.assign( {}, state, {
         music: action.uploadedMusic,
         fullPlayer: false,
@@ -14,6 +14,32 @@ const playerReducer = (state = {}, action) => {
         shuffle: false,
         loopCurrent: false,
         loopAll: false
+      });
+
+    case 'KILL':
+      return Object.assign( {}, state, {
+        music: action.uploadedMusic,
+        fullPlayer: false,
+        completeQue: [],
+        nextQue: {},
+        currentTrack:{},
+        volume: .5,
+        playing: false,
+        shuffle: false,
+        loopCurrent: false,
+        loopAll: false
+      });
+
+    case 'RESET':
+      return Object.assign( {}, state, {
+        completeQue: [],
+          nextQue: action.music.slice(1),
+          currentTrack: action.music[0],
+          volume: .5,
+          playing: false,
+          shuffle: false,
+          loopCurrent: false,
+          loopAll: false,f
       });
 
   	case 'TOGGLE_PLAY':
@@ -64,7 +90,7 @@ const playerReducer = (state = {}, action) => {
       });
     
 
-    case 'UPDATE_VOLUME':
+    case 'VOLUME':
       return Object.assign( {}, state, {
         volume: (action.volume || state.volume)
       });
