@@ -1,7 +1,7 @@
 'use strict';
 console.log('loading actions')
 // action creators simply return an action
-const hiosActions = (audioobject) => {
+
 const hiosActions = (audio) => {
 	const LAUNCH = 'LAUNCH';
 	const LOAD = 'LOAD_PLAYER';
@@ -20,32 +20,60 @@ const hiosActions = (audio) => {
 	
   return { 
   	
-		playPause: () => {
+		play: () => {
 		  return {
 		    type: PLAY,
 		  };
 		},
 
-		nextTrack: () => {
+		pause: () => {
 		  return {
-		    type: NEXT;
+		    type: PAUSE,
 		  };
 		},
+
+		next: () => {	 
+			if (state.nextQue.length > 0){ // go to next song
+	        return  {
+	        	type: NEXT,
+	          completeQue: state.completeQue.concat(state.currentTrack),
+	          nextQue: state.nextQue.slice(1),
+	          currentTrack: state.nextQue[0],
+	        };
+      } else if (state.loopAll == true) { // no more songs, continue looping
+        return {
+        	type: NEXT,
+          completeQue: state.completeQue.concat(state.currentTrack),
+          nextQue: resetNextQue(state.shuffle, state.music),
+          currentTrack: state.completeQue[0], 
+        };
+      } else { // no more songs, reset
+        return {
+        	type: RESET,
+        };
+      }
+		},
 		
-		previousTrack: () => {
+		previous: () => {
 			if (audio.currentTime < 5){
 				audio.currentTime = 0
 			} else {
 				return {
 			    type: PREVIOUS,
+			    completeQue: state.completeQue.slice(-1),
+        	nextQue: [].concat(state.currentTrack, state.nextQue),
+        	currentTrack: state.completeQue[-1]
 		  	};
 			}  
 		},
 
-		jumpToTrack: (track) => {
+		jump: (track) => {
 		  return {
-		    type: JUMP,
-		    track: track
+		    type: JUMP_TO,
+		    track: track,
+		    completeQue: state.completeQue.concat(state.currentTrack),
+        nextQue: resetNextQue(state.shuffle, action.jumptoIndex)
+     		tracking: 0,
 		  };
 		},
 
@@ -79,5 +107,4 @@ const hiosActions = (audio) => {
 		},
 		 
 	};
-
 };
