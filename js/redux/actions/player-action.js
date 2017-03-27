@@ -2,14 +2,21 @@
 console.log('loading actions')
 // action creators simply return an action
 const hiosActions = (audioobject) => {
+const hiosActions = (audio) => {
+	const LAUNCH = 'LAUNCH';
+	const LOAD = 'LOAD_PLAYER';
 	const PLAY = 'TOGGLE_PLAY';
-	const NEXT = 'NEXT';
-	const PREVIOUS = 'PREVIOUS';
-	const JUMP = 'JUMP_TO';
+	const PAUSE = 'TOGGLE_PLAY';
+	const NEXT = 'SET_TRACK';
+	const PREVIOUS = 'SET_TRACK';
+	const JUMP_TO = 'SET_TRACK'
 	const SHUFFLE = 'TOGGLE_SHUFFLE';
 	const LOOP = 'TOGGLE_LOOP';
-	const UPDATE_VOLUME = 'VOLUME';
-	const SWAP_SKIN = 'TOGGLE_PLAYER_TYPE';
+	const VOLUME = 'SET_VOLUME';
+	const TRACKING = 'SET_TRACKING';
+	const KILL = 'LAUNCH';
+	const VIEW_MINI = 'SET_SKIN';
+	const VIEW_FULL = 'SET_SKIN';
 	
   return { 
   	
