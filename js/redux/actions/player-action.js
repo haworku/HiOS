@@ -1,5 +1,6 @@
-'use strict';
-console.log('loading actions')
+// import hiosStore from 'redux/store.js';
+
+console.log( 'loading actions');
 // action creators simply return an action
 
 const hiosActions = (audio) => {
@@ -17,6 +18,7 @@ const hiosActions = (audio) => {
 	const KILL = 'LAUNCH';
 	const VIEW_MINI = 'SET_SKIN';
 	const VIEW_FULL = 'SET_SKIN';
+	const state = hiosStore.getState();
 	
   return { 
   	
@@ -72,7 +74,7 @@ const hiosActions = (audio) => {
 		    type: JUMP_TO,
 		    track: track,
 		    completeQue: state.completeQue.concat(state.currentTrack),
-        nextQue: resetNextQue(state.shuffle, action.jumptoIndex)
+        	nextQue: resetNextQue(state.shuffle, action.jumptoIndex),
      		tracking: 0,
 		  };
 		},

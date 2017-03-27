@@ -20,30 +20,13 @@ hiosShuffle = (array) => {
   return array;
 };
 
-import { createStore } from 'redux';
-import playerReducer from './reducers';
-
-const hiosApp = combineReducers({
-  playerReducer,
-});
-
-let store = createStore(hiosApp)
-// import { createStore, combineReducers } from 'redux';
-// import playerReducer from '/reducers';
-// import { audioReducer as audio } from 'redux-audio';
-
-// const hiosApp = combineReducers({
-//   playerReducer,
-// });
-
-// let store = createStore(hiosApp);
-console.log('ready for redux')
+console.log('load utils')
 
 const playerReducer = (state = {}, action) => {
-  console.log('received action: ', action.type, ' previous state: ', state)
+  console.log('received action: ', action.type, ' previous state: ', state);
 
   switch (action.type){
-  	case 'LOAD':
+    case 'LOAD':
       return Object.assign( {}, state, {
         music: action.uploadedMusic,
         fullPlayer: false,
@@ -59,78 +42,34 @@ const playerReducer = (state = {}, action) => {
 
     case 'KILL':
       return Object.assign( {}, state, {
-        music: action.uploadedMusic,
-        fullPlayer: false,
-        completeQue: [],
-        nextQue: {},
-        currentTrack:{},
-        volume: .5,
+        music: [],
         playing: false,
-        shuffle: false,
-        loopCurrent: false,
-        loopAll: false
       });
 
     case 'RESET':
       return Object.assign( {}, state, {
         completeQue: [],
-          nextQue: action.music.slice(1),
-          currentTrack: action.music[0],
-          volume: .5,
-          playing: false,
-          shuffle: false,
-          loopCurrent: false,
-          loopAll: false,f
-      });
+        nextQue: action.music.slice(1),
+        currentTrack: action.music[0],
+        volume: .5,
+        playing: false,
+        shuffle: false,
+        loopCurrent: false,
+        loopAll: false,
+    });
 
   	case 'TOGGLE_PLAY':
       return Object.assign( {}, state, {
         playing: !state.playing,
       });
 
-    case 'NEXT':
-      if (state.nextQue.length > 0){ // go to next song
-        return Object.assign( {}, state, {
-          completeQue: state.completeQue.concat(state.currentTrack),
-          nextQue: state.nextQue.slice(1),
-          currentTrack: state.nextQue[0],
-        });
-      } else if (state.loopAll == true) { // set player to continue looping
-        return Object.assign( {}, state, {
-          completeQue: state.completeQue.concat(state.currentTrack),
-          nextQue: resetNextQue(state.shuffle, state.music),
-          currentTrack: state.completeQue[0], 
-        });
-      } else { //  reset player to start over NEED TO ALSO REFRESH DOM CUZ NO SONGS WILL BE HIGHLIGHTED
-        return Object.assign( {}, state, {
-          completeQue: [],
-          nextQue: action.music.slice(1),
-          currentTrack: action.music[0],
-          volume: .5,
-          playing: false,
-          shuffle: false,
-          loopCurrent: false,
-          loopAll: false,
-        });
-
-      }   
-
-    case 'JUMP_TO':
+    case 'SET_TRACK':
       return Object.assign( {}, state, {
-        completeQue: state.completeQue.concat(state.currentTrack),
-        nextQue: resetNextQue(state.shuffle, action.jumptoIndex),
-        currentTrack: state.music[action.jumpToIndex],
-        tracking: 0,
+        currentTrack: action.track,
+        completeQue: action.completeQue,
+        nextQue: action.nextQue
       });
-
-    case 'PREVIOUS':
-      return Object.assign( {}, state, {
-        completeQue: state.completeQue.slice(-1),
-        nextQue: [].concat(state.currentTrack, state.nextQue),
-        currentTrack: state.completeQue[-1]
-      });
-    
-
+   
     case 'VOLUME':
       return Object.assign( {}, state, {
         volume: (action.volume || state.volume)
@@ -158,145 +97,7 @@ const playerReducer = (state = {}, action) => {
   }
 };
 
-'use strict';
-console.log('loading view')
-
-const hiosView = (eventHandler) => {
-  let selectors = {};
-	let appHTML =
-    `
-      <div id="hios-mini" draggable="true" class="hios-active animated slideInUp">
-        <div class="hios-wrap mini">
-          <img class="hios-thumbnail" src="/static/images/album_cover_Andrew_Fortnum.png">
-          <div class="hios-song-title-box">
-             <div class="hios-song-title"></div>
-          </div>
-          <div class="hios-audio mini">
-              <i class="hios-play-pause icon-play" onclick="APP.hiosBind.playPause()" ></i>
-              <i class="hios-next icon-skip-forward" data-state="next"></i>
-          </div>
-        </div>
-      </div>
-
-      <div id="hios-full" class="hios-inactive">
-        <i id="hios-minify" class="icon-shrink" data-state="swap"></i>
-        <div class="hios-artwork-container">
-          <img class="hios-artwork" src="/static/images/album_cover_Andrew_Fortnum.png">
-        </div>
-        <div class="hios-controls full">
-          <div class ="hios-progress">
-            <input
-              id= "hios-progress-tracking"
-              class="hios-tracking"
-              type="range"
-              data-state="tracking"
-              value= "0" min="0" max="100"
-            >
-            <div id="tracking-output">
-              <output
-                for="tracking"
-                id="hios-progress-completed">
-                1.00
-              </output>
-              <output
-                for="tracking"
-                id="hios-progress-duration">
-                10.00
-              </output>
-            </div>
-          </div>
-
-          <div class ="hios-info full">
-            <div class="hios-song-title"></div>
-            <div class="hios-song-artist"></div>
-          </div>
-
-          <div class="hios-audio full">
-            <i class="hios-control hios-previous icon-skip-back" data-state="previous" ></i>
-            <i class="hios-control hios-play-pause icon-play" onclick="APP.hiosBind.playPause()" ></i>
-            <i class="hios-control hios-next icon-skip-forward" data-state="next"></i>
-          </div>
-
-          <div class="hios-volume" full>
-            <input
-                id="hios-volume-tracking"
-                class="hios-tracking"
-                type="range"
-                data-state="volume"
-                value=".5" min="0" max="1" step= ".01"
-              >
-          </div>
-
-          <div class="hios-playback full">
-            <i class="hios-control hios-shuffle icon-shuffle" data-state="shuffle"></i>
-            <i class="hios-control hios-loop icon-repeat" data-state="repeat"></i>
-          </div>
-
-        </div>
-        <div id="hios-track-list">
-        </div>
-      </div>
-    `;
-
-  let trackHTML =
-    `
-      <img class="hios-thumbnail" src="/static/images/lemonade.jpg">
-      <div class="hios-info">
-        <div class="hios-song-title slideInRight">adfd</div>
-        <div class="hios-song-artist slideInLeft">dasfasdf</div>
-      </div>
-    `;
-
-    const defineSelectors = () => {
-      let container = document.querySelector('#hios-app')
-
-      selectors = {
-        appContainer: container,
-        miniContainer: container.querySelector('#hios-mini'),
-        fullContainer: container.querySelector('#hios-full'),
-        playPause: [container.querySelector('.mini > .hios-play-pause'), container.querySelector('.full > .hios-play-pause')],
-        next: [container.querySelector('.mini > .hios-next'), container.querySelector('.full > .hios-next')],
-        previous: container.querySelector('.full > .hios-previous'),
-        shuffle: container.querySelector('.hios-shuffle'),
-        loop: container.querySelector('.hios-loop'),
-        volume: container.querySelector('#hios-volume-tracking'),
-        tracking: container.querySelector('#hios-progress-tracking'),
-        trackingTimeProgress: container.querySelector('#hios-progress-completed'),
-        trackingTimeDuration: container.querySelector('#hios-progress-duration'),
-        minify: container.querySelector('#hios-minify'),
-        fullify: container.querySelector('#hios-fullify'),
-        trackList: container.querySelector('#hios-track-list'),
-        title: [container.querySelector('.mini > .hios-song-title-box > .hios-song-title'), container.querySelector('.full > .hios-song-title')],
-        artist: container.querySelector('.full > .hios-song-artist'),
-        thumbnail: [container.querySelector('.mini > .hios-thumbnail'), container.querySelector('#hios-full > .hios-artwork-container > .hios-artwork')],
-        trackList: container.querySelector('#hios-track-list'),
-      };
-    }
-
-    // const addListeners = () => {
-    //   document.addEventListener('click', function (e){
-    //      eventHandler.onClick(e);
-    //   }, false);
-    // };
-
-   	return {
-			buildHTML: () => {
-	   		document.querySelector('#hios-app').innerHTML = appHTML;
-        defineSelectors();
-        // addListeners();
-      },
-      updateView: (currentState) => {
-        console.log('state', currentState)
-        if (currentState.playerReducer.fullPlayer == true){
-          selectors.miniContainer.className = 'hios-inactive'
-          selectors.fullContainer.className = 'hios-active'
-        } else {
-          selectors.miniContainer.className = 'hios-active'
-          selectors.fullContainer.className = 'hios-inactive'
-        }
-      }
-   };
-}
+console.log('load player reducer')
 
 'use strict';
 
@@ -324,47 +125,97 @@ const hiosAudio = () => {
   };
 };
 
-'use strict';
-console.log('loading actions')
+import React from 'react'
+import { createStore, combineReducers } from 'redux';
+// import playerReducer from '../reducers';
+// import { audioReducer as audio } from 'redux-audio';
+
+// const hiosApp = combineReducers({
+  // playerReducer,
+// });
+
+// let hiosStore = createStore(hiosApp);
+// import hiosStore from 'redux/store.js';
+console.log('ready for redux');
+
+// import hiosStore from 'redux/store.js';
+
+console.log( 'loading actions');
 // action creators simply return an action
-const hiosActions = (audioobject) => {
+
+const hiosActions = (audio) => {
+	const LAUNCH = 'LAUNCH';
+	const LOAD = 'LOAD_PLAYER';
 	const PLAY = 'TOGGLE_PLAY';
-	const NEXT = 'NEXT';
-	const PREVIOUS = 'PREVIOUS';
-	const JUMP = 'JUMP_TO';
+	const PAUSE = 'TOGGLE_PLAY';
+	const NEXT = 'SET_TRACK';
+	const PREVIOUS = 'SET_TRACK';
+	const JUMP_TO = 'SET_TRACK'
 	const SHUFFLE = 'TOGGLE_SHUFFLE';
 	const LOOP = 'TOGGLE_LOOP';
-	const UPDATE_VOLUME = 'VOLUME';
-	const SWAP_SKIN = 'TOGGLE_PLAYER_TYPE';
+	const VOLUME = 'SET_VOLUME';
+	const TRACKING = 'SET_TRACKING';
+	const KILL = 'LAUNCH';
+	const VIEW_MINI = 'SET_SKIN';
+	const VIEW_FULL = 'SET_SKIN';
+	const state = hiosStore.getState();
 	
   return { 
   	
-		playPause: () => {
+		play: () => {
 		  return {
 		    type: PLAY,
 		  };
 		},
 
-		nextTrack: () => {
+		pause: () => {
 		  return {
-		    type: NEXT;
+		    type: PAUSE,
 		  };
 		},
+
+		next: () => {	 
+			if (state.nextQue.length > 0){ // go to next song
+	        return  {
+	        	type: NEXT,
+	          completeQue: state.completeQue.concat(state.currentTrack),
+	          nextQue: state.nextQue.slice(1),
+	          currentTrack: state.nextQue[0],
+	        };
+      } else if (state.loopAll == true) { // no more songs, continue looping
+        return {
+        	type: NEXT,
+          completeQue: state.completeQue.concat(state.currentTrack),
+          nextQue: resetNextQue(state.shuffle, state.music),
+          currentTrack: state.completeQue[0], 
+        };
+      } else { // no more songs, reset
+        return {
+        	type: RESET,
+        };
+      }
+		},
 		
-		previousTrack: () => {
+		previous: () => {
 			if (audio.currentTime < 5){
 				audio.currentTime = 0
 			} else {
 				return {
 			    type: PREVIOUS,
+			    completeQue: state.completeQue.slice(-1),
+        	nextQue: [].concat(state.currentTrack, state.nextQue),
+        	currentTrack: state.completeQue[-1]
 		  	};
 			}  
 		},
 
-		jumpToTrack: (track) => {
+		jump: (track) => {
 		  return {
-		    type: JUMP,
-		    track: track
+		    type: JUMP_TO,
+		    track: track,
+		    completeQue: state.completeQue.concat(state.currentTrack),
+        	nextQue: resetNextQue(state.shuffle, action.jumptoIndex),
+     		tracking: 0,
 		  };
 		},
 
@@ -398,5 +249,69 @@ const hiosActions = (audioobject) => {
 		},
 		 
 	};
-
 };
+
+(function loadLocalAudio() {
+  'use strict';
+
+  console.log(' loading audio');
+  let URL = window.URL || window.webkitURL;
+  let reader = new FileReader();
+
+  let loadMusic = function(e){
+    let defaults = {title: 'Untitled', artist: 'Unknown Artist', album: 'Unknown Album', image:'/static/images/album_cover_Andrew_Fortnum.png' };
+    let files = this.files;
+    let tracks = [];
+
+    let launchPromise = () => { 
+      if (tracks.length > 0){
+        APP.launch(tracks)
+        console.log('launching with: ', tracks)
+      } else {
+        console.log('what a problem', tracks, tracks.length);
+      } 
+    };
+
+
+    let fn = function asyncTrackGenerator(fileKey){ // sample async action https://stackoverflow.com/questions/31413749/node-js-promise-all-and-foreach
+      let tags = {};
+
+      id3( files[fileKey], function(err, id3Tags) {
+        tags =  {
+          title: id3Tags.title || defaults.title, 
+          artist: id3Tags.artist || defaults.artist,
+          image: '' || defaults.image,
+          album: id3Tags.album || defaults.album
+        }
+      }) // ./ id3  
+
+        return new Promise(resolve => setTimeout(() => {
+          tracks.push(
+            { 'id': Number(fileKey) + 1,
+              'title': tags.title,
+              'artist': tags.artist,
+              'album': tags.album,
+              'source': URL.createObjectURL(files[fileKey]),
+              'image': tags.image
+            }
+          );  
+
+          resolve(tracks)
+         }, 100)); // ./ track promise resolve
+    };
+
+    let fileActions = Object.keys(files).map(fn); // returns all track promises
+
+    let generatorComplete = Promise.all(fileActions); // wait for all promises to resolve
+
+    generatorComplete
+      .then(launchPromise)
+      .catch(function(error) {
+        console.log(error)
+        console.log(Error('Something went wrong cannot launch player'))  
+      });
+  }
+
+  let inputNode = document.querySelector('input')
+  inputNode.addEventListener('change', loadMusic, false)
+})()

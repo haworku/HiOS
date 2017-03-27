@@ -17,3 +17,5 @@ hiosShuffle = (array) => {
   }
   return array;
 };
+
+console.log('load utils')

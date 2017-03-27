@@ -39,7 +39,7 @@ const playerReducer = (state = {}, action) => {
         playing: !state.playing,
       });
 
-    case 'SET_TRACK'
+    case 'SET_TRACK':
       return Object.assign( {}, state, {
         currentTrack: action.track,
         completeQue: action.completeQue,
@@ -72,3 +72,5 @@ const playerReducer = (state = {}, action) => {
       return state;
   }
 };
+
+console.log('load player reducer')
