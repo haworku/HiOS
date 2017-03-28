@@ -1,10 +1,7 @@
-import React from 'react'
-import { createStore, combineReducers } from 'redux';
-// import playerReducer from '../reducers';
-// import { audioReducer as audio } from 'redux-audio';
+let player = window.hios.playerReducer;
 
-// const hiosApp = combineReducers({
-  // playerReducer,
-// });
+const hiosApp = window.Redux.combineReducers({
+  player,
+});
 
-// let hiosStore = createStore(hiosApp);
+window.hios.store = window.Redux.createStore(hiosApp);

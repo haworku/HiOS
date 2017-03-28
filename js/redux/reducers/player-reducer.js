@@ -1,4 +1,4 @@
-const playerReducer = (state = {}, action) => {
+window.hios.playerReducer = (state = {}, action) => {
   console.log('received action: ', action.type, ' previous state: ', state);
 
   switch (action.type){

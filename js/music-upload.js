@@ -1,7 +1,7 @@
 (function loadLocalAudio() {
   'use strict';
 
-  console.log(' loading audio');
+  console.log('loading audio');
   let URL = window.URL || window.webkitURL;
   let reader = new FileReader();
 

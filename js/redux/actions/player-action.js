@@ -1,9 +1,7 @@
-// import hiosStore from 'redux/store.js';
-
-console.log( 'loading actions');
+console.log('loading actions');
 // action creators simply return an action
 
-const hiosActions = (audio) => {
+window.hios.actions = (audio) => {
 	const LAUNCH = 'LAUNCH';
 	const LOAD = 'LOAD_PLAYER';
 	const PLAY = 'TOGGLE_PLAY';
@@ -18,7 +16,7 @@ const hiosActions = (audio) => {
 	const KILL = 'LAUNCH';
 	const VIEW_MINI = 'SET_SKIN';
 	const VIEW_FULL = 'SET_SKIN';
-	const state = hiosStore.getState();
+	const state = window.hios.store.getState();
 	
   return { 
   	

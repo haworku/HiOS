@@ -1,3 +1,5 @@
+window.hios = Object.create(null);
+
 resetNextQue = (shuffling, music) => {
 
 }
