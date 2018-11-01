@@ -63,7 +63,7 @@ APP.attachListeners = function(e){
 };
 
 APP.handleEvent = function (e) {
-  console.log('music', APP.state.music);
+  // console.log('music', APP.state.music);
   if (e.preventDefault) e.preventDefault();
 
   // event element  - will be undefined if parameter is not event object
